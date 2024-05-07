@@ -26,7 +26,7 @@
     <pubDate>Wed, 29 Dec 2021 21:38:14 &#43;0800</pubDate>
     <author>mufasa</author>
     <guid>https://kali20177.github.io/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-gitee-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9/</guid>
-    <description><![CDATA[1. 安装 通过应用商店下载 WSL，使用包管理器安装 Hugo 即可。 2. 创建项目 1 hugo new site mysite #项目名称 mysite 进入 mysite 目录，结构和功能如下： 1 2 3 4 5 6 7 8 9 10 mysite ├─]]></description>
+    <description><![CDATA[2024.05.07 更新 已修改迁移到 github，无需手动开通 Pages 服务，直接 push 到 github用户名.github.io 后即可访问网页。 1. 安装 通过应用商店下载 WS]]></description>
 </item>
 <item>
     <title>SSH 连接虚拟机</title>

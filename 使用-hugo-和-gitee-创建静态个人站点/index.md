@@ -1,6 +1,10 @@
 # 使用 hugo 和 gitee 创建静态个人站点
 
 
+## 2024.05.07 更新
+
+已修改迁移到 github，无需手动开通 Pages 服务，直接 push 到 `github用户名.github.io` 后即可访问网页。
+
 ## 1. 安装
 
 通过应用商店下载 WSL，使用包管理器安装 Hugo 即可。
