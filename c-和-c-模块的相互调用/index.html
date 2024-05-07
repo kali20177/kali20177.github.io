@@ -7,14 +7,12 @@
         <title>C&#43;&#43; 和 C 模块的相互调用 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="C&#43;&#43; 和 C 模块的相互调用" />
 <meta property="og:description" content="CMake 默认 .c 文件使用 gcc 编译，.cpp 文件使用 g&#43;&#43; 编译。C&#43;&#43; 不兼容 C99 以后的特有语法，比如指示器语法的乱序初始化、复合字面量等。 C/C&#43;&#43; 混合编程大致应该遵" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://kali20177.github.io/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://kali20177.github.io/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/" /><meta property="og:image" content="https://kali20177.github.io/logo.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-11-02T14:41:27+08:00" />
 <meta property="article:modified_time" content="2023-11-02T14:41:27+08:00" /><meta property="og:site_name" content="My cool site" />
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
-
-<meta name="twitter:title" content="C&#43;&#43; 和 C 模块的相互调用"/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png" /><meta name="twitter:title" content="C&#43;&#43; 和 C 模块的相互调用"/>
 <meta name="twitter:description" content="CMake 默认 .c 文件使用 gcc 编译，.cpp 文件使用 g&#43;&#43; 编译。C&#43;&#43; 不兼容 C99 以后的特有语法，比如指示器语法的乱序初始化、复合字面量等。 C/C&#43;&#43; 混合编程大致应该遵"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -30,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8\/"
-        },"genre": "posts","keywords": "C\u002b\u002b, C","wordcount":  1764 ,
+        },"genre": "posts","keywords": "C\u002b\u002b, C","wordcount":  1775 ,
         "url": "https:\/\/kali20177.github.io\/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8\/","datePublished": "2023-11-02T14:41:27+08:00","dateModified": "2023-11-02T14:41:27+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -104,7 +102,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">C++ 和 C 模块的相互调用</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/c++/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>C++</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-11-02">2023-11-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1764 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-11-02">2023-11-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1775 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -166,9 +164,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">printArray</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">MyStruct</span> <span class="n">ss</span> <span class="o">=</span> <span class="p">{</span>
@@ -177,7 +175,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">printMyStruct</span><span class="p">(</span><span class="k">struct</span> <span class="n">MyStruct</span><span class="o">*</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d, %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">,</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">y</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%d, %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">,</span> <span class="n">s</span><span class="o">-&gt;</span><span class="n">y</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// array_d.h
@@ -647,13 +645,13 @@
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> 
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">PersonPtr</span> <span class="n">person</span> <span class="o">=</span> <span class="n">createPerson</span><span class="p">(</span><span class="s">&#34;John&#34;</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">personSayHello</span><span class="p">(</span><span class="n">person</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">personSetAge</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="mi">31</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;New age: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">personGetAge</span><span class="p">(</span><span class="n">person</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">    <span class="n">deletePerson</span><span class="p">(</span><span class="n">person</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PersonPtr</span> <span class="n">person</span> <span class="o">=</span> <span class="nf">createPerson</span><span class="p">(</span><span class="s">&#34;John&#34;</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">personSayHello</span><span class="p">(</span><span class="n">person</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">personSetAge</span><span class="p">(</span><span class="n">person</span><span class="p">,</span> <span class="mi">31</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;New age: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="nf">personGetAge</span><span class="p">(</span><span class="n">person</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">deletePerson</span><span class="p">(</span><span class="n">person</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">testfunc</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">testfunc</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>

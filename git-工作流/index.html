@@ -7,14 +7,12 @@
         <title>Git 工作流 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="Git 工作流" />
 <meta property="og:description" content="Git flow Git 版本管理同样需要操作规范。荷兰程序员 Vincent 在 2010 年提出的方案被称为 git flow，如下图所示： 但大部分观点认为，以上流程只适用于作者所说的需要多" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://kali20177.github.io/git-%E5%B7%A5%E4%BD%9C%E6%B5%81/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://kali20177.github.io/git-%E5%B7%A5%E4%BD%9C%E6%B5%81/" /><meta property="og:image" content="https://kali20177.github.io/logo.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-12-06T09:00:04+08:00" />
 <meta property="article:modified_time" content="2023-12-06T09:00:04+08:00" /><meta property="og:site_name" content="My cool site" />
 
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
-
-<meta name="twitter:title" content="Git 工作流"/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png" /><meta name="twitter:title" content="Git 工作流"/>
 <meta name="twitter:description" content="Git flow Git 版本管理同样需要操作规范。荷兰程序员 Vincent 在 2010 年提出的方案被称为 git flow，如下图所示： 但大部分观点认为，以上流程只适用于作者所说的需要多"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -30,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/git-%E5%B7%A5%E4%BD%9C%E6%B5%81\/"
-        },"genre": "posts","keywords": "git","wordcount":  1048 ,
+        },"genre": "posts","keywords": "git","wordcount":  1115 ,
         "url": "https:\/\/kali20177.github.io\/git-%E5%B7%A5%E4%BD%9C%E6%B5%81\/","datePublished": "2023-12-06T09:00:04+08:00","dateModified": "2023-12-06T09:00:04+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -103,8 +101,8 @@
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Git 工作流</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>git</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-06">2023-12-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1048 字&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/git/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Git</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-06">2023-12-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1115 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -119,6 +117,7 @@
     <li><a href="#撤销操作">撤销操作</a></li>
     <li><a href="#merge--rebase">merge / rebase</a></li>
     <li><a href="#git-配置文件">git 配置文件</a></li>
+    <li><a href="#github">github</a></li>
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav></div>
@@ -209,6 +208,16 @@
 </span></span><span class="line"><span class="cl">	insteadOf = https://github.com
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h2 id="github">github</h2>
+<p>github 需要通过访问令牌验证用户，在个人设置的 <code>settings --&gt; Developer Settings --&gt; Personal access tokens</code> 中。生成令牌后用其代替密码输入，或者 clone 仓库后修改仓库的远端地址：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git remote set-url origin https://<span class="si">${</span><span class="nv">token_seq</span><span class="si">}</span>@github.com/kali20177/hugo-blog-src.git
+</span></span></code></pre></td></tr></table>
+</div>
 </div><h2 id="参考">参考</h2>
 <ol>
 <li><a href="https://ruanyifeng.com/blog/2019/12/git-undo.html" target="_blank" rel="noopener noreffer ">如何撤销 Git 操作？</a></li>
@@ -235,7 +244,7 @@
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/git/">git</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/git/">Git</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>

@@ -57,6 +57,14 @@ url 后面的是代理地址。或者直接修改 `.gitconfig` 文件中的对�
 	insteadOf = https://github.com
 ```
 
+## github
+
+github 需要通过访问令牌验证用户，在个人设置的 `settings --> Developer Settings --> Personal access tokens` 中。生成令牌后用其代替密码输入，或者 clone 仓库后修改仓库的远端地址：
+
+```bash
+git remote set-url origin https://${token_seq}@github.com/kali20177/hugo-blog-src.git
+```
+
 ## 参考
 
 1. [如何撤销 Git 操作？](https://ruanyifeng.com/blog/2019/12/git-undo.html)

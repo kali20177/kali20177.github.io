@@ -74,7 +74,7 @@
     <pubDate>Tue, 05 Dec 2023 20:36:00 &#43;0800</pubDate>
     <author>mufasa</author>
     <guid>https://kali20177.github.io/%E8%A7%A3%E6%AF%92-setjmp-longjmp/</guid>
-    <description><![CDATA[1. 简单案例 下面是用 setjmp 和 longjmp 实现的简单捕获除 0 异常的一段 C 代码： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 #include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;time.h&gt;#include &lt;setjmp.h&gt;]]></description>
+    <description><![CDATA[1. 简单案例 下面是用 setjmp 和 longjmp 实现的简单捕获除 0 异常的一段 C 代码： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include]]></description>
 </item>
 <item>
     <title>C&#43;&#43; 和 C 模块的相互调用</title>

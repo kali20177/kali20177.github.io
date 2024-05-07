@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>git - 标签 - mufasa 个人站</title>
+        <title>Git - 标签 - mufasa 个人站</title>
         <link>https://kali20177.github.io/tags/git/</link>
-        <description>git - 标签 - mufasa 个人站</description>
+        <description>Git - 标签 - mufasa 个人站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
             <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Wed, 06 Dec 2023 09:00:04 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/tags/git/" rel="self" type="application/rss+xml" /><item>
     <title>Git 工作流</title>
