@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Opencv Cuda 版本编译流程 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="Opencv Cuda 版本编译流程" />
+<meta property="og:description" content="1. 说明 项目需要对比 opencv 和 halcon 在某些算法执行上的速度。记录一下编译 opencv cuda 版本的流程。 2. 工具 opencv cuda 版本的编译需要各种工具版本相互配合。以下组合是在我在 windows" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-07T14:50:32+08:00" />
+<meta property="article:modified_time" content="2022-04-07T14:50:32+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Opencv Cuda 版本编译流程"/>
+<meta name="twitter:description" content="1. 说明 项目需要对比 opencv 和 halcon 在某些算法执行上的速度。记录一下编译 opencv cuda 版本的流程。 2. 工具 opencv cuda 版本的编译需要各种工具版本相互配合。以下组合是在我在 windows"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" /><link rel="prev" href="https://kali20177.github.io/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/" /><link rel="next" href="https://kali20177.github.io/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Opencv Cuda 版本编译流程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kali20177.github.io\/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B\/"
+        },"genre": "posts","keywords": "opencv, cuda, C\u002b\u002b","wordcount":  778 ,
+        "url": "https:\/\/kali20177.github.io\/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B\/","datePublished": "2022-04-07T14:50:32+08:00","dateModified": "2022-04-07T14:50:32+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mufasa"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Opencv Cuda 版本编译流程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/c++/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>C++</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-04-07">2022-04-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 778 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-说明">1. 说明</a></li>
+    <li><a href="#2-工具">2. 工具</a></li>
+    <li><a href="#3-编译流程">3. 编译流程</a>
+      <ul>
+        <li><a href="#31-cuda">3.1 CUDA</a></li>
+        <li><a href="#32-cmake">3.2 CMake</a></li>
+      </ul>
+    </li>
+    <li><a href="#33-vs2022">3.3 VS2022</a></li>
+    <li><a href="#4-效果">4. 效果</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-说明">1. 说明</h2>
+<p>项目需要对比 opencv 和 halcon 在某些算法执行上的速度。记录一下编译 opencv cuda 版本的流程。</p>
+<h2 id="2-工具">2. 工具</h2>
+<blockquote>
+<p>opencv cuda 版本的编译需要各种工具版本相互配合。以下组合是在我在 windows 11 上编译成功使用的组合。(OpenCV 4.4 替换成新版本的 3.4 也可)</p>
+</blockquote>
+<ul>
+<li>CMake 3.18</li>
+<li>CUDA Toolkit 11.0</li>
+<li>Visual Studio 2022</li>
+<li>OpenCV 4.4 &amp; OpenCV_contrib 4.4</li>
+</ul>
+<h2 id="3-编译流程">3. 编译流程</h2>
+<h3 id="31-cuda">3.1 CUDA</h3>
+<p>安装 CUDA11 和 对应的 CUDNN，并配置环境变量。</p>
+<h3 id="32-cmake">3.2 CMake</h3>
+<p>将 OpenCV_contrib 4.4 和 OpenCV 4.4 分别解压。打开 CMake-gui 设置源码目录和目标目录。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/opencv_cuda/opencv_cuda_cmake_src.png"
+        data-srcset="/opencv_cuda/opencv_cuda_cmake_src.png, /opencv_cuda/opencv_cuda_cmake_src.png 1.5x, /opencv_cuda/opencv_cuda_cmake_src.png 2x"
+        data-sizes="auto"
+        alt="/opencv_cuda/opencv_cuda_cmake_src.png"
+        title="img" /></p>
+<p>点击“Configure”按钮。生成选项后，勾选/取消勾选相关内容：</p>
+<ul>
+<li>
+<p>打开 WITH_TBB</p>
+</li>
+<li>
+<p>勾选和 CUDA 相关选项</p>
+</li>
+<li>
+<p>取消选择 java 和 python 的编译选项 (个人不需要)</p>
+</li>
+<li>
+<p>勾选 nonfree 的编译选项</p>
+</li>
+<li>
+<p>取消 TEST 相关选项加快编译速度</p>
+</li>
+<li>
+<p>勾选 BUILD_opencv_world 最终只生成一个动态链接库方便使用</p>
+</li>
+<li>
+<p>在 OPENCV_EXTRA_MODULES_PATH 中填入 OpenCV_contrib 解压文件夹 modules 的路径</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/opencv_cuda/opencv_contrib_extra.png"
+        data-srcset="/opencv_cuda/opencv_contrib_extra.png, /opencv_cuda/opencv_contrib_extra.png 1.5x, /opencv_cuda/opencv_contrib_extra.png 2x"
+        data-sizes="auto"
+        alt="/opencv_cuda/opencv_contrib_extra.png"
+        title="img" /></p>
+</li>
+<li>
+<p>取消选择 OPENCV_GENERATE_SETUPVARS</p>
+</li>
+</ul>
+<p>再次点击 configure 按钮，由于网络问题会出现无法下载的错误，可以取消勾选 face 模块，然后再次点击 configure 按钮。使用 OpenCV4.5 时这一步多出很多下载错误，取消勾选 face 还有很多，所以换回了 4.4 版本。然后勾选 CUDA_FAST_MATH 点 configure 按钮。</p>
+<blockquote>
+<p>要保证生成 CMakeLists.txt 过程中不出现红色警告，不然后续的编译过程会出现错误。</p>
+</blockquote>
+<p>无错误后点击 Generate 按钮，生成 Opencv.sln 文件。</p>
+<h2 id="33-vs2022">3.3 VS2022</h2>
+<p>打开生成的 OpenCV.sln 文件，找到项目 ALL_BUILD，分别在 Debug 和 Release 下右击生成。编译大概需要六个小时。可以使用批生成功能。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/opencv_cuda/batch_build.png"
+        data-srcset="/opencv_cuda/batch_build.png, /opencv_cuda/batch_build.png 1.5x, /opencv_cuda/batch_build.png 2x"
+        data-sizes="auto"
+        alt="/opencv_cuda/batch_build.png"
+        title="img" /></p>
+<p>ALL_BUILD 完成后，找到项目 INSTALL 右击生成。最终会在当前 build 目录下生成一个 install 目录，这就是我们需要的可执行文件和库，最后添加到环境变量中测试效果。</p>
+<h2 id="4-效果">4. 效果</h2>
+<p>将 install 目录中的 bin 目录添加到环境变量中，推荐使用环境变量管理工具 rapid environment editor。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/opencv_cuda/rapid_environment_editor.png"
+        data-srcset="/opencv_cuda/rapid_environment_editor.png, /opencv_cuda/rapid_environment_editor.png 1.5x, /opencv_cuda/rapid_environment_editor.png 2x"
+        data-sizes="auto"
+        alt="/opencv_cuda/rapid_environment_editor.png"
+        title="img" /></p>
+<p>bin 文件在 install/x64/vc16 中：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/opencv_cuda/opencv_path.png"
+        data-srcset="/opencv_cuda/opencv_path.png, /opencv_cuda/opencv_path.png 1.5x, /opencv_cuda/opencv_path.png 2x"
+        data-sizes="auto"
+        alt="/opencv_cuda/opencv_path.png"
+        title="img" /></p>
+<p>打开项目属性 VC++ 目录，分别设置</p>
+<p>包含目录：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/opencv_cuda/opencv_cuda_include.png"
+        data-srcset="/opencv_cuda/opencv_cuda_include.png, /opencv_cuda/opencv_cuda_include.png 1.5x, /opencv_cuda/opencv_cuda_include.png 2x"
+        data-sizes="auto"
+        alt="/opencv_cuda/opencv_cuda_include.png"
+        title="img" /></p>
+<p>库目录：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/opencv_cuda/opencv_cuda_lib.png"
+        data-srcset="/opencv_cuda/opencv_cuda_lib.png, /opencv_cuda/opencv_cuda_lib.png 1.5x, /opencv_cuda/opencv_cuda_lib.png 2x"
+        data-sizes="auto"
+        alt="/opencv_cuda/opencv_cuda_lib.png"
+        title="img" /></p>
+<p>在 链接器 &ndash;&gt; 输入 &ndash;&gt; 附加依赖项 中，分别在 debug 和 release 模式下添加 opencv_world3415d.lib、opencv_world3415.lib
+至此配置完毕。</p>
+<p>添加头文件，即可开始使用 cuda.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;opencv2/core/cuda.hpp&gt; </span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cuda</span><span class="o">::</span><span class="n">printCudaDeviceInfo</span><span class="p">(</span><span class="n">cuda</span><span class="o">::</span><span class="n">getDevice</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">::</span><span class="n">getCudaEnabledDeviceCount</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;GPU Device Count : %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;OpenCV version: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">CV_VERSION</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://www.jianshu.com/p/aa8455fcc672" target="_blank" rel="noopener noreffer ">Win10 使用 VS2019 从源码编译 OpenCV 4.4 + CUDA 11.0 + Cudnn 8.0 + python3</a></li>
+<li><a href="https://www.bilibili.com/video/av71643385" target="_blank" rel="noopener noreffer ">OpenCV + CUDA 开发 - 编译与环境配置</a></li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" data-title="Opencv Cuda 版本编译流程"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" data-title="Opencv Cuda 版本编译流程"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/opencv/">opencv</a>,&nbsp;<a href="/tags/cuda/">cuda</a>,&nbsp;<a href="/tags/c&#43;&#43;/">C&#43;&#43;</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/" class="prev" rel="prev" title="Licheepi Zero 镜像制作流程"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Licheepi Zero 镜像制作流程</a>
+            <a href="/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/" class="next" rel="next" title="Matplotlib Cpp C&#43;&#43; 中使用 Python 绘图模块的方法">Matplotlib Cpp C++ 中使用 Python 绘图模块的方法<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mufasa</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

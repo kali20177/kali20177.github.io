@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>git - 标签 - mufasa 个人站</title>
+        <link>https://kali20177.github.io/tags/git/</link>
+        <description>git - 标签 - mufasa 个人站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Wed, 06 Dec 2023 09:00:04 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/tags/git/" rel="self" type="application/rss+xml" /><item>
+    <title>Git 工作流</title>
+    <link>https://kali20177.github.io/git-%E5%B7%A5%E4%BD%9C%E6%B5%81/</link>
+    <pubDate>Wed, 06 Dec 2023 09:00:04 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/git-%E5%B7%A5%E4%BD%9C%E6%B5%81/</guid>
+    <description><![CDATA[Git flow Git 版本管理同样需要操作规范。荷兰程序员 Vincent 在 2010 年提出的方案被称为 git flow，如下图所示： 但大部分观点认为，以上流程只适用于作者所说的需要多]]></description>
+</item>
+<item>
+    <title>Gitee 使用问题</title>
+    <link>https://kali20177.github.io/gitee-%E6%97%A0%E6%B3%95%E8%AF%BB%E5%8F%96%E4%BB%93%E5%BA%93/</link>
+    <pubDate>Tue, 05 Oct 2021 20:46:13 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/gitee-%E6%97%A0%E6%B3%95%E8%AF%BB%E5%8F%96%E4%BB%93%E5%BA%93/</guid>
+    <description><![CDATA[1. SSH 密钥 1.1 问题 使用 git push 时出现： 1 2 3 4 git@gitee.com: Permission denied (publickey). fatal: 无法读取远程仓库。 请确认您有正确的访问权限并且仓库存在。 1.2 解决 对自己的邮箱，重新生成 SSH key 1 ssh-keygen]]></description>
+</item>
+</channel>
+</rss>

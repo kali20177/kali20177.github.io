@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Linux 下名称缩写和解释 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="Linux 下名称缩写和解释" />
+<meta property="og:description" content="1. tty TTY，teletype 的缩写。 早期终端是一种电传打字机，并且最早终端和控制台不是一种东西。 数控设备的控制设备一般叫控制台，终端是通过串" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kali20177.github.io/draft/%E7%99%BE%E7%A7%91/linux-%E4%B8%8B%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E7%BC%A9%E5%86%99%E5%92%8C%E8%A7%A3%E9%87%8A/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="draft" />
+<meta property="article:published_time" content="2022-01-04T19:05:28+08:00" />
+<meta property="article:modified_time" content="2022-01-04T19:05:28+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Linux 下名称缩写和解释"/>
+<meta name="twitter:description" content="1. tty TTY，teletype 的缩写。 早期终端是一种电传打字机，并且最早终端和控制台不是一种东西。 数控设备的控制设备一般叫控制台，终端是通过串"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/draft/%E7%99%BE%E7%A7%91/linux-%E4%B8%8B%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E7%BC%A9%E5%86%99%E5%92%8C%E8%A7%A3%E9%87%8A/" /><link rel="next" href="https://kali20177.github.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Linux 下名称缩写和解释",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kali20177.github.io\/draft\/%E7%99%BE%E7%A7%91\/linux-%E4%B8%8B%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E7%BC%A9%E5%86%99%E5%92%8C%E8%A7%A3%E9%87%8A\/"
+        },"genre": "draft","keywords": "Linux","wordcount":  386 ,
+        "url": "https:\/\/kali20177.github.io\/draft\/%E7%99%BE%E7%A7%91\/linux-%E4%B8%8B%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E7%BC%A9%E5%86%99%E5%92%8C%E8%A7%A3%E9%87%8A\/","datePublished": "2022-01-04T19:05:28+08:00","dateModified": "2022-01-04T19:05:28+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mufasa"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">Linux 下名称缩写和解释</h1><div class="content" id="content"><h2 id="1-tty">1. tty</h2>
+<p>TTY，teletype 的缩写。
+早期终端是一种电传打字机，并且最早终端和控制台不是一种东西。
+数控设备的控制设备一般叫控制台，终端是通过串口连接上的，不是计算机本身的设备。能显示系统运行状态的叫控制台，其他叫终端。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Linux_abbr/tty.png"
+        data-srcset="/Linux_abbr/tty.png, /Linux_abbr/tty.png 1.5x, /Linux_abbr/tty.png 2x"
+        data-sizes="auto"
+        alt="/Linux_abbr/tty.png"
+        title="tty" /></p>
+<p>但是发展到现在基本已经不区分二者的概念。终端渐渐发展成了一个软件概念。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Linux_abbr/pty.png"
+        data-srcset="/Linux_abbr/pty.png, /Linux_abbr/pty.png 1.5x, /Linux_abbr/pty.png 2x"
+        data-sizes="auto"
+        alt="/Linux_abbr/pty.png"
+        title="pty" /></p>
+<p>现代计算机的 terminal 程序是运行在用户态的仿真程序，称为伪终端 (pty)。</p>
+<h2 id="2-console">2. console</h2>
+<h2 id="3-coredump">3. coredump</h2>
+<p>当程序运行的过程中异常终止或崩溃，操作系统会将程序当时的内存状态记录下来，保存在一个文件中，这种过程被称为 Core Dump（核心转储）。</p>
+<blockquote>
+<p>在半导体作为电脑内存材料之前，电脑内存使用的是磁芯内存（Magnetic Core Memory），Core Dump 中的 Core 沿用了磁芯内存的 Core 表达。</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/gdb/Magnetic_Core_Memory.png"
+        data-srcset="/gdb/Magnetic_Core_Memory.png, /gdb/Magnetic_Core_Memory.png 1.5x, /gdb/Magnetic_Core_Memory.png 2x"
+        data-sizes="auto"
+        alt="/gdb/Magnetic_Core_Memory.png"
+        title="Magnetic Core Memory" /></p>
+<blockquote>
+<p>Dump 指的是拷贝一种存储介质中的部分内容到另一个存储介质，或者将内容打印、显示或者其它输出设备。dump 出来的内容是格式化的，可以使用一些工具来解析它。</p>
+</blockquote>
+<h2 id="4-usr">4. usr</h2>
+</div></div></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mufasa</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

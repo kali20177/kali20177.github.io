@@ -1,0 +1,40 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>其他 - 分类 - mufasa 个人站</title>
+        <link>https://kali20177.github.io/categories/%E5%85%B6%E4%BB%96/</link>
+        <description>其他 - 分类 - mufasa 个人站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Thu, 14 Dec 2023 21:54:29 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/categories/%E5%85%B6%E4%BB%96/" rel="self" type="application/rss+xml" /><item>
+    <title>各种 Shell 的配置文件</title>
+    <link>https://kali20177.github.io/%E5%90%84%E7%A7%8D-shell-%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</link>
+    <pubDate>Thu, 14 Dec 2023 21:54:29 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/%E5%90%84%E7%A7%8D-shell-%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
+    <description><![CDATA[1. PowerShell 7 微软的 powershell 更新到 7 之后的版本终于让终端比较流畅，并且支持自动补全历史命令记录。安装后使用一下命令产生配置文件： 1 echo $PROFILE 一般会生成在 C:\Users\{username}\Documents\PowerShell\Microsoft.PowerShell_profile.ps1 下，通]]></description>
+</item>
+<item>
+    <title>R 语言绘图</title>
+    <link>https://kali20177.github.io/r-%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE/</link>
+    <pubDate>Wed, 01 Jun 2022 20:14:18 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/r-%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE/</guid>
+    <description><![CDATA[需要安装的包 安装命令： 1 install.packages(&#39;ggplot2&#39;, repos = &#39;https://mirrors.tuna.tsinghua.edu.cn/CRAN&#39;) readxl gridExtra ggsci ggpubr 散点图绘制 如果需要绘制多组散点图，可以先把数据放在一个 excel 表中，整体导入数据框。每列数据名称最好不要使]]></description>
+</item>
+<item>
+    <title>使用 hugo 和 gitee 创建静态个人站点</title>
+    <link>https://kali20177.github.io/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-gitee-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9/</link>
+    <pubDate>Wed, 29 Dec 2021 21:38:14 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-gitee-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9/</guid>
+    <description><![CDATA[1. 安装 通过应用商店下载 WSL，使用包管理器安装 Hugo 即可。 2. 创建项目 1 hugo new site mysite #项目名称 mysite 进入 mysite 目录，结构和功能如下： 1 2 3 4 5 6 7 8 9 10 mysite ├─]]></description>
+</item>
+<item>
+    <title>SSH 连接虚拟机</title>
+    <link>https://kali20177.github.io/%E4%BD%BF%E7%94%A8-ssh-%E8%BF%9E%E6%8E%A5%E8%99%9A%E6%8B%9F%E6%9C%BA/</link>
+    <pubDate>Wed, 29 Dec 2021 19:42:50 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/%E4%BD%BF%E7%94%A8-ssh-%E8%BF%9E%E6%8E%A5%E8%99%9A%E6%8B%9F%E6%9C%BA/</guid>
+    <description><![CDATA[1. 在本地和虚拟机中都安装 OpenSSH 1 sudo apt install openssh-server 测试是否安装 ssh ssh localhost 2. 编辑本机 SSH config 文件打开默认端口 1 vim /etc/ssh/sshd_config 3. 虚拟机设置 网络地址转换 NAT 设置 &ndash;&gt; 网络 &ndash;&gt; 网络地址转换]]></description>
+</item>
+</channel>
+</rss>

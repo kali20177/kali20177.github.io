@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>C/C&#43;&#43; 代码质量 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="C/C&#43;&#43; 代码质量" />
+<meta property="og:description" content="1. 复杂度 1.1 定义 圈复杂度 (Cyclomatic complexity，CC) 是一种衡量代码复杂度的标准。圈复杂度可以用来衡量一个模块判定结构的复杂程度，其数量上表现" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kali20177.github.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-13T08:41:58+08:00" />
+<meta property="article:modified_time" content="2023-12-13T08:41:58+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
+
+<meta name="twitter:title" content="C/C&#43;&#43; 代码质量"/>
+<meta name="twitter:description" content="1. 复杂度 1.1 定义 圈复杂度 (Cyclomatic complexity，CC) 是一种衡量代码复杂度的标准。圈复杂度可以用来衡量一个模块判定结构的复杂程度，其数量上表现"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/" /><link rel="prev" href="https://kali20177.github.io/git-%E5%B7%A5%E4%BD%9C%E6%B5%81/" /><link rel="next" href="https://kali20177.github.io/%E5%90%84%E7%A7%8D-shell-%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "C/C++ 代码质量",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kali20177.github.io\/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F\/"
+        },"genre": "posts","keywords": "C, C\u002b\u002b","wordcount":  1420 ,
+        "url": "https:\/\/kali20177.github.io\/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F\/","datePublished": "2023-12-13T08:41:58+08:00","dateModified": "2023-12-13T08:41:58+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mufasa"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">C/C++ 代码质量</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/c/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>C</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-13">2023-12-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1420 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-复杂度">1. 复杂度</a>
+      <ul>
+        <li><a href="#11-定义">1.1 定义</a></li>
+        <li><a href="#12-计算方式">1.2 计算方式</a></li>
+        <li><a href="#13-工具">1.3 工具</a></li>
+        <li><a href="#14-降低复杂度方法">1.4 降低复杂度方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-静态检查">2. 静态检查</a></li>
+    <li><a href="#3-编程规范">3. 编程规范</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/code_quality/fun.png"
+        data-srcset="/code_quality/fun.png, /code_quality/fun.png 1.5x, /code_quality/fun.png 2x"
+        data-sizes="auto"
+        alt="/code_quality/fun.png"
+        title="fun" /></p>
+<h2 id="1-复杂度">1. 复杂度</h2>
+<h3 id="11-定义">1.1 定义</h3>
+<p>圈复杂度 (Cyclomatic complexity，CC) 是一种衡量代码复杂度的标准。圈复杂度可以用来衡量一个模块判定结构的复杂程度，其数量上表现为独立路径的条数，也可理解为覆盖所有的可能情况最少使用的测试用例个数。<strong>可作为代码重构的指导指标，也可以据此确定测试顺序</strong>。</p>
+<p>某些大厂（例如阿里）的新代码提交后，平台会计算每个方法的圈复杂度，提醒对复杂方法进行重构。</p>
+<h3 id="12-计算方式">1.2 计算方式</h3>
+<p>程序语句可以转化为如下的控制流图。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/code_quality/flow_chat.png"
+        data-srcset="/code_quality/flow_chat.png, /code_quality/flow_chat.png 1.5x, /code_quality/flow_chat.png 2x"
+        data-sizes="auto"
+        alt="/code_quality/flow_chat.png"
+        title="flow chat" /></p>
+<p>然后可以根据下面的公式计算圈复杂度，e 表示控制流图中边的数量，n 表示控制流图中节点的数量。</p>
+<p>$$
+V = e - n + 2
+$$</p>
+<p>实际开发过程中一般借助工具直接查看结果。</p>
+<h3 id="13-工具">1.3 工具</h3>
+<p>对于 C 代码，检查工具推荐使用 <a href="https://github.com/terryyin/lizard" target="_blank" rel="noopener noreffer ">lizard</a>。用 pip 安装后命令行直接 <code>lizard &lt;file&gt;</code> 即可。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><strong>圈复杂度</strong></th>
+<th style="text-align:center"><strong>代码状况</strong></th>
+<th style="text-align:center"><strong>可测性</strong></th>
+<th style="text-align:center"><strong>维护成本</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1~10</td>
+<td style="text-align:center">清晰、结构化</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center">低</td>
+</tr>
+<tr>
+<td style="text-align:center">10~20</td>
+<td style="text-align:center">复杂</td>
+<td style="text-align:center">中</td>
+<td style="text-align:center">中</td>
+</tr>
+<tr>
+<td style="text-align:center">20-30</td>
+<td style="text-align:center">非常复杂</td>
+<td style="text-align:center">低</td>
+<td style="text-align:center">高</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;30</td>
+<td style="text-align:center">不可读</td>
+<td style="text-align:center">不可测</td>
+<td style="text-align:center">非常高</td>
+</tr>
+</tbody>
+</table>
+<p>输出结果解释：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">================================================</span>
+</span></span><span class="line"><span class="cl">  NLOC    CCN   token  PARAM  length  location  
+</span></span><span class="line"><span class="cl">------------------------------------------------
+</span></span><span class="line"><span class="cl">       <span class="m">9</span>      <span class="m">3</span>     <span class="m">79</span>      <span class="m">1</span>       <span class="m">9</span> print_logpage_life@31-39@./poweroff.cpp
+</span></span><span class="line"><span class="cl">       <span class="m">5</span>      <span class="m">1</span>     <span class="m">34</span>      <span class="m">3</span>       <span class="m">5</span> RecordData_Sys::RecordData_Sys@60-64@./poweroff.cpp
+</span></span><span class="line"><span class="cl">       <span class="m">3</span>      <span class="m">1</span>     <span class="m">14</span>      <span class="m">0</span>       <span class="m">3</span> RecordData_Sys::~RecordData_Sys@66-68@./poweroff.cpp
+</span></span><span class="line"><span class="cl">      <span class="m">11</span>      <span class="m">4</span>     <span class="m">79</span>      <span class="m">0</span>      <span class="m">11</span> RecordData_Sys::print_idealcontainer@70-80@./poweroff.cpp
+</span></span><span class="line"><span class="cl">       <span class="m">7</span>      <span class="m">2</span>     <span class="m">55</span>      <span class="m">1</span>       <span class="m">7</span> RecordData_Sys::push_elem_idealcontainer@82-88@./poweroff.cpp
+</span></span><span class="line"><span class="cl">      <span class="m">19</span>      <span class="m">1</span>    <span class="m">166</span>      <span class="m">0</span>      <span class="m">23</span> main@90-112@./poweroff.cpp
+</span></span><span class="line"><span class="cl"><span class="m">1</span> file analyzed.
+</span></span><span class="line"><span class="cl"><span class="o">==============================================================</span>
+</span></span><span class="line"><span class="cl">NLOC    Avg.NLOC  AvgCCN  Avg.token  function_cnt    file
+</span></span><span class="line"><span class="cl">--------------------------------------------------------------
+</span></span><span class="line"><span class="cl">     <span class="m">80</span>       9.0     2.0       71.2         <span class="m">6</span>     ./poweroff.cpp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">===============================================================================================================</span>
+</span></span><span class="line"><span class="cl">No thresholds exceeded <span class="o">(</span>cyclomatic_complexity &gt; <span class="m">15</span> or length &gt; <span class="m">1000</span> or nloc &gt; <span class="m">1000000</span> or parameter_count &gt; 100<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">==========================================================================================</span>
+</span></span><span class="line"><span class="cl">Total nloc   Avg.NLOC  AvgCCN  Avg.token   Fun Cnt  Warning cnt   Fun Rt   nloc Rt
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">        <span class="m">80</span>       9.0     2.0       71.2        <span class="m">6</span>            <span class="m">0</span>      0.00    0.00
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对文件中每个函数分别计算下面各项，location 反映每个方法的位置。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">NLOC</th>
+<th style="text-align:center">CCN</th>
+<th style="text-align:center">token</th>
+<th style="text-align:center">PARAM</th>
+<th style="text-align:center">length</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">排除注释和空行的总行数</td>
+<td style="text-align:center">圈复杂度</td>
+<td style="text-align:center">符号数</td>
+<td style="text-align:center">参数数量</td>
+<td style="text-align:center">函数实际行数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-降低复杂度方法">1.4 降低复杂度方法</h3>
+<ol>
+<li>模块化和函数分解：将复杂的函数或模块分解为更小的、功能更单一的子函数或模块。</li>
+<li>减少嵌套层级：避免过多的嵌套结构，比如嵌套的 if 语句、循环和 switch 语句。</li>
+<li>简化条件表达式：可以将复杂的条件表达式提取为单独的布尔变量或函数，使得条件逻辑更清晰。</li>
+</ol>
+<h2 id="2-静态检查">2. 静态检查</h2>
+<p>代码静态检查是通过分析源代码本身，而不是通过执行代码来检测潜在的错误、bug 和不良风格。对于 C 项目，主要检查：</p>
+<ul>
+<li>内存问题：内存泄漏、悬空指针、数组越界等</li>
+<li>代码风格问题：缩进、括号、命名等</li>
+<li>性能问题：不必要的循环等</li>
+<li>代码逻辑问题：条件判断、循环控制等</li>
+</ul>
+<p>C 语言的静态检查工具如下图：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/code_quality/cpp_sc.png"
+        data-srcset="/code_quality/cpp_sc.png, /code_quality/cpp_sc.png 1.5x, /code_quality/cpp_sc.png 2x"
+        data-sizes="auto"
+        alt="/code_quality/cpp_sc.png"
+        title="c check" /></p>
+<p>以 cppcheck 为例，对于下面代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// test.c
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>  <span class="c1">// 申请内存但未释放
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ptr</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  <span class="c1">// 数组越界
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ptr</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">strcpy</span><span class="p">(</span><span class="n">str</span><span class="p">,</span> <span class="s">&#34;This is a long string&#34;</span><span class="p">);</span>  <span class="c1">// 缓冲区溢出
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">foo</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>  <span class="c1">// 重复释放内存
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用命令 <code>cppcheck test.c</code> 直接在终端输出结果，使用 <code>cppcheck test.c 2&gt; output.txt</code> 输出到文本文件，结果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">test.c:9:8: error: Array <span class="s1">&#39;ptr[10]&#39;</span> accessed at index 10, which is out of bounds. <span class="o">[</span>arrayIndexOutOfBounds<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    ptr<span class="o">[</span>10<span class="o">]</span> <span class="o">=</span> 0<span class="p">;</span>  // 数组越界
+</span></span><span class="line"><span class="cl">       ^
+</span></span><span class="line"><span class="cl">test.c:15:12: error: Buffer is accessed out of bounds: str <span class="o">[</span>bufferAccessOutOfBounds<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    strcpy<span class="o">(</span>str, <span class="s2">&#34;This is a long string&#34;</span><span class="o">)</span><span class="p">;</span>  // 缓冲区溢出
+</span></span><span class="line"><span class="cl">           ^
+</span></span><span class="line"><span class="cl">test.c:14:15: note: Assign str, buffer with size <span class="m">10</span>
+</span></span><span class="line"><span class="cl">    char* <span class="nv">str</span> <span class="o">=</span> malloc<span class="o">(</span>10<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">              ^
+</span></span><span class="line"><span class="cl">test.c:15:12: note: Buffer overrun
+</span></span><span class="line"><span class="cl">    strcpy<span class="o">(</span>str, <span class="s2">&#34;This is a long string&#34;</span><span class="o">)</span><span class="p">;</span>  // 缓冲区溢出
+</span></span><span class="line"><span class="cl">           ^
+</span></span><span class="line"><span class="cl">test.c:20:5: error: Memory pointed to by <span class="s1">&#39;ptr&#39;</span> is freed twice. <span class="o">[</span>doubleFree<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    free<span class="o">(</span>ptr<span class="o">)</span><span class="p">;</span>  // 重复释放内存
+</span></span><span class="line"><span class="cl">    ^
+</span></span><span class="line"><span class="cl">test.c:19:5: note: Memory pointed to by <span class="s1">&#39;ptr&#39;</span> is freed twice.
+</span></span><span class="line"><span class="cl">    free<span class="o">(</span>ptr<span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    ^
+</span></span><span class="line"><span class="cl">test.c:20:5: note: Memory pointed to by <span class="s1">&#39;ptr&#39;</span> is freed twice.
+</span></span><span class="line"><span class="cl">    free<span class="o">(</span>ptr<span class="o">)</span><span class="p">;</span>  // 重复释放内存
+</span></span><span class="line"><span class="cl">    ^
+</span></span><span class="line"><span class="cl">test.c:21:5: error: Memory leak: str <span class="o">[</span>memleak<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> 0<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    ^
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="3-编程规范">3. 编程规范</h2>
+<p>对于 C/C++ 项目，影响力较大的是 Google C++ Style Guide。</p>
+<p>下面是一些较典型的规则：</p>
+<ol>
+<li>
+<p>只有当函数只有 10 行甚至更少时才将其定义为内联函数。</p>
+</li>
+<li>
+<p>使用标准的头文件包含顺序可增强可读性，避免隐藏依赖。避免使用 UNIX 特殊的快捷目录（比如 <code>./xxx.h</code> 和 <code>../xxx.h</code>）。</p>
+<ul>
+<li>本文件相关头文件</li>
+<li>C 库</li>
+<li>C++ 库</li>
+<li>其他库 .h</li>
+<li>本项目所用 .h</li>
+</ul>
+</li>
+<li>
+<p>不允许使用变长数组和 <code>alloca()</code></p>
+</li>
+<li>
+<p>尽可能用 <code>sizeof(varname)</code> 代替 <code>sizeof(type)</code></p>
+</li>
+</ol>
+<p>MISRA C/C++，是由英国汽车产业软件可靠性协会（Motor Industry Software Reliability Association）提出的 C/C++ 语言开发标准，在<strong>嵌入式</strong>开发领域有较高认可度。</p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">cppcheck + python 可以实现对于 misra 规则的检查，并集成到 VScode 中。</div>
+        </div>
+    </div>
+<h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://cloud.tencent.com/developer/article/1900402" target="_blank" rel="noopener noreffer ">详解圈复杂度</a></li>
+<li><a href="https://gitee.com/openharmony/docs/blob/master/zh-cn/contribute/OpenHarmony-c-coding-style-guide.md" target="_blank" rel="noopener noreffer ">OpenHarmony C 语言编程规范</a></li>
+<li><a href="https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/" target="_blank" rel="noopener noreffer ">Google C++ 风格指南</a></li>
+<li><a href="https://www.cnblogs.com/safe-rules/p/16037810.html" target="_blank" rel="noopener noreffer ">各大厂 C/C++ 编程规范</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1999973" target="_blank" rel="noopener noreffer ">C++ 代码审查工具 Cppcheck 和 TscanCode</a></li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-12-13</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali20177.github.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/" data-title="C/C&#43;&#43; 代码质量"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali20177.github.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/" data-title="C/C&#43;&#43; 代码质量"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/c/">C</a>,&nbsp;<a href="/tags/c&#43;&#43;/">C&#43;&#43;</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/git-%E5%B7%A5%E4%BD%9C%E6%B5%81/" class="prev" rel="prev" title="Git 工作流"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Git 工作流</a>
+            <a href="/%E5%90%84%E7%A7%8D-shell-%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="next" rel="next" title="各种 Shell 的配置文件">各种 Shell 的配置文件<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mufasa</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

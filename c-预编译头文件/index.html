@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>C&#43;&#43; 预编译头文件 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="C&#43;&#43; 预编译头文件" />
+<meta property="og:description" content="1. 预编译头文件 将头文件编译成中间格式，从而节省在开发过程中编译器从头编译造成的开销。 一般预编译头文件中的头文件是标准库，操作系统 API 或者无需修" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kali20177.github.io/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-11T22:37:57+08:00" />
+<meta property="article:modified_time" content="2022-02-11T22:37:57+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
+
+<meta name="twitter:title" content="C&#43;&#43; 预编译头文件"/>
+<meta name="twitter:description" content="1. 预编译头文件 将头文件编译成中间格式，从而节省在开发过程中编译器从头编译造成的开销。 一般预编译头文件中的头文件是标准库，操作系统 API 或者无需修"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6/" /><link rel="prev" href="https://kali20177.github.io/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-gitee-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9/" /><link rel="next" href="https://kali20177.github.io/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "C++ 预编译头文件",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kali20177.github.io\/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6\/"
+        },"genre": "posts","keywords": "C\u002b\u002b","wordcount":  556 ,
+        "url": "https:\/\/kali20177.github.io\/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6\/","datePublished": "2022-02-11T22:37:57+08:00","dateModified": "2022-02-11T22:37:57+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mufasa"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">C++ 预编译头文件</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/c++/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>C++</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-02-11">2022-02-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 556 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-预编译头文件">1. 预编译头文件</a></li>
+    <li><a href="#2-g-中使用预编译头">2. g++ 中使用预编译头</a></li>
+    <li><a href="#3-在-vistual-studio-中使用预编译头">3. 在 Vistual Studio 中使用预编译头</a></li>
+    <li><a href="#4-cmake-中使用预编译头">4. CMake 中使用预编译头</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-预编译头文件">1. 预编译头文件</h2>
+<p>将头文件编译成中间格式，从而节省在开发过程中编译器从头编译造成的开销。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Cpp_precom/compile_time_joke.png"
+        data-srcset="/Cpp_precom/compile_time_joke.png, /Cpp_precom/compile_time_joke.png 1.5x, /Cpp_precom/compile_time_joke.png 2x"
+        data-sizes="auto"
+        alt="/Cpp_precom/compile_time_joke.png"
+        title="compile_time_joke" /></p>
+<p>一般预编译头文件中的头文件是<strong>标准库，操作系统 API 或者无需修改的开发框架</strong>，通过预编译减少编译时间。</p>
+<p>在 Vistual Studio 中，项目模板的预编译头文件是 <code>pch.h</code>或<code>stdafx.h</code>。项目文件夹下生成的<code>ipch</code>文件夹是存放预编译头结果的地方，故上传 github 时可直接忽略。</p>
+<h2 id="2-g-中使用预编译头">2. g++ 中使用预编译头</h2>
+<p>以一个简单项目为例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">src
+</span></span><span class="line"><span class="cl"> | -- main.cpp
+</span></span><span class="line"><span class="cl"> | -- pch,h
+</span></span><span class="line"><span class="cl"> | -- pch.cpp
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// pch.h 文件内容
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#pragma once
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;functional&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;utility&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stack&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;deque&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unordered_map&gt;</span><span class="cp">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在不使用预编译头的情况下测试：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">time</span> g++ -std<span class="o">=</span>c++11 main.cpp
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Cpp_precom/no_pre_compiler_header.png"
+        data-srcset="/Cpp_precom/no_pre_compiler_header.png, /Cpp_precom/no_pre_compiler_header.png 1.5x, /Cpp_precom/no_pre_compiler_header.png 2x"
+        data-sizes="auto"
+        alt="/Cpp_precom/no_pre_compiler_header.png"
+        title="bmg" /></p>
+<p>使用预编译头，需要先生成中间文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">g++ -std<span class="o">=</span>c++11 pch.h
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Cpp_precom/create_pch.png"
+        data-srcset="/Cpp_precom/create_pch.png, /Cpp_precom/create_pch.png 1.5x, /Cpp_precom/create_pch.png 2x"
+        data-sizes="auto"
+        alt="/Cpp_precom/create_pch.png"
+        title="bmg" /></p>
+<p>之后会生成<code>pch.h.gch</code>文件</p>
+<p>再执行编译，得到：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Cpp_precom/g&#43;&#43;_pre_compiler_header.png.png"
+        data-srcset="/Cpp_precom/g&#43;&#43;_pre_compiler_header.png.png, /Cpp_precom/g&#43;&#43;_pre_compiler_header.png.png 1.5x, /Cpp_precom/g&#43;&#43;_pre_compiler_header.png.png 2x"
+        data-sizes="auto"
+        alt="/Cpp_precom/g&#43;&#43;_pre_compiler_header.png.png"
+        title="bmg" /></p>
+<h2 id="3-在-vistual-studio-中使用预编译头">3. 在 Vistual Studio 中使用预编译头</h2>
+<p>还是针对以上项目。选中想要创建预编译头的 <code>pch.cpp</code> 文件，右键属性 &ndash;&gt; C/C++ &ndash;&gt; 预编译头 &ndash;&gt; 创建。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Cpp_precom/vs_precom1.png"
+        data-srcset="/Cpp_precom/vs_precom1.png, /Cpp_precom/vs_precom1.png 1.5x, /Cpp_precom/vs_precom1.png 2x"
+        data-sizes="auto"
+        alt="/Cpp_precom/vs_precom1.png"
+        title="bmg" /></p>
+<p>然后配置整个项目的属性 &ndash;&gt; C/C++ &ndash;&gt; 预编译头 &ndash;&gt; 使用。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Cpp_precom/vs_precom2.png"
+        data-srcset="/Cpp_precom/vs_precom2.png, /Cpp_precom/vs_precom2.png 1.5x, /Cpp_precom/vs_precom2.png 2x"
+        data-sizes="auto"
+        alt="/Cpp_precom/vs_precom2.png"
+        title="bmg" /></p>
+<p>这样，经过第一次编译后，在之后的开发过程中能极大减少编译时间。</p>
+<h2 id="4-cmake-中使用预编译头">4. CMake 中使用预编译头</h2>
+<p>此功能在 CMake 3.16 版本之后被支持。在 CMake 中使用预编译头需要使用 <code>target_precompile_headers</code> 命令。假设有一个 main.cpp 和一个 mypch.h 的预编译头文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// mypch.h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>那么 CMake 文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">3.16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">project</span><span class="p">(</span><span class="n">PrecompiledHeadersExample</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">add_executable</span><span class="p">(</span><span class="n">MyApp</span> <span class="n">main</span><span class="p">.</span><span class="n">cpp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 指定预编译头文件
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">target_precompile_headers</span><span class="p">(</span><span class="n">MyApp</span> <span class="n">PRIVATE</span> <span class="n">mypch</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>对于 C 和 C++ 混合项目，最好单独编译成不同的库或者可执行文件，不要出现 add_executable 阶段 .cpp 和 .c 一块儿被编译的情况。这会导致 CMake 无法正确处理预编译头。</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-11</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali20177.github.io/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6/" data-title="C&#43;&#43; 预编译头文件"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali20177.github.io/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6/" data-title="C&#43;&#43; 预编译头文件"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/c&#43;&#43;/">C&#43;&#43;</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-gitee-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9/" class="prev" rel="prev" title="使用 hugo 和 gitee 创建静态个人站点"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>使用 hugo 和 gitee 创建静态个人站点</a>
+            <a href="/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/" class="next" rel="next" title="Licheepi Zero 镜像制作流程">Licheepi Zero 镜像制作流程<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mufasa</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

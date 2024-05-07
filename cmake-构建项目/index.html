@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CMake 构建项目 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="CMake 构建项目" />
+<meta property="og:description" content="1. CMake 构建过程 以下面结构的简单项目为例，子项目 test 中需要依赖一个测试框架 Unity, 一个只有头文件和源码的 log 库和一个由多个源文件和头文件组成的哈希表库 ut" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-09T14:41:27+08:00" />
+<meta property="article:modified_time" content="2023-08-09T14:41:27+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
+
+<meta name="twitter:title" content="CMake 构建项目"/>
+<meta name="twitter:description" content="1. CMake 构建过程 以下面结构的简单项目为例，子项目 test 中需要依赖一个测试框架 Unity, 一个只有头文件和源码的 log 库和一个由多个源文件和头文件组成的哈希表库 ut"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" /><link rel="prev" href="https://kali20177.github.io/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" /><link rel="next" href="https://kali20177.github.io/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CMake 构建项目",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kali20177.github.io\/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE\/"
+        },"genre": "posts","keywords": "C\u002b\u002b, CMake","wordcount":  5484 ,
+        "url": "https:\/\/kali20177.github.io\/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE\/","datePublished": "2023-08-09T14:41:27+08:00","dateModified": "2023-08-09T14:41:27+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mufasa"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CMake 构建项目</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/cmake/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CMake</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-09">2023-08-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5484 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-cmake-构建过程">1. CMake 构建过程</a></li>
+    <li><a href="#2-工作路径">2. 工作路径</a></li>
+    <li><a href="#3-代码覆盖率">3. 代码覆盖率</a>
+      <ul>
+        <li><a href="#31-gcov-编译选项">3.1 Gcov 编译选项</a></li>
+        <li><a href="#32-vscode-gcov-view">3.2 VSCode Gcov View</a></li>
+        <li><a href="#33-gcovr">3.3 Gcovr</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-项目问题检查-sanitizer">4. 项目问题检查 Sanitizer</a></li>
+    <li><a href="#5-保留预处理后文件">5. 保留预处理后文件</a></li>
+    <li><a href="#6-输出-map-文件">6. 输出 map 文件</a></li>
+    <li><a href="#7-设置输出目录">7. 设置输出目录</a></li>
+    <li><a href="#8-启用调试中宏打印">8. 启用调试中宏打印</a></li>
+    <li><a href="#9-开启-lto">9. 开启 LTO</a></li>
+    <li><a href="#10-地址无关代码-position-independent-code">10. 地址无关代码 (Position independent code)</a></li>
+    <li><a href="#11-arm-项目和-x86-项目构建上的区别">11. Arm 项目和 x86 项目构建上的区别</a></li>
+    <li><a href="#12-vscode-集成-vcpkg-包管理">12. VSCode 集成 Vcpkg 包管理</a></li>
+    <li><a href="#13-cmake-presets">13. CMake Presets</a></li>
+    <li><a href="#14-rpath">14 rpath</a></li>
+    <li><a href="#15-clang-静态分析器">15. Clang 静态分析器</a></li>
+    <li><a href="#16-cmake-行为准则">16. CMake 行为准则</a>
+      <ul>
+        <li><a href="#161-cmake-应避免的行为">16.1 CMake 应避免的行为</a></li>
+        <li><a href="#162-cmake-应遵守的规范">16.2 CMake 应遵守的规范</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-cmake-构建过程">1. CMake 构建过程</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/CMake/cmakeflow.png"
+        data-srcset="/CMake/cmakeflow.png, /CMake/cmakeflow.png 1.5x, /CMake/cmakeflow.png 2x"
+        data-sizes="auto"
+        alt="/CMake/cmakeflow.png"
+        title="img" /></p>
+<p>以下面结构的简单项目为例，子项目 test 中需要依赖一个测试框架 Unity, 一个只有头文件和源码的 log 库和一个由多个源文件和头文件组成的哈希表库 uthash。测试框架 Unity 提供了 CMakelists.txt。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="line"><span class="cl"><span class="go"> .
+</span></span></span><span class="line"><span class="cl"><span class="go">├──  inc  
+</span></span></span><span class="line"><span class="cl"><span class="go">│  ├──  module1
+</span></span></span><span class="line"><span class="cl"><span class="go">│  └──  module2   
+</span></span></span><span class="line"><span class="cl"><span class="go">├──  src                  
+</span></span></span><span class="line"><span class="cl"><span class="go">│  ├──  module1
+</span></span></span><span class="line"><span class="cl"><span class="go">│  ├──  module2             
+</span></span></span><span class="line"><span class="cl"><span class="go">│  └──  main.c
+</span></span></span><span class="line"><span class="cl"><span class="go">└──  test             
+</span></span></span><span class="line"><span class="cl"><span class="go">   ├──  module1_test           
+</span></span></span><span class="line"><span class="cl"><span class="go">   ├──  module2_test         
+</span></span></span><span class="line"><span class="cl"><span class="go">   └──  third_party          
+</span></span></span><span class="line"><span class="cl"><span class="go">        ├──  unity
+</span></span></span><span class="line"><span class="cl"><span class="go">        ├──  uthash  
+</span></span></span><span class="line"><span class="cl"><span class="go">        └──  log.c          
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>顶层 cmakelists.txt 的基本元素如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">3.20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">project</span><span class="p">(</span><span class="n">hello</span> <span class="n">C</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># C 语言标准
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_C_STANDARD</span> <span class="mi">99</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_BUILD_TYPE</span> <span class="n">Debug</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 不同模式编译选项
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">SET</span><span class="p">(</span><span class="n">CMAKE_CXX_FLAGS_DEBUG</span> <span class="s">&#34;-Wall -g&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">SET</span><span class="p">(</span><span class="n">CMAKE_CXX_FLAGS_RELEASE</span> <span class="s">&#34;-O3&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># clangd 支持
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_EXPORT_COMPILE_COMMANDS</span> <span class="n">ON</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">add_executable</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_link_libraries</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">PUBLIC</span> <span class="n">m</span><span class="p">)</span>  <span class="err">#</span> <span class="err">链接数学库</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 开启 ctest 功能
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">include</span><span class="p">(</span><span class="n">CTest</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 添加子项目
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_subdirectory</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置 <code>test</code> 文件夹的子项目，需要新建一个 <code>test/CMakeLists.txt</code>，可以使用下面的示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">project</span><span class="p">(</span><span class="n">test_runner</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># Unity 
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_subdirectory</span><span class="p">(</span><span class="n">third_party</span><span class="o">/</span><span class="n">Unity</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># log.c .h 文件目录
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">include_directories</span><span class="p">(</span><span class="n">third_party</span><span class="o">/</span><span class="n">log</span><span class="p">.</span><span class="n">c</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># uthash 源码目录
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">file</span><span class="p">(</span><span class="n">GLOB</span> <span class="n">UTHASH</span> <span class="s">&#34;third_party/uthash/src/*.c&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">add_executable</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">test_runner</span><span class="p">.</span><span class="n">c</span> <span class="err">$</span><span class="p">{</span><span class="n">UTHASH</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 直接添加第三方项目的源文件
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">target_sources</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">PRIVATE</span> <span class="n">third_party</span><span class="o">/</span><span class="n">log</span><span class="p">.</span><span class="n">c</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">log</span><span class="p">.</span><span class="n">c</span> <span class="n">third_party</span><span class="o">/</span><span class="n">log</span><span class="p">.</span><span class="n">c</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">log</span><span class="p">.</span><span class="n">h</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 设置第三方项目的条件编译选项
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">target_compile_definitions</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">PRIVATE</span> <span class="n">LOG_USE_COLOR</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 添加 ctest 测试
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_test</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_link_libraries</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">unity</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>对于像 Unity 一样使用 CMake 构建，且顶层有 CMakeList.txt 的库，可以直接使用 <code>add_subdirectory</code> 以子项目形式导入。</p>
+</li>
+<li>
+<p>哈希库 uthash 只提供了一个文件夹，可以使用 file 函数使用通配符添加指定的文件保存到变量，建议使用 <code>CONFIGURE_DEPENDS</code>, 添加新文件时可以自动更新变量（CMake 3.12 起）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">file</span><span class="p">(</span><span class="n">GLOB</span> <span class="n">UTHASH</span> <span class="n">CONFIGURE_DEPENDS</span> <span class="s">&#34;third_party/uthash/src/*.c&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>如果想直接添加额外某几个源文件参与构建，使用 <code>target_sources</code> 添加文件路径（CMake 3.13 起）。</p>
+</li>
+</ul>
+<h2 id="2-工作路径">2. 工作路径</h2>
+<p>当 C/C++ 工程需要读写项目路径下的配置文件或者数据文件时，不能直接填写绝对路径或者相对路径，因为 cmake 构建后，数据文件不会进入到 build 文件夹，程序无法根据相对路径找到要读写的文件，使用绝对路径则丧失了可移植性。这时可以在 cmake 中定义工作路径宏解决。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">3.20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">project</span><span class="p">(</span><span class="n">MyProject</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 定义 PROJECT_ROOT 宏
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_definitions</span><span class="p">(</span><span class="o">-</span><span class="n">DPROJECT_ROOT</span><span class="o">=</span><span class="s">&#34;${CMAKE_CURRENT_SOURCE_DIR}&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 添加 C 项目
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_executable</span><span class="p">(</span><span class="n">my_project</span> <span class="n">main</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 C++ 程序中，执行下面的语句就能获取这个路径。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">string</span> <span class="n">file_path</span> <span class="o">=</span> <span class="n">string</span><span class="p">(</span><span class="n">PROJECT_ROOT</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 C 程序中，需要定义辅助宏解决。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define STR_HELPER(x) #x
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define STR(x) STR_HELPER(x)
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Project root: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">STR</span><span class="p">(</span><span class="n">PROJECT_ROOT</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>STR_HELPER 宏定义：<code>#define STR_HELPER(x) #x</code>
+这个宏定义使用了一个特殊的字符串化操作符 #（井号）。在宏定义中，# 将宏参数 x 转换为一个字符串字面量。例如，如果我们使用 STR_HELPER(PROJECT_ROOT)，那么 #x 将会将 PROJECT_ROOT 转换为字符串 &ldquo;PROJECT_ROOT&rdquo;。这个宏定义实际上是一个辅助宏，将宏参数转换为字符串。</p>
+<p>STR 宏定义：<code>#define STR(x) STR_HELPER(x)</code>
+这个宏定义是对 STR_HELPER 宏的包装。它接受一个宏参数 x，并将其传递给 STR_HELPER 宏。这样做的目的是为了在 printf 语句中使用宏参数作为字符串值。因为 printf 函数需要一个字符串作为格式化参数，所以我们需要将宏参数转换为字符串。例如，如果我们使用 STR(PROJECT_ROOT)，那么 STR(PROJECT_ROOT) 将会被展开为 STR_HELPER(PROJECT_ROOT)，然后 STR_HELPER(PROJECT_ROOT) 将会将 PROJECT_ROOT 转换为字符串 &ldquo;PROJECT_ROOT&rdquo;。在 printf 语句中，我们可以使用 %s 格式化指示符来打印字符串值。<code>printf(&quot;Project root: %s\n&quot;, STR(PROJECT_ROOT));</code></p>
+<h2 id="3-代码覆盖率">3. 代码覆盖率</h2>
+<p>C/C++ 的代码覆盖率主要是利用 gcc 套件中的 gcov 组件产生，加入特殊选项编译后会产生 <code>*.gcno</code> 文件，运行测试后进一步产生 <code>*.gcda</code> 文件，二者结合源码，使用 <code>gcov ${program.gcno}</code> 命令生成覆盖率信息。一般需要进一步使用 lcov 或者 gcovr 产生可读性更强的报告。</p>
+<blockquote>
+<ul>
+<li>lcov 是一个 perl 项目，Linux 平台开发使用较多，跨平台能力差，在 windows 上使用 gcc 编译的项目无法使用。</li>
+<li>gcovr 是一个 Python 项目，资料较少，跨平台能力较好，能集成到 jenkins 产生代码覆盖率趋势。</li>
+<li>OpenCppCoverage 是专门给 Windows 平台的代码覆盖率工具，运行依赖与 MSVC 编译过程中产生的 pdb 文件。</li>
+</ul>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/CMake/gcov.jpg"
+        data-srcset="/CMake/gcov.jpg, /CMake/gcov.jpg 1.5x, /CMake/gcov.jpg 2x"
+        data-sizes="auto"
+        alt="/CMake/gcov.jpg"
+        title="gcov" /></p>
+<h3 id="31-gcov-编译选项">3.1 Gcov 编译选项</h3>
+<p>这里参考 gcovr 的<a href="https://gcovr.com/en/stable/cookbook.html?highlight=cmake#out-of-source-builds-with-cmake" target="_blank" rel="noopener noreffer ">官方文档</a>。编译时需要打开 gcc 选项 <code>--coverage</code> （此项等同于 <code>-fprofile-arcs -ftest-coverage</code>），同时要禁用优化选项。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_C_FLAGS</span> <span class="s">&#34;-g -O0 -Wall --coverage&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_CXX_FLAGS</span> <span class="s">&#34;-g -O0 -Wall --coverage&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">add_compile_options</span><span class="p">(</span><span class="o">--</span><span class="n">coverage</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">add_link_options</span><span class="p">(</span><span class="o">--</span><span class="n">coverage</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于代码覆盖率不仅要看测试代码，还要看被测代码，因此编译选项需要全局打开。</p>
+<h3 id="32-vscode-gcov-view">3.2 VSCode Gcov View</h3>
+<p>在 VSCode 中可以借助插件 Gcov View 显示代码覆盖情况。
+生成 .gcda 文件后，Ctrl + shift + p 输入 &ldquo;Gcov Viewer&rdquo;，选择 show 即可看到哪些行被覆盖。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/CMake/cmake_coverage.png"
+        data-srcset="/CMake/cmake_coverage.png, /CMake/cmake_coverage.png 1.5x, /CMake/cmake_coverage.png 2x"
+        data-sizes="auto"
+        alt="/CMake/cmake_coverage.png"
+        title="vscode coverage" /></p>
+<p>使用过程中可能会发现如下执行错误：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/CMake/Gcov_show_error.png"
+        data-srcset="/CMake/Gcov_show_error.png, /CMake/Gcov_show_error.png 1.5x, /CMake/Gcov_show_error.png 2x"
+        data-sizes="auto"
+        alt="/CMake/Gcov_show_error.png"
+        title="Gcov show error" /></p>
+<p>这种情况下使用 <code>gcov xxx.gcno</code> 也会出现错误：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/CMake/gcno_error.png"
+        data-srcset="/CMake/gcno_error.png, /CMake/gcno_error.png 1.5x, /CMake/gcno_error.png 2x"
+        data-sizes="auto"
+        alt="/CMake/gcno_error.png"
+        title="gcno error" /></p>
+<p>这是由于命令行调用的 gcov 版本和编译使用的 gcc 版本不一致导致的。尤其是在使用 cmake 插件没有规定编译工具链版本时容易出现此类问题。</p>
+<h3 id="33-gcovr">3.3 Gcovr</h3>
+<p>可以使用 pip 安装，要确保 python 安装的可执行文件添加到了环境变量中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pip install gcovr
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>由于 CMake 源码和编译文件是分离的，产生报告的命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$BUILD</span>
+</span></span><span class="line"><span class="cl">gcovr -r <span class="nv">$SRC_DIR</span> .
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例如 CMake 编译产生的文件夹是 build，build 目录和 src 目录在同一级，执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> build
+</span></span><span class="line"><span class="cl">gcovr -r ../ .
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>程序会递归扫描文件夹下所有 <code>.gcno</code> 文件。输出结果类似于：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">------------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">                           GCC Code Coverage Report
+</span></span><span class="line"><span class="cl">Directory: ../
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">File                                       Lines    Exec  Cover   Missing
+</span></span><span class="line"><span class="cl">------------------------------------------------------------------------------
+</span></span><span class="line"><span class="cl">src/example/crc.c                              <span class="m">6</span>       <span class="m">6</span>   100%   
+</span></span><span class="line"><span class="cl">src/example/example.c                          <span class="m">2</span>       <span class="m">0</span>     0%   3,5
+</span></span><span class="line"><span class="cl">src/main.c                                     <span class="m">6</span>       <span class="m">6</span>   100%   
+</span></span><span class="line"><span class="cl">test/example/crc_test.c                       <span class="m">27</span>      <span class="m">27</span>   100%   
+</span></span><span class="line"><span class="cl">test/example/main_test.c                       <span class="m">5</span>       <span class="m">5</span>   100%   
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果要产生 html 报告，需要添加参数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">gcovr -r ../ . --html-details -o report.html 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>总体：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/CMake/gcovr1.png"
+        data-srcset="/CMake/gcovr1.png, /CMake/gcovr1.png 1.5x, /CMake/gcovr1.png 2x"
+        data-sizes="auto"
+        alt="/CMake/gcovr1.png"
+        title="gcovr1" /></p>
+<p>细分：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/CMake/gcovr2.png"
+        data-srcset="/CMake/gcovr2.png, /CMake/gcovr2.png 1.5x, /CMake/gcovr2.png 2x"
+        data-sizes="auto"
+        alt="/CMake/gcovr2.png"
+        title="gcovr2" /></p>
+<p>进一步可以产生 xml 格式报告<a href="https://blog.csdn.net/sinat_39037205/article/details/122930653" target="_blank" rel="noopener noreffer ">集成到 Jenkins</a> 中。</p>
+<h2 id="4-项目问题检查-sanitizer">4. 项目问题检查 Sanitizer</h2>
+<p>gcc/clang 集成了 Sanitizer 内存检查工具。包括：</p>
+<ul>
+<li>AddressSanitizer: a memory error detector</li>
+<li>LeakSanitizer: a memory leak detector</li>
+<li>MemeorySanitizer: a detector of uninitialized reads</li>
+<li>ThreadSanitizer: a data race and deadlock detector</li>
+<li>UndefinedBehaviorSanitizer: a undefined behavior detector</li>
+</ul>
+<p>开启需要在 CMakeLists.txt 中定义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_C_FLAGS</span>  <span class="s">&#34;${CMAKE_C_FLAGS} -fsanitize=address -fno-omit-frame-pointer </span>
+</span></span><span class="line"><span class="cl">                                    <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="n">undefined</span> <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="n">leak</span> 
+</span></span><span class="line"><span class="cl">                                    <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="kt">signed</span><span class="o">-</span><span class="n">integer</span><span class="o">-</span><span class="n">overflow</span><span class="s">&#34;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_CXX_FLAGS</span>  <span class="s">&#34;${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer </span>
+</span></span><span class="line"><span class="cl">                                    <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="n">undefined</span> <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="n">leak</span> 
+</span></span><span class="line"><span class="cl">                                    <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="kt">signed</span><span class="o">-</span><span class="n">integer</span><span class="o">-</span><span class="n">overflow</span><span class="s">&#34;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_EXE_LINKER_FLAGS</span>  <span class="s">&#34;${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address -fno-omit-frame-pointer </span>
+</span></span><span class="line"><span class="cl">                                    <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="n">undefined</span> <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="n">leak</span> 
+</span></span><span class="line"><span class="cl">                                    <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="kt">signed</span><span class="o">-</span><span class="n">integer</span><span class="o">-</span><span class="n">overflow</span><span class="s">&#34;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 下面一行实际环境中不一定需要开启，一般 gcc 自动支持
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">target_link_libraries</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">asan</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行后，输出结果额外带有内存泄漏位置的调用栈，顺着查找即可。以下是一些常用的参数：</p>
+<ol>
+<li><code>-fsanitize=address</code>：启用 AddressSanitizer（ASan）</li>
+<li><code>-fsanitize=leak</code>：启用 LeakSanitizer，用于检测内存泄漏。</li>
+<li><code>-fsanitize=thread</code>：启用 ThreadSanitizer，用于检测并发程序中的数据竞争和死锁。</li>
+<li><code>-fsanitize=memory</code>：启用 MemorySanitizer，用于检测对未初始化内存的访问，有助于提高内存安全性。</li>
+<li><code>-fsanitize=signed-integer-overflow</code>：用于检测整数溢出。</li>
+<li><code>-fno-omit-frame-pointer</code>：告诉编译器不要优化掉函数调用的框架指针。在进行调试或性能分析时，框架指针对于跟踪函数调用关系非常重要。</li>
+<li><code>-fsanitize=undefined</code>：启用 UndefinedBehaviorSanitizer（UBSan），它用于检测一些未定义行为。比如整数溢出、除以零等。</li>
+</ol>
+<p>可以将以上选项提取到项目的 <code>cmake/SanitizerOptions.cmake</code> 文件中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">macro</span><span class="p">(</span><span class="n">set_sanitizer_options</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">CMAKE_C_FLAGS</span>  <span class="s">&#34;${CMAKE_C_FLAGS} -fsanitize=address -fno-omit-frame-pointer </span>
+</span></span><span class="line"><span class="cl">                                        <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="n">undefined</span> <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="n">leak</span> 
+</span></span><span class="line"><span class="cl">                                        <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="kt">signed</span><span class="o">-</span><span class="n">integer</span><span class="o">-</span><span class="n">overflow</span><span class="s">&#34;)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">CMAKE_CXX_FLAGS</span>  <span class="s">&#34;${CMAKE_CXX_FLAGS} -fsanitize=address -fno-omit-frame-pointer </span>
+</span></span><span class="line"><span class="cl">                                        <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="n">undefined</span> <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="n">leak</span> 
+</span></span><span class="line"><span class="cl">                                        <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="kt">signed</span><span class="o">-</span><span class="n">integer</span><span class="o">-</span><span class="n">overflow</span><span class="s">&#34;)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">CMAKE_EXE_LINKER_FLAGS</span>  <span class="s">&#34;${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address -fno-omit-frame-pointer </span>
+</span></span><span class="line"><span class="cl">                                        <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="n">undefined</span> <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="n">leak</span> 
+</span></span><span class="line"><span class="cl">                                        <span class="o">-</span><span class="n">fsanitize</span><span class="o">=</span><span class="kt">signed</span><span class="o">-</span><span class="n">integer</span><span class="o">-</span><span class="n">overflow</span><span class="s">&#34;)</span>
+</span></span><span class="line"><span class="cl"><span class="n">endmacro</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 CMakeLists.txt 中 include。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp"># 选项开关
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">option</span><span class="p">(</span><span class="n">USE_SANITIZER</span> <span class="s">&#34;Use Sanitizer&#34;</span> <span class="n">OFF</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 导入额外编译选项
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">USE_SANITIZER</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">include</span><span class="p">(</span><span class="n">cmake</span><span class="o">/</span><span class="n">SanitizerOptions</span><span class="p">.</span><span class="n">cmake</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set_sanitizer_options</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="5-保留预处理后文件">5. 保留预处理后文件</h2>
+<p>配置编译选项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_C_FLAGS</span> <span class="s">&#34;${CMAKE_C_FLAGS} -save-temps=obj&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_CXX_FLAGS</span> <span class="s">&#34;${CMAKE_CXX_FLAGS} -save-temps=obj&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="6-输出-map-文件">6. 输出 map 文件</h2>
+<p>输出 .map 文件到 build 目录，添加链接选项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">MAP_FILE</span> <span class="err">$</span><span class="p">{</span><span class="n">CMAKE_BINARY_DIR</span><span class="p">}</span><span class="o">/</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}.</span><span class="n">map</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_EXE_LINKER_FLAGS</span> <span class="s">&#34;-Wl,-Map=${MAP_FILE}&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="7-设置输出目录">7. 设置输出目录</h2>
+<p><code>CMAKE_ARCHIVE_OUTPUT_DIRECTORY</code>、<code>CMAKE_LIBRARY_OUTPUT_DIRECTORY</code> 和 <code>CMAKE_RUNTIME_OUTPUT_DIRECTORY</code> 变量用于指定构建过程中生成的静态库、动态库和可执行文件的输出路径。<code>CMAKE_INSTALL_LIBDIR</code> 和 <code>CMAKE_INSTALL_BINDIR</code> 是预定义的变量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_ARCHIVE_OUTPUT_DIRECTORY</span> <span class="err">$</span><span class="p">{</span><span class="n">CMAKE_BINARY_DIR</span><span class="p">}</span><span class="o">/</span><span class="err">$</span><span class="p">{</span><span class="n">CMAKE_INSTALL_LIBDIR</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_LIBRARY_OUTPUT_DIRECTORY</span> <span class="err">$</span><span class="p">{</span><span class="n">CMAKE_BINARY_DIR</span><span class="p">}</span><span class="o">/</span><span class="err">$</span><span class="p">{</span><span class="n">CMAKE_INSTALL_LIBDIR</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_RUNTIME_OUTPUT_DIRECTORY</span> <span class="err">$</span><span class="p">{</span><span class="n">CMAKE_BINARY_DIR</span><span class="p">}</span><span class="o">/</span><span class="err">$</span><span class="p">{</span><span class="n">CMAKE_INSTALL_BINDIR</span><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="8-启用调试中宏打印">8. 启用调试中宏打印</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_C_FLAGS</span> <span class="s">&#34;${CMAKE_C_FLAGS} -g3 -O0 -Wall&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="cp"># 也有写成
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_C_FLAGS</span> <span class="s">&#34;${CMAKE_C_FLAGS} -gdwarf-2 -g3 -O0 -Wall&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="9-开启-lto">9. 开启 LTO</h2>
+<p>LTO（Link Time Optimization）是一种编译优化技术，它在链接阶段对整个程序进行优化，而不仅仅是在单独编译单元的优化。可能会增加编译时间和内存占用。可以通过变量 <code>CMAKE_INTERPROCEDURAL_OPTIMIZATION</code>（CMake 3.9+ 可用）或对目标指定 <code>INTERPROCEDURAL_OPTIMIZATION</code> 属性来打开它。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp"># 设置 Release 模式下启用 LTO 编译选项
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">if</span><span class="p">(</span><span class="n">CMAKE_BUILD_TYPE</span> <span class="n">STREQUAL</span> <span class="s">&#34;Release&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">include</span><span class="p">(</span><span class="n">CheckIPOSupported</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">check_ipo_supported</span><span class="p">(</span><span class="n">RESULT</span> <span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">message</span><span class="p">(</span><span class="n">STATUS</span> <span class="s">&#34;LTO is supported&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">set</span><span class="p">(</span><span class="n">CMAKE_INTERPROCEDURAL_OPTIMIZATION</span> <span class="n">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">message</span><span class="p">(</span><span class="n">WARNING</span> <span class="s">&#34;LTO is not supported&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">endif</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 为特定目标设置 LTO
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">include</span><span class="p">(</span><span class="n">CheckIPOSupported</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">check_ipo_supported</span><span class="p">(</span><span class="n">RESULT</span> <span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">set_target_properties</span><span class="p">(</span><span class="n">foo</span> <span class="n">PROPERTIES</span> <span class="n">INTERPROCEDURAL_OPTIMIZATION</span> <span class="n">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="10-地址无关代码-position-independent-code">10. 地址无关代码 (Position independent code)</h2>
+<p>动态链接库必须。一般用标志 -fPIC 来设置。大部分情况下，不需要去显式声明，CMake 将会在 SHARED 以及 MODULE 类型的库中自动的包含此标志。如果需要显式的声明：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp"># 对某个目标设置 fPIC 标志
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">set_target_properties</span><span class="p">(</span><span class="n">lib1</span> <span class="n">PROPERTIES</span> <span class="n">POSITION_INDEPENDENT_CODE</span> <span class="n">ON</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="11-arm-项目和-x86-项目构建上的区别">11. Arm 项目和 x86 项目构建上的区别</h2>
+<p>最典型的例子，char 的符号性并没有明确定义，它取决于具体的编译器实现。ARM 架构的 LDRSB 指令，可以将一个有符号字节加载到 32 位寄存器并进行符号扩展。但是，这个指令不是 ARM 架构最早版本的一部分。当时为了避免符号扩展的开销，arm 平台的 char 默认是无符号类型，并延续了下来。</p>
+<p>在 CMake 中通过设置 gcc 的编译选项来调整编译时的符号性。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_C_FLAGS</span> <span class="s">&#34;${CMAKE_C_FLAGS} -fsigned-char&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>除此之外构建跨平台项目需要注意：</p>
+<ul>
+<li>浮点数处理：ARM 和 x86 架构对浮点数的处理方式可能不同。例如，ARM 有硬浮点和软浮点两种模式，可以通过 -mfloat-abi 选项来选择。x86 平台默认使用硬浮点。</li>
+<li>指令集版本：ARM 有多个版本的指令集，例如 ARMv7、ARMv8 等，它们支持的指令和特性可能有所不同。通过 -march 选项来指定目标架构。</li>
+<li>优化选项：GCC 的优化选项（如-O2、-O3 等）在不同的架构上可能有不同的效果。需要根据具体的硬件和应用需求来选择合适的优化级别。</li>
+<li>内存模型：ARM 支持多种内存模型，包括小端（little-endian）和大端（big-endian）。通过 -mlittle-endian 或 -mbig-endian 选项来选择。x86 平台默认使用小端模型。</li>
+<li>ABI（Application Binary Interface）：不同的 ARM ABI（如 AAPCS、AAPCS-VFP 等）可能影响函数调用约定、数据对齐等。通过 -mabi 选项来选择。</li>
+</ul>
+<h2 id="12-vscode-集成-vcpkg-包管理">12. VSCode 集成 Vcpkg 包管理</h2>
+<p>安装 vcpkg 并进行如下必要的设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/microsoft/vcpkg.git
+</span></span><span class="line"><span class="cl">./bootstrap-vcpkg.sh
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> vcpkg
+</span></span><span class="line"><span class="cl">./vcpkg integrate bash <span class="c1"># or zsh</span>
+</span></span><span class="line"><span class="cl">./vcpkg install fmt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在工作区的 settings.json 中添加 CMAKE_TOOLCHAIN_FILE：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;cmake.configureSettings&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;CMAKE_TOOLCHAIN_FILE&#34;</span><span class="p">:</span> <span class="s2">&#34;[vcpkg root]/scripts/buildsystems/vcpkg.cmake&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>也可以直接在 CMakeLists.txt 中添加：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_TOOLCHAIN_FILE</span> <span class="s">&#34;[vcpkg root]/scripts/buildsystems/vcpkg.cmake&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重新加载工作区后就能使用 vcpkg 安装的包：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">find_package</span><span class="p">(</span><span class="n">fmt</span> <span class="n">CONFIG</span> <span class="n">REQUIRED</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_link_libraries</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">PRIVATE</span> <span class="n">fmt</span><span class="o">::</span><span class="n">fmt</span><span class="o">-</span><span class="n">header</span><span class="o">-</span><span class="n">only</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="13-cmake-presets">13. CMake Presets</h2>
+<p>当项目越来越复杂，需要考虑跨系统、架构、编译器以及测试各种编译选项时，cmake 就会存在许多需要设置的选项，具体表现为每构建一次，就需要输入一堆 <code>-D</code> 选项，同时 CMakeLists.txt 中的内容会变冗余繁杂。</p>
+<p>CMake 3.19 后更新的预设功能，可以通过<strong>项目顶层</strong>的 CMakePresets.json 和 CMakeUserPresets.json 文件，构成配置矩阵，简化 CMakeLists.txt 和参数输入。</p>
+<p>以一个 hello world 项目举例，通过 option <code>USE_SDL</code> 控制是否生成图形界面版本，否则生成命令行版本。编译时使用包管理器安装的 gcc-11 和<strong>不在环境变量中的 gcc-13</strong>。下面是 CMakePresets.json 的内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;configurePresets&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;ci-base&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;displayName&#34;</span><span class="p">:</span> <span class="s2">&#34;base config&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;generator&#34;</span><span class="p">:</span> <span class="s2">&#34;Unix Makefiles&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;binaryDir&#34;</span><span class="p">:</span> <span class="s2">&#34;build&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;cacheVariables&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_C_STANDARD&#34;</span><span class="p">:</span> <span class="s2">&#34;99&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_CXX_STANDARD&#34;</span><span class="p">:</span> <span class="s2">&#34;20&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;ci-debug&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;inherits&#34;</span><span class="p">:</span> <span class="s2">&#34;ci-base&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;cacheVariables&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_BUILD_TYPE&#34;</span><span class="p">:</span> <span class="s2">&#34;Debug&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_CXX_FLAGS&#34;</span><span class="p">:</span> <span class="s2">&#34;-g&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;ci-release&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;inherits&#34;</span><span class="p">:</span> <span class="s2">&#34;ci-base&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;cacheVariables&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_BUILD_TYPE&#34;</span><span class="p">:</span> <span class="s2">&#34;Release&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_CXX_FLAGS&#34;</span><span class="p">:</span> <span class="s2">&#34;-O3&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>CMakePresets.json 中编写通用配置，也可以用于 CI 构建。上面的内容定义了项目的通用配置，&ldquo;inherits&rdquo; 用于继承其他字段的定义，<strong>可以继承多个字段</strong>。通过 &ldquo;hidden&rdquo; 隐藏不必要的组件字段。</p>
+<p>CMakeUserPresets.json 通常由开发人员定义特殊配置，在自己的构建环境中使用，因此不应将其置于版本控制中。</p>
+<blockquote>
+<p>应该从名称上区分项目预设还是自定义预设。可以在项目定义预设加上 &ldquo;ci-&rdquo; 前缀。</p>
+</blockquote>
+<p>CMakeUserPresets.json 的内容如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;configurePresets&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;gcc-12&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;cacheVariables&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_C_COMPILER&#34;</span><span class="p">:</span> <span class="s2">&#34;gcc-12&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_CXX_COMPILER&#34;</span><span class="p">:</span> <span class="s2">&#34;g++-12&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;gcc-13&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;hidden&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;cacheVariables&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_C_COMPILER&#34;</span><span class="p">:</span> <span class="s2">&#34;/opt/gcc-13.2.0/bin/gcc&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_CXX_COMPILER&#34;</span><span class="p">:</span> <span class="s2">&#34;/opt/gcc-13.2.0/bin/g++&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_INSTALL_RPATH&#34;</span><span class="p">:</span> <span class="s2">&#34;/opt/gcc-13.2.0/lib64&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_BUILD_WITH_INSTALL_RPATH&#34;</span> <span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;gui app debug&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;inherits&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;ci-debug&#34;</span><span class="p">,</span> <span class="s2">&#34;gcc-13&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;binaryDir&#34;</span><span class="p">:</span> <span class="s2">&#34;${sourceDir}/build/gui&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;cacheVariables&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_CXX_FLAGS&#34;</span><span class="p">:</span> <span class="s2">&#34;-Wall&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;USE_SDL&#34;</span><span class="p">:</span><span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;console app debug&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;inherits&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;ci-debug&#34;</span><span class="p">,</span> <span class="s2">&#34;gcc-12&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;binaryDir&#34;</span><span class="p">:</span> <span class="s2">&#34;${sourceDir}/build/console&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;cacheVariables&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;CMAKE_CXX_FLAGS&#34;</span><span class="p">:</span> <span class="s2">&#34;-Wall&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;USE_SDL&#34;</span><span class="p">:</span><span class="kc">false</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;buildPresets&#34;</span> <span class="p">:[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;gui app debug&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;configurePreset&#34;</span><span class="p">:</span> <span class="s2">&#34;gui app debug&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;console app debug&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;configurePreset&#34;</span><span class="p">:</span> <span class="s2">&#34;console app debug&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>CMakeUserPresets.json 可以直接继承 CMakePresets.json 中的字段。注意此处的 &ldquo;CMAKE_CXX_FLAGS&rdquo; 字段并不会覆盖 CMakePresets.json 中的 &ldquo;CMAKE_CXX_FLAGS&rdquo; 设置，而是在原来的基础上添加。</p>
+<p>每个 &ldquo;buildPresets&rdquo; 需要配合一个同名 &ldquo;configurePreset&rdquo; 完成构建，此时可以查看 cmake 预设：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">➜  cmake --list-presets
+</span></span><span class="line"><span class="cl">Available configure presets:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;gui app debug&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;console app debug&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;ci-debug&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;ci-release&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果此时要构建 gui 版本，则输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cmake --preset <span class="s2">&#34;gui app debug&#34;</span>
+</span></span><span class="line"><span class="cl">cmake --build --preset <span class="s2">&#34;gui app debug&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果使用 VSCode 插件则无需输入命令行，直接鼠标点选即可构建。</p>
+<h2 id="14-rpath">14 rpath</h2>
+<h2 id="15-clang-静态分析器">15. Clang 静态分析器</h2>
+<p>安装 clang 和 llvm 套件，安装 clang static analyzer：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install clang-tools
+</span></span><span class="line"><span class="cl">scan-build -h
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在执行 cmake 和 make 命令前加上 <code>scan-build</code>，将会替换 CC 和 CXX 环境变量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">scan-build cmake ..
+</span></span><span class="line"><span class="cl">scan-build make
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果找到错误会有类似提示：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">scan-build: Analysis run complete.
+</span></span><span class="line"><span class="cl">scan-build: 2 bugs found.
+</span></span><span class="line"><span class="cl">scan-build: Run &#39;scan-view /tmp/scan-build-2024-04-30-151415-5388-1&#39; to examine bug reports.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行提示的 <code>scan-view xxx</code> 可以在浏览器上查看错误详情。</p>
+<h2 id="16-cmake-行为准则">16. CMake 行为准则</h2>
+<h3 id="161-cmake-应避免的行为">16.1 CMake 应避免的行为</h3>
+<ul>
+<li>不要使用具有全局作用域的函数：这包含 <code>link_directories</code>、 <code>include_libraries</code> 等相似的函数。</li>
+<li>不要添加非必要的 PUBLIC 要求：你应该避免把一些不必要的东西强加给用户（-Wall）。相比于 PUBLIC，更应该把他们声明为 PRIVATE。</li>
+<li>不要在 file 函数中添加 GLOB 文件：如果不重新运行 CMake，Make 或者其他的工具将不会知道你是否添加了某个文件。值得注意的是，CMake 3.12 添加了一个 CONFIGURE_DEPENDS 标志能够使你更好的完成这件事。</li>
+<li>将库直接链接到需要构建的目标上：如果可以的话，总是显式的将库链接到目标上。</li>
+<li>当链接库文件时，不要省略 PUBLIC 或 PRIVATE 关键字：这将会导致后续所有的链接都是默认的。</li>
+</ul>
+<h3 id="162-cmake-应遵守的规范">16.2 CMake 应遵守的规范</h3>
+<ul>
+<li>把 CMake 程序视作代码：它是代码。它应该和其他的代码一样，是整洁并且可读的。</li>
+<li>建立目标的观念：你的目标应该代表一系列的概念。为任何需要保持一致的东西指定一个（导入型）INTERFACE 目标，然后每次都链接到该目标。</li>
+<li>导出你的接口：你的 CMake 项目应该可以直接构建或者安装。</li>
+<li>为库书写一个 Config.cmake 文件：这是库作者为支持客户的体验而应该做的。</li>
+<li>声明一个 ALIAS 目标以保持使用的一致性：使用 <code>add_subdirectory</code> 和 <code>find_package</code> 应该提供相同的目标和命名空间。</li>
+<li>将常见的功能合并到有详细文档的函数或宏中：函数往往是更好的选择。</li>
+<li>使用小写的函数名：CMake 的函数和宏的名字可以定义为大写或小写，但是一般都使用小写，变量名用大写。</li>
+<li>使用 cmake_policy 和/或 限定版本号范围：每次改变版本特性 (policy) 都要有据可依。应该只有不得不使用旧特性时才降低特性 (policy) 版本。</li>
+</ul>
+<h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://zhuanlan.zhihu.com/p/631113006" target="_blank" rel="noopener noreffer ">在 CMakeLists.txt 中添加源文件的几种方法</a></li>
+<li><a href="https://blog.csdn.net/guaaaaaaa/article/details/125601766" target="_blank" rel="noopener noreffer ">CMake - 使用 target_sources() 提高源文件处理能力</a></li>
+<li><a href="https://felsoci.sk/blog/using-address-sanitizer-asan-in-a-cmake-project.html" target="_blank" rel="noopener noreffer ">Using AddressSanitizer (ASan) in a CMake project</a></li>
+<li><a href="https://developer.arm.com/documentation/den0013/d/Porting/Miscellaneous-C-porting-issues/unsigned-char-and-signed-char" target="_blank" rel="noopener noreffer ">unsigned char and signed char</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/596350807" target="_blank" rel="noopener noreffer ">cmake：这样查看源码的预编译信息</a></li>
+<li><a href="https://developers.redhat.com/blog/2021/04/30/the-gdb-developers-gnu-debugger-tutorial-part-1-getting-started-with-the-debugger#compiler_options" target="_blank" rel="noopener noreffer ">The GDB developer&rsquo;s GNU Debugger tutorial, Part 1: Getting started with the debugger</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/402463278" target="_blank" rel="noopener noreffer ">使用 Gcov 和 LCOV 度量 C/C++ 项目的代码覆盖率</a></li>
+<li><a href="https://blog.csdn.net/whahu1989/article/details/121711957" target="_blank" rel="noopener noreffer ">Linux 下 gcovr 的使用细节</a></li>
+<li><a href="https://mcuoneclipse.com/2023/12/03/building-with-cmake-presets/" target="_blank" rel="noopener noreffer ">Building with CMake Presets</a></li>
+<li><a href="https://hedzr.com/c&#43;&#43;/algorithm/using-cmake-presets/" target="_blank" rel="noopener noreffer ">使用 CMake Presets</a></li>
+<li><a href="https://blog.feabhas.com/2023/08/cmake-presets/" target="_blank" rel="noopener noreffer ">CMake Presets</a></li>
+<li><a href="https://dominikberner.ch/cmake-presets-best-practices/" target="_blank" rel="noopener noreffer ">Organizing CMake presets</a></li>
+<li><a href="https://www.cnblogs.com/RioTian/p/17869507.html" target="_blank" rel="noopener noreffer ">【ToolChains】| CMake 技巧</a></li>
+<li><a href="https://csstormq.github.io/blog/LLVM%20%E4%B9%8B%20Clang%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8%E7%AF%87%EF%BC%881%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20Clang%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8" target="_blank" rel="noopener noreffer ">LLVM 之 Clang 静态分析器篇（1）：如何使用 Clang 静态分析器</a></li>
+<li><a href="https://modern-cmake-cn.github.io/Modern-CMake-zh_CN/chapters/intro/dodonot.html" target="_blank" rel="noopener noreffer ">CMake 行为准则 (Do&rsquo;s and Don&rsquo;ts)</a></li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-08-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" data-title="CMake 构建项目"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" data-title="CMake 构建项目"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/c&#43;&#43;/">C&#43;&#43;</a>,&nbsp;<a href="/tags/cmake/">CMake</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" class="prev" rel="prev" title="单元测试框架"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>单元测试框架</a>
+            <a href="/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/" class="next" rel="next" title="C&#43;&#43; 和 C 模块的相互调用">C++ 和 C 模块的相互调用<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mufasa</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

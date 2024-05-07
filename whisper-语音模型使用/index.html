@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Whisper 语音模型使用 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="Whisper 语音模型使用" />
+<meta property="og:description" content="whisper 是 openai 开源的可离线使用的语音识别模型。目前的缺点是只能产生英文的字幕文件。 Windows Windows 上使用的优势是能调用 Nvidia 显卡加速。 下载： WhisperDesktop ggml 语音模型，可以通过国" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kali20177.github.io/whisper-%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-04-07T18:53:37+08:00" />
+<meta property="article:modified_time" content="2024-04-07T18:53:37+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Whisper 语音模型使用"/>
+<meta name="twitter:description" content="whisper 是 openai 开源的可离线使用的语音识别模型。目前的缺点是只能产生英文的字幕文件。 Windows Windows 上使用的优势是能调用 Nvidia 显卡加速。 下载： WhisperDesktop ggml 语音模型，可以通过国"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/whisper-%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8/" /><link rel="prev" href="https://kali20177.github.io/docker-%E9%85%8D%E7%BD%AE/" /><link rel="next" href="https://kali20177.github.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Whisper 语音模型使用",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kali20177.github.io\/whisper-%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8\/"
+        },"genre": "posts","wordcount":  301 ,
+        "url": "https:\/\/kali20177.github.io\/whisper-%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8\/","datePublished": "2024-04-07T18:53:37+08:00","dateModified": "2024-04-07T18:53:37+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mufasa"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Whisper 语音模型使用</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-07">2024-04-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 301 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#windows">Windows</a></li>
+    <li><a href="#macos">MacOS</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>whisper 是 openai 开源的可离线使用的语音识别模型。目前的缺点是只能产生英文的字幕文件。</p>
+<h2 id="windows">Windows</h2>
+<p>Windows 上使用的优势是能调用 Nvidia 显卡加速。</p>
+<p>下载：</p>
+<ol>
+<li><a href="https://github.com/Const-me/Whisper/releases/download/1.12.0/WhisperDesktop.zip" target="_blank" rel="noopener noreffer ">WhisperDesktop</a></li>
+<li>ggml 语音模型，可以通过<a href="https://hf-mirror.com/ggerganov/whisper.cpp/tree/main" target="_blank" rel="noopener noreffer ">国内镜像站点</a>下载，文件越大，识别效果越好，耗时和占用资源越多。</li>
+</ol>
+<p>使用：</p>
+<ol>
+<li>
+<p>解压 WhisperDesktop 后点击 WhisperDesktop.exe 运行，并选择下载好的模型文件。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/whisper/import_ggml.png"
+        data-srcset="/whisper/import_ggml.png, /whisper/import_ggml.png 1.5x, /whisper/import_ggml.png 2x"
+        data-sizes="auto"
+        alt="/whisper/import_ggml.png"
+        title="import ggml" /></p>
+</li>
+<li>
+<p>在 Advanced 中选择独显。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/whisper/nv.png"
+        data-srcset="/whisper/nv.png, /whisper/nv.png 1.5x, /whisper/nv.png 2x"
+        data-sizes="auto"
+        alt="/whisper/nv.png"
+        title="nv" /></p>
+</li>
+<li>
+<p>选择待识别的 mp3 文件，如果是视频文件可以先使用 ffmpeg 转换成 mp3 后再进行操作。选择产生 &ldquo;SubRip subtitles&quot;文件（SRT 字幕），点击 Transcribe 开始生成字幕。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/whisper/run.png"
+        data-srcset="/whisper/run.png, /whisper/run.png 1.5x, /whisper/run.png 2x"
+        data-sizes="auto"
+        alt="/whisper/run.png"
+        title="run" /></p>
+<blockquote>
+<p>图中的 &ldquo;Translate&rdquo; 选项是指视频是其他语言，需要转成英文，而非直接产生其他语言的字幕。</p>
+</blockquote>
+</li>
+<li>
+<p>最后产生 srt 字幕文件后，在 vlc 中选择并添加即可。实测使用 RTX2060 + ggml-large-v2 模型的情况下，产生一个多小时讲座的字幕花费 17 分钟左右。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/whisper/result.png"
+        data-srcset="/whisper/result.png, /whisper/result.png 1.5x, /whisper/result.png 2x"
+        data-sizes="auto"
+        alt="/whisper/result.png"
+        title="result" /></p>
+</li>
+</ol>
+<h2 id="macos">MacOS</h2>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-04-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/whisper-%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali20177.github.io/whisper-%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8/" data-title="Whisper 语音模型使用"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali20177.github.io/whisper-%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8/" data-title="Whisper 语音模型使用"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/docker-%E9%85%8D%E7%BD%AE/" class="prev" rel="prev" title="Docker 基础"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Docker 基础</a>
+            <a href="/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/" class="next" rel="next" title="Ubuntu 常用设置">Ubuntu 常用设置<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mufasa</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

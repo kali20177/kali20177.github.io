@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Ubuntu 常用设置 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="Ubuntu 常用设置" />
+<meta property="og:description" content="目录名称 gnome 桌面改回英文目录名： 1 2 3 export LANG=en_US xdg-user-dirs-gtk-update export LANG=zh_CN fonts Linux 上字体一般被存放在下面的文件夹（可通过 cat /etc/fonts/fonts.conf 查看）： /usr/share/fonts/ /usr/local/share/fonts/ ~/.fonts/ 用户 安装 TrueType 字体 1 sudo apt install ttf-mscorefonts-installer 显示当前安" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kali20177.github.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-04-29T09:13:40+08:00" />
+<meta property="article:modified_time" content="2024-04-29T09:13:40+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Ubuntu 常用设置"/>
+<meta name="twitter:description" content="目录名称 gnome 桌面改回英文目录名： 1 2 3 export LANG=en_US xdg-user-dirs-gtk-update export LANG=zh_CN fonts Linux 上字体一般被存放在下面的文件夹（可通过 cat /etc/fonts/fonts.conf 查看）： /usr/share/fonts/ /usr/local/share/fonts/ ~/.fonts/ 用户 安装 TrueType 字体 1 sudo apt install ttf-mscorefonts-installer 显示当前安"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/" /><link rel="prev" href="https://kali20177.github.io/whisper-%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8/" /><link rel="next" href="https://kali20177.github.io/llama.cpp-%E7%AE%80%E5%8D%95%E4%BD%93%E9%AA%8C/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Ubuntu 常用设置",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kali20177.github.io\/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE\/"
+        },"genre": "posts","keywords": "Linux","wordcount":  971 ,
+        "url": "https:\/\/kali20177.github.io\/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE\/","datePublished": "2024-04-29T09:13:40+08:00","dateModified": "2024-04-29T09:13:40+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mufasa"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Ubuntu 常用设置</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-29">2024-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 971 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#目录名称">目录名称</a></li>
+    <li><a href="#fonts">fonts</a></li>
+    <li><a href="#gcc-13">gcc 13</a></li>
+    <li><a href="#优化设置">优化设置</a></li>
+    <li><a href="#fcitx-5">fcitx 5</a></li>
+    <li><a href="#neovim">neovim</a></li>
+    <li><a href="#软件版本管理">软件版本管理</a></li>
+    <li><a href="#virtualbox">Virtualbox</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="目录名称">目录名称</h2>
+<p>gnome 桌面改回英文目录名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span>en_US
+</span></span><span class="line"><span class="cl">xdg-user-dirs-gtk-update
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span>zh_CN
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="fonts">fonts</h2>
+<p>Linux 上字体一般被存放在下面的文件夹（可通过 <code>cat /etc/fonts/fonts.conf</code> 查看）：</p>
+<ul>
+<li><code>/usr/share/fonts/</code></li>
+<li><code>/usr/local/share/fonts/</code></li>
+<li><code>~/.fonts/</code> 用户</li>
+</ul>
+<p>安装 TrueType 字体</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install ttf-mscorefonts-installer
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>显示当前安装的字体：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fc-list
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果需要手动安装字体，需要将解压后的字体文件或文件夹移动到上述的三个位置之一，然后刷新字体缓存：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fc-cache -f -v
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="gcc-13">gcc 13</h2>
+<p>下载和解压 gcc13.2：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://mirror.koddos.net/gcc/releases/gcc-13.2.0/gcc-13.2.0.tar.gz
+</span></span><span class="line"><span class="cl">tar -xzvf gcc-13.2.0.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> gcc-13.2.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install libgmp-dev libmpc-dev libmpfr-dev libmpfrc++-dev libisl-dev
+</span></span><span class="line"><span class="cl">./contrib/download_prerequisites
+</span></span><span class="line"><span class="cl">mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">../configure --prefix<span class="o">=</span>/opt/gcc-13.2.0 --with-pkgversion<span class="o">=</span><span class="s1">&#39;glibc gcc V13.2.0&#39;</span> --enable-checking<span class="o">=</span>release --enable-languages<span class="o">=</span>c,c++ --disable-multilib --enable-bootstrap --enable-threads<span class="o">=</span>posix --with-system-zlib 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">make -j<span class="k">$(</span>nproc<span class="k">)</span>
+</span></span><span class="line"><span class="cl">make install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>环境变量设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># gcc-13.2 ENV</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GCC13_HOME</span><span class="o">=</span>/opt/gcc-13.2.0
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/bin:<span class="nv">$PATH</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/lib64:<span class="nv">$LD_LIBRARY_PATH</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/lib:<span class="nv">$LD_LIBRARY_PATH</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/libexec:<span class="nv">$LD_LIBRARY_PATH</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CPATH</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/include:<span class="nv">$CPATH</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INCLUDE</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/include:<span class="nv">$CPATH</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/bin/gcc
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CXX</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/bin/g++
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="优化设置">优化设置</h2>
+<p>点击程序坞图标，程序最小化：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gsettings <span class="nb">set</span> org.gnome.shell.extensions.dash-to-dock click-action <span class="s1">&#39;minimize&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>音视频编解码器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get install ubuntu-restricted-extras
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>音频控制：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install pulseaudio pavucontrol
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>gnome 桌面插件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install gnome-tweaks
+</span></span><span class="line"><span class="cl">sudo apt install gnome-shell-extensions
+</span></span><span class="line"><span class="cl">sudo apt install chrome-gnome-shell
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>切换 Wayland 和 X11，在位置 <code>/etc/gdm3/custom.conf</code> 根据注释操作。</p>
+<h2 id="fcitx-5">fcitx 5</h2>
+<p>安装 fcitx5 本体：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install fcitx5 fcitx5-chinese-addons fcitx5-frontend-gtk4 fcitx5-frontend-gtk3 fcitx5-frontend-gtk2 fcitx5-frontend-qt5
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装中文词库，<a href="https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases" target="_blank" rel="noopener noreffer ">下载页</a>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20240426.dict
+</span></span><span class="line"><span class="cl">mkdir -p ~/.local/share/fcitx5/pinyin/dictionaries/
+</span></span><span class="line"><span class="cl">mv zhwiki-20220416.dict ~/.local/share/fcitx5/pinyin/dictionaries/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设为默认输入法，终端输入 <code>im-config</code>，按照提示设置。并添加环境变量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">XMODIFIERS</span><span class="o">=</span>@im<span class="o">=</span>fcitx
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GTK_IM_MODULE</span><span class="o">=</span>fcitx
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">QT_IM_MODULE</span><span class="o">=</span>fcitx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="neovim">neovim</h2>
+<p>安装剪贴板依赖：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install xclip
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装本体：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+</span></span><span class="line"><span class="cl">sudo rm -rf /opt/nvim
+</span></span><span class="line"><span class="cl">sudo tar -C /opt -xzf nvim-linux64.tar.gz
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$PATH</span><span class="s2">:/opt/nvim-linux64/bin&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="软件版本管理">软件版本管理</h2>
+<p>对于使用 apt 安装的多个版本的包，可以使用 update-alternatives 命令管理软链接，进行版本切换。例如 editor 命令一般有以下的替代项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">± update-alternatives --config editor
+</span></span><span class="line"><span class="cl">有 <span class="m">5</span> 个候选项可用于替换 editor <span class="o">(</span>提供 /usr/bin/editor<span class="o">)</span>。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  选择       路径              优先级  状态
+</span></span><span class="line"><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="cl">* <span class="m">0</span>            /bin/nano            <span class="m">40</span>        自动模式
+</span></span><span class="line"><span class="cl">  <span class="m">1</span>            /bin/ed             -100       手动模式
+</span></span><span class="line"><span class="cl">  <span class="m">2</span>            /bin/nano            <span class="m">40</span>        手动模式
+</span></span><span class="line"><span class="cl">  <span class="m">3</span>            /usr/bin/code        <span class="m">0</span>         手动模式
+</span></span><span class="line"><span class="cl">  <span class="m">4</span>            /usr/bin/vim.basic   <span class="m">30</span>        手动模式
+</span></span><span class="line"><span class="cl">  <span class="m">5</span>            /usr/bin/vim.tiny    <span class="m">15</span>        手动模式
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 list 就只会列出当前备选项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">± update-alternatives --list editor
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看 editor 的链接位置可以发现他指向了 <code>/etc/alternatives/editor</code>，这个位置的软链再次指向 nano 的位置。</p>
+<p>以切换 gcc 版本为例，如果计算机中已经安装了 gcc-11 和 gcc-12，此时 gcc 命令默认指向 gcc-11，通过下面的命令添加新的软链：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 <span class="m">10</span>
+</span></span><span class="line"><span class="cl">sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 <span class="m">20</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>语法：<code>--install link name path priority</code></p>
+<p>参数：</p>
+<ul>
+<li><code>--install</code>, Add a group of alternatives to the system</li>
+<li><code>/usr/bin/gcc</code>, the generic name for the master link</li>
+<li>gcc, name is the name of its symlink in the alternatives directory</li>
+<li>path 添加命令的实际路径</li>
+<li>priority 优先级</li>
+</ul>
+<p>现在就给 gcc 添加了两个候选项，可通过 display 和 config 查看和设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">update-alternatives --display gcc
+</span></span><span class="line"><span class="cl">update-alternatives --config gcc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以使用 GUI 程序 galternatives 管理替代项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install galternatives
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="virtualbox">Virtualbox</h2>
+<p>共享文件夹提示无权限访问，因为 <code>/media</code> 下挂载的文件夹用户是 root, 应把当前用户添加到 vboxsf 组中，执行命令后重启。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo usermod -aG vboxsf <span class="k">$(</span>whoami<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://linuxconfig.org/how-to-install-and-manage-fonts-on-linux" target="_blank" rel="noopener noreffer ">How to install and manage fonts on Linux</a></li>
+<li><a href="https://cuterwrite.top/p/gcc-13-source-install/" target="_blank" rel="noopener noreffer ">GCC-13.2.0 编译安装</a></li>
+<li><a href="https://muzing.top/posts/3fc249cf/" target="_blank" rel="noopener noreffer ">在 Ubuntu 安装配置 Fcitx 5 中文输入法</a></li>
+<li><a href="https://www.baeldung.com/linux/update-alternatives-command" target="_blank" rel="noopener noreffer ">The update-alternatives Command in Linux</a></li>
+<li><a href="https://www.cnblogs.com/yongdaimi/p/13424855.html" target="_blank" rel="noopener noreffer ">VirtualBox: linux 没有权限访问共享文件夹的问题</a></li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-04-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali20177.github.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/" data-title="Ubuntu 常用设置"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali20177.github.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/" data-title="Ubuntu 常用设置"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/linux/">Linux</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/whisper-%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8/" class="prev" rel="prev" title="Whisper 语音模型使用"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Whisper 语音模型使用</a>
+            <a href="/llama.cpp-%E7%AE%80%E5%8D%95%E4%BD%93%E9%AA%8C/" class="next" rel="next" title="Llama.cpp 简单体验">Llama.cpp 简单体验<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mufasa</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

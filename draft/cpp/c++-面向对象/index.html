@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>[未完成] C&#43;&#43; 面向对象 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="[未完成] C&#43;&#43; 面向对象" />
+<meta property="og:description" content="类 访问权限 private 成员： private 私有成员，只能在定义该类的成员函数内部访问。对于类的外部不可见，外部对象无法直接访问，派生类也无法访问私有成员。 private 成员通" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="draft" />
+<meta property="article:published_time" content="2024-02-25T20:01:25+08:00" />
+<meta property="article:modified_time" content="2024-02-25T20:01:25+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
+
+<meta name="twitter:title" content="[未完成] C&#43;&#43; 面向对象"/>
+<meta name="twitter:description" content="类 访问权限 private 成员： private 私有成员，只能在定义该类的成员函数内部访问。对于类的外部不可见，外部对象无法直接访问，派生类也无法访问私有成员。 private 成员通"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" /><link rel="prev" href="https://kali20177.github.io/draft/cpp/cpp-%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95/" /><link rel="next" href="https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E6%A8%A1%E6%9D%BF%E7%BC%96%E7%A8%8B/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[未完成] C++ 面向对象",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kali20177.github.io\/draft\/cpp\/c\u002b\u002b-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1\/"
+        },"genre": "draft","keywords": "C\u002b\u002b","wordcount":  7126 ,
+        "url": "https:\/\/kali20177.github.io\/draft\/cpp\/c\u002b\u002b-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1\/","datePublished": "2024-02-25T20:01:25+08:00","dateModified": "2024-02-25T20:01:25+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mufasa"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">[未完成] C&#43;&#43; 面向对象</h1><div class="content" id="content"><h2 id="类">类</h2>
+<h3 id="访问权限">访问权限</h3>
+<p>private 成员：</p>
+<ul>
+<li>private 私有成员，只能在定义该类的成员函数内部访问。对于类的外部不可见，外部对象无法直接访问，<strong>派生类也无法访问私有成员</strong>。</li>
+<li>private 成员通常用于封装类的实现细节，隐藏内部实现，提高安全性和封装性。</li>
+</ul>
+<p>protected 成员：</p>
+<ul>
+<li>protected 也是类的私有成员，具有更宽松的访问权限。可以被该类的成员函数和派生类的成员函数访问。外部对象无法直接访问。</li>
+<li>protected 成员通常用于实现<strong>继承和派生类的访问控制</strong>。</li>
+</ul>
+<p><strong>可使用 using 改变 protected 成员在派生类中的访问权限</strong>，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Base</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived1</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">test</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived2</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">Base</span><span class="o">::</span><span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Derived1</span> <span class="n">d1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Derived2</span> <span class="n">d2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">d1</span><span class="p">.</span><span class="n">test</span><span class="p">();</span>  <span class="c1">// 只能通过成员函数访问
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="n">d2</span><span class="p">.</span><span class="n">m</span><span class="p">;</span>       <span class="c1">// 修改成了 public
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="成员函数">成员函数</h3>
+<h4 id="隐式内联">隐式内联</h4>
+<p><strong>类内定义的成员函数</strong>隐式内联（因为一般这种定义会出现在头文件中，被多处包含），类外定义的成员函数非隐式内联。例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Entity</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// implicitly inline
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">void</span> <span class="nf">foo1</span><span class="p">()</span> <span class="p">{</span>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;foo1&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">foo2</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;foo2&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="成员函数的-const">成员函数的 const</h4>
+<p>const 修饰类的方法，表明该方法不会改变对象的状态，且能正确处理 const 对象的调用。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Entity</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">m_X</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">GetX</span><span class="p">()</span> <span class="p">{</span>  <span class="k">return</span> <span class="n">m_X</span><span class="p">;</span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="nf">GetX</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>  <span class="k">return</span> <span class="n">m_X</span><span class="p">;</span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">SetX</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>  <span class="n">m_X</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">PrintEntity</span><span class="p">(</span><span class="k">const</span> <span class="n">Entity</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">GetX</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当使用常量左值引用传递对象时，const 保证了 GetX() 方法的调用是安全的。</p>
+<blockquote>
+<p>const 成员函数可以被 const 和非 const 对象调用。所以如果类方法不会改变类的状态，尽量使用 const 修饰。</p>
+</blockquote>
+<p>标准库中经常提供 const 和非 const 版本的重载，处理返回值在常量性方面的不同。</p>
+<h3 id="static-成员变量">static 成员变量</h3>
+<p><strong>静态成员变量被该类的所有对象共享</strong>，是位于类的作用域区域内的全局变量，不与某个具体对象关联。可以通过类名和作用域解析运算符访问和初始化。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">int</span> <span class="n">s_value</span><span class="p">;</span>        <span class="c1">// 静态成员变量声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">X</span><span class="o">::</span><span class="n">s_value</span><span class="p">{</span> <span class="mi">10</span> <span class="p">};</span>  <span class="c1">// 静态成员变量定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">X</span><span class="o">::</span><span class="n">s_value</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>ODR use :</p>
+<ol>
+<li>一个对象在它的值被读取（除非它是编译时常量）或写入，或取它的地址，或者被引用绑定时，这个对象被 ODR 使用。</li>
+<li>使用“所引用的对象在编译期未知”的引用时，这个引用被 ODR 使用。</li>
+<li>一个函数在被调用或取它的地址时，被 ODR 使用。</li>
+</ol>
+<p>如果一个对象、引用或函数被 ODR 使用，那么程序中必须有它的定义；否则通常会有链接时错误。</p>
+</blockquote>
+<p>因此，在上面的例子中，如果没有在类外定义静态变量则编译时报错。</p>
+<p>除此之外，静态成员变量可以直接在类内初始化：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">X</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">s_value1</span>  <span class="p">{</span> <span class="mi">4</span> <span class="p">};</span>   <span class="c1">// 这是 &#34;声明&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="n">s_value2</span>  <span class="p">{</span> <span class="mi">5</span> <span class="p">};</span>   <span class="c1">// C++ 17, 定义
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">static</span> <span class="k">constexpr</span> <span class="kt">int</span> <span class="n">s_value3</span>  <span class="p">{</span> <span class="mi">6</span> <span class="p">};</span>   <span class="c1">// C++ 17 , 内联变量定义，constexpr 成员隐式内联
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">X</span><span class="o">::</span><span class="n">s_value1</span><span class="p">;</span>  <span class="c1">// 需要此行
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意上方的 s_value1，这种方式下仍然属于声明，可以使用他的值，但取地址行为未定义（虽然部分编译器可能违反这条规则进而编译通过）。</p>
+<h3 id="static-成员函数">static 成员函数</h3>
+<p>由于静态成员函数不与对象关联，所以默认参数无 *this 指针。静态成员函数可直接访问其他静态成员（变量或函数），不能访问非静态成员。这是因为非静态成员必须属于一个此类的对象，而静态成员函数没有类对象可供使用。</p>
+<p>静态成员函数可以在类外定义，定义时不需要 static 修饰：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Log</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kr">inline</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;Hello World&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">void</span> <span class="n">setStr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">message</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">Log</span><span class="o">::</span><span class="n">setStr</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;&amp;</span> <span class="n">message</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">str</span> <span class="o">=</span> <span class="n">message</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">str</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>C++ 没有静态构造函数</p>
+</blockquote>
+<h3 id="友元">友元</h3>
+<p>friend 声明在类体内，授予一个函数或类完整的访问权限。</p>
+<blockquote>
+<p>构造函数与析构函数也可以是友元，友元关系不能传递，不能继承。</p>
+</blockquote>
+<h4 id="友元函数">友元函数</h4>
+<p>某类的友元函数不是该类的成员函数</p>
+<h3 id="构造函数">构造函数</h3>
+<p>构造函数没有名字且无法被直接调用。它们在发生初始化时被调用，且按照初始化的规则进行选择。</p>
+<ol>
+<li>
+<p>成员初始化：</p>
+<blockquote>
+<p>对象实例化过程中，内存分配后，才会调用构造函数初始化对象的成员变量。</p>
+</blockquote>
+<ol>
+<li>
+<p>构造函数体内赋值</p>
+<p>直接将变量赋值过程写在构造函数体中，不建议使用。函数体内赋值相比于成员初始化列表存在效率问题，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Example</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Example</span><span class="p">()</span> <span class="p">{</span>  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;create example &#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Example</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;create example with &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Entity</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">m_Name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Example</span> <span class="n">m_Example</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Entity</span><span class="p">()</span> <span class="o">:</span> <span class="n">m_Name</span><span class="p">(</span><span class="s">&#34;Unknown&#34;</span><span class="p">)</span> <span class="p">{</span>  <span class="n">m_Example</span> <span class="o">=</span> <span class="n">Example</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>  <span class="p">}</span>  <span class="c1">// 打印两次
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Entity</span><span class="p">()</span> <span class="o">:</span> <span class="n">m_Name</span><span class="p">(</span><span class="s">&#34;Unknown&#34;</span><span class="p">),</span> <span class="n">m_Example</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>              <span class="c1">// 打印一次
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Entity</span> <span class="n">e</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Entity e();  // 警告
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Entity e{};  // OK
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在进入构造函数的函数体之前，m_Example 进行了默认初始化。</p>
+<p><strong>在开始执行组成构造函数体的复合语句之前，所有直接基类、虚基类和非静态数据成员的初始化均已结束</strong>。</p>
+<blockquote>
+<p>这里注意调用默认无参构造函数时，如果使用 <code>Example e();</code> 编译器会出现警告：<code>warning: empty parentheses interpreted as a function declaration [-Wvexing-parse]</code>。这种写法和函数声明的写法存在歧义，变量 e 不能被正常构造，要去掉 <code>()</code> 或者使用 <code>{}</code>。</p>
+</blockquote>
+</li>
+<li>
+<p>成员初始化器列表（勿和 initializer_list 混淆）</p>
+<ul>
+<li>
+<p><strong>成员初始化器列表的构造顺序是按照类中成员变量声明的顺序</strong>，而非成员初始化器列表本身的顺序。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">X</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">X</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="o">:</span> <span class="n">j</span><span class="p">(</span><span class="n">val</span><span class="p">),</span> <span class="n">i</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>  <span class="p">{</span> <span class="p">}</span>  <span class="c1">// 先初始 i, 再初始 j
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>引用成员不能绑定到成员初始化器列表中的临时量</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">()</span> <span class="o">:</span> <span class="n">v</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span> <span class="p">{}</span> <span class="c1">// 错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">v</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>上面的代码在 gcc, msvc 下可以正常编译，clang 下才会提示：error: reference member &lsquo;v&rsquo; binds to a temporary object whose lifetime would be shorter than the lifetime of the constructed object。这是由于在提案 CWG1696 前，构造函数的成员初始化器列表中可以绑定临时量到引用成员。但是这个临时量只持续到构造函数退出前，而非对象存在期间。</p>
+</blockquote>
+</li>
+<li>
+<p><strong>如果成员是 const、引用或未提供默认构造的类类型</strong>，必须使用成员初始化器列表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Base</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_a</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">m_b</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="c1">// OK 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// m_a = a;        // error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// m_b = b;        // error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span><span class="o">&amp;</span> <span class="n">m_a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">int</span> <span class="n">m_b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+</li>
+<li>
+<p>委托构造函数</p>
+<p>允许在构造函数初始化列表中调用另一个构造函数，委托完成部分初始化，定义委托构造时没有顺序要求，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Person</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Person</span><span class="p">()</span> <span class="o">:</span> <span class="n">Person</span><span class="p">(</span><span class="s">&#34;Unknown&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Person</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span> <span class="o">:</span> <span class="n">Person</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 委托构造函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Person</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span> <span class="kt">int</span> <span class="n">age</span><span class="p">)</span> <span class="o">:</span> <span class="n">name</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">age</span><span class="p">(</span><span class="n">age</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Person</span> <span class="nf">person2</span><span class="p">(</span><span class="s">&#34;Alice&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>前两个构造函数将都会委托给第三个构造函数完成实例化。</p>
+<p>使用委托构造时不能使用构造函数的初始化列表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">class_a</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">class_a</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// member initialization here, no delegate
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">class_a</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_string</span><span class="p">{</span> <span class="n">str</span> <span class="p">}</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//can&#39;t do member initialization here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// error C3511: a call to a delegating constructor shall be the only member-initializer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">class_a</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">,</span> <span class="kt">double</span> <span class="n">dbl</span><span class="p">)</span> <span class="o">:</span> <span class="n">class_a</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="p">,</span> <span class="n">m_double</span><span class="p">{</span> <span class="n">dbl</span> <span class="p">}</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// only member assignment
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">class_a</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">,</span> <span class="kt">double</span> <span class="n">dbl</span><span class="p">)</span> <span class="o">:</span> <span class="n">class_a</span><span class="p">(</span><span class="n">str</span><span class="p">)</span> <span class="p">{</span> <span class="n">m_double</span> <span class="o">=</span> <span class="n">dbl</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">m_double</span><span class="p">{</span> <span class="mf">1.0</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">m_string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用委托构造时要注意<strong>防止形成环形构造</strong>。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>默认构造函数</p>
+<p>可以不带任何实参调用的构造函数是默认构造函数。</p>
+</li>
+<li>
+<p>constexpr 构造</p>
+<p>被 constexpr 修饰的构造函数会将该类型转为 LiteralType，令常量对象在编译期被构造，分配在 rodata 段。</p>
+</li>
+</ol>
+<h3 id="转换构造函数">转换构造函数</h3>
+<p>不以说明符 explicit 声明的构造函数被称为转换构造函数（converting constructor）。</p>
+<h3 id="析构函数">析构函数</h3>
+<blockquote>
+<p>析构函数内定义对象被销毁前要执行的动作，例如回收堆内存，记录日志等。</p>
+</blockquote>
+<p><strong>RAII</strong>：资源获取即初始化（Resource Acquisition Is Initialization），将使用前请求的资源（堆内存、执行线程、打开的套接字、打开的文件、锁定的互斥量、磁盘空间、数据库连接等——任何受限的资源）的生命周期与一个对象的生存期绑定。</p>
+<h3 id="复制构造函数">复制构造函数</h3>
+<p>可以接收同类型的另一对象为实参的构造函数是复制构造函数或移动构造函数。</p>
+<blockquote>
+<p>浅拷贝：
+深拷贝：</p>
+</blockquote>
+<h3 id="移动构造函数">移动构造函数</h3>
+<h3 id="this-指针">this 指针</h3>
+<p><code>this</code> 指针始终指向正在被操作的对象。当对某个对象调用<strong>非静态成员函数</strong>时，编译器会将该对象的地址作为隐藏的参数传递给函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">myDate</span><span class="p">.</span><span class="n">setMonth</span><span class="p">(</span> <span class="mi">3</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 等价于
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">setMonth</span><span class="p">(</span> <span class="o">&amp;</span><span class="n">myDate</span><span class="p">,</span> <span class="mi">3</span> <span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>对象的 this 指针不是对象的一部分，他只是一个函数参数，所以不会影响 sizeof 语句的结果。</p>
+<blockquote>
+<p>All non-static member functions have a <strong>this const pointer</strong> that holds the address of the implicit object.</p>
+</blockquote>
+<p>用途：</p>
+<ol>
+<li>
+<p>显式调用 this 指针消除成员变量和同名参数的歧义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">PrintEntity</span><span class="p">(</span><span class="k">const</span> <span class="n">Entity</span><span class="o">&amp;</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// print logic
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Entity</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Entity</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">).</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">PrintEntity</span><span class="p">(</span><span class="o">*</span><span class="k">this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>通过返回 this 指针实现链式调用</p>
+</li>
+<li>
+<p>重置类的状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">Reset</span><span class="p">()</span> <span class="p">{</span>  <span class="o">*</span><span class="k">this</span> <span class="o">=</span> <span class="p">{};</span>  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<blockquote>
+<p>this 指针可以被 delete。</p>
+</blockquote>
+<h2 id="继承">继承</h2>
+<p>继承时也存在 private, protected 和 public 三种继承，前两种很少用到。且默认是 private 继承。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span> <span class="o">:</span> <span class="k">public</span> <span class="n">A</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">C</span> <span class="o">:</span> <span class="k">private</span> <span class="n">B</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">D</span> <span class="o">:</span> <span class="k">protected</span> <span class="n">C</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">E</span> <span class="o">:</span> <span class="n">D</span> <span class="p">{};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="虚函数">虚函数</h3>
+<p>如果一个成员函数是虚函数，则派生类中匹配的重写都是虚函数。派生类中的虚函数重写不会隐式地让基类成员函数成为虚函数。</p>
+<blockquote>
+<p>条款 9 : 不要从构造函数或析构函数调用虚函数。
+rule 9 : Never call virtual functions during construction or destruction.    —— Effective C++</p>
+</blockquote>
+<blockquote>
+<p>条款 36 : 绝不重新定义继承而来的 non-virtual 函数
+rule 36 : Never redefine an inherited non-virtual function.    —— Effective C++</p>
+</blockquote>
+<blockquote>
+<p>条款 37 : 绝不重新定义继承而来的缺省参数值 (virtual 函数)
+rule 37 : Never redefine a function&rsquo;s inherited default parameter value.    —— Effective C++</p>
+</blockquote>
+<p>创建派生类时首先调用基类构造函数，此时派生类还没有创建，无法调用派生类的虚函数版本。在基类析构函数中调用虚函数，它将始终解析为该函数的基类版本，因为派生部分已经被销毁。</p>
+<h3 id="override-and-final">override and final</h3>
+<p>派生类虚函数只有当它的函数签名和返回类型完全匹配时才被认为是重写。</p>
+<blockquote>
+<p>C++ Templates &ndash; the complete guides</p>
+<p>签名：</p>
+<ol>
+<li>The unqualified name of the function</li>
+<li>The class or namespace scope of that name, and if the name has internal linkage, the translation unit in which the name is declared</li>
+<li>The const, volatile, or const volatile qualification of the function</li>
+<li>The types of the function parameters</li>
+<li>its return type, if the function is generated from a function template</li>
+<li>The template parameters and the template arguments, if the function is generated from a function template</li>
+</ol>
+<p>如果函数具有不同的签名，则它们可以在程序中共存。普通函数的签名不包含返回类型。</p>
+</blockquote>
+<p>因此在重写派生类的虚函数时可能会导致意外结果，例如下面两种情况会编译通过：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">getName1</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;A&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">getName2</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;A&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span> <span class="o">:</span> <span class="k">public</span> <span class="n">A</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">getName1</span><span class="p">(</span><span class="kt">short</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;B&#34;</span><span class="p">;</span> <span class="p">}</span>     <span class="c1">// note: parameter is a short
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">getName2</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;B&#34;</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// note: function is const
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>override 关键字用于虚函数后，明确表示此处重写基类中的虚函数，不匹配则编译失败：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">getName1</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;A&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">getName2</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;A&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">getName3</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;A&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span> <span class="o">:</span> <span class="k">public</span> <span class="n">A</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">getName1</span><span class="p">(</span><span class="kt">short</span> <span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="k">override</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;B&#34;</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// compile error, function is not an override
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">getName2</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="k">const</span> <span class="k">override</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;B&#34;</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// compile error, function is not an override
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">getName3</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="k">override</span> <span class="k">final</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&#34;B&#34;</span><span class="p">;</span> <span class="p">}</span> <span class="c1">// okay, function is an override of A::getName3(int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>对于派生类的覆写函数使用 override 说明符，包括虚析构。</p>
+</blockquote>
+<p>final 说明符用于表示此虚函数不再允许被覆写。</p>
+<h3 id="纯虚函数">纯虚函数</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">speak</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>任何具有一个或多个纯虚函数的类都会变成抽象基类，不能被实例化。它要求派生类必须重写此成员函数，否则此派生类也会被认为是抽象类。</p>
+<blockquote>
+<ol>
+<li>抽象类具有虚表</li>
+<li>任何具有纯虚函数的类都应该具有虚析构函数</li>
+<li>没有成员变量，全部有虚函数组成的类被称为接口类，对应其他语言的接口类 interface 的概念</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>可以为纯虚函数在类外提供定义。&ndash; C++ Primer</p>
+</blockquote>
+<p>如果要为抽象类提供纯虚函数的默认实现（很少用到），在类外定义虚函数的实现，并在派生类中显式通过作用域运算符调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Animal</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">m_name</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Animal</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="n">m_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>	<span class="p">{</span>	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">getName</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="n">m_name</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">virtual</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">speak</span><span class="p">()</span> <span class="k">const</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">virtual</span> <span class="o">~</span><span class="n">Animal</span><span class="p">()</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义默认版本
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">Animal</span><span class="o">::</span><span class="n">speak</span><span class="p">()</span> <span class="k">const</span>	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="s">&#34;buzz&#34;</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Dragonfly</span><span class="o">:</span> <span class="k">public</span> <span class="n">Animal</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Dragonfly</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span> <span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="n">Animal</span><span class="p">{</span><span class="n">name</span><span class="p">}</span>	<span class="p">{</span>	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">speak</span><span class="p">()</span> <span class="k">const</span> <span class="k">override</span>	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Animal</span><span class="o">::</span><span class="n">speak</span><span class="p">();</span>  <span class="c1">// 使用默认实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>作用域解析运算符同时可用于区分继承类中的同名函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">m_value</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">Base</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="o">:</span> <span class="n">m_value</span><span class="p">{</span> <span class="n">value</span> <span class="p">}</span>	<span class="p">{</span>	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">identify</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Base</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span><span class="o">:</span> <span class="k">public</span> <span class="n">Base</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Derived</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">:</span> <span class="n">Base</span> <span class="p">{</span> <span class="n">value</span> <span class="p">}</span>	<span class="p">{</span>	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">identify</span><span class="p">()</span> <span class="k">const</span>	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Base</span><span class="o">::</span><span class="n">identify</span><span class="p">();</span> <span class="c1">// call Base::identify()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Derived</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="c1">// then identify ourselves
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="虚析构">虚析构</h3>
+<p>在析构函数未使用 <code>virtual</code> 修饰的情况下，使用基类类型的指针创建一个派生类对象，那么派生类析构时只会调用基类的析构函数。</p>
+<blockquote>
+<p>条款 7 : 为多态基类声明 virtual 析构函数
+rule 7 : Declare destructors virtual in polymorphic base classes.    —— Effective C++</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">virtual</span> <span class="o">~</span><span class="n">Base</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Base destructor called&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Derived</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="o">~</span><span class="n">Derived</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Derived destructor called&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Base</span><span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Derived</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">delete</span> <span class="n">ptr</span><span class="p">;</span>  <span class="c1">// 如果 Base 的析构函数不是虚函数，只会调用 Base 的析构函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="多重继承">多重继承</h3>
+<blockquote>
+<p>尽量避免使用多重继承，因为要处理菱形继承问题。</p>
+</blockquote>
+<p>假设 B、C 都继承自 A，D 继承自 B 和 C，不使用虚继承的情况下 D 会得到 A 类的两个副本。虚继承用于解决此类问题。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{</span>   <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">B</span><span class="o">:</span> <span class="k">virtual</span> <span class="k">public</span> <span class="n">A</span>    <span class="p">{</span>   <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">C</span><span class="o">:</span> <span class="k">virtual</span> <span class="k">public</span> <span class="n">A</span>    <span class="p">{</span>   <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">D</span><span class="o">:</span> <span class="k">public</span> <span class="n">B</span><span class="p">,</span> <span class="k">public</span> <span class="n">C</span>  <span class="p">{</span>   <span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>此时，&ldquo;最派生&quot;的类负责构造虚基类 A</p>
+</blockquote>
+<h2 id="多态">多态</h2>
+<p>通过基类指针操作对象，可以降低重复，提高代码可维护性。还可以将接口和实现分离，实现解耦。</p>
+<h3 id="绑定的概念">绑定的概念</h3>
+<p><strong>绑定</strong>指将标识符 (如变量和函数名) 转换为地址的过程。分为静态绑定和动态绑定。</p>
+<ul>
+<li>Early Binding (compile-time time polymorphism) As the name indicates, compiler (or linker) directly associate an address to the function call.</li>
+<li>Late Binding : (Run time polymorphism) In this, the compiler adds code that identifies the kind of object at runtime then matches the call with the right function definition. This can be achieved by declaring a virtual function.</li>
+</ul>
+<h3 id="rtti-机制">RTTI 机制</h3>
+<p>Run-Time Type Identification, 用于在程序运行时获取对象的类型信息，主要包括 typeid 和 dynamic_cast 运算符。</p>
+<blockquote>
+<p>注意：某些 dynamic_cast 需要 RTTI，但是另一些实现选择在编译时完成，不依赖 RTTI。参考 cppreference 和 <a href="http://itanium-cxx-abi.github.io/cxx-abi/abi.html#dynamic_cast" target="_blank" rel="noopener noreffer ">Itanium C++ ABI</a></p>
+</blockquote>
+<blockquote>
+<p>typeid 和 decltype：</p>
+<ul>
+<li>typeid 在运行时获取类型信息，返回 type_info 对象，用于动态类型识别。</li>
+<li>decltype 在编译时获取类型信息，用于类型推断、声明变量类型、模板编程等。decltype 读作 &ldquo;declare type&rdquo;。</li>
+</ul>
+</blockquote>
+<h4 id="typeid">typeid</h4>
+<p>使用 typeid 运行时获取类型信息，但是返回的结果是实现定义的。其中 MSVC、IBM、Oracle 编译期会生成人类可读的类型名，gcc 与 clang 返回重整名（mangled name），这是由于二者采用 Itanium C++ ABI。</p>
+<blockquote>
+<p>Itanium C++ ABI:
+最早是为 Intel 的安腾（Itanium）架构编写的，是一个跨架构的 C++ ABI。上世纪 90 年代，GCC 编译器通过使用 <code>setjmp</code> 和 <code>longjmp</code> 实现了 C++ 异常处理。出于多种原因，这是不能令人满意的。Intel 生产 Itanium 时，他们希望允许 GCC 和英特尔编译器 icc 进行互操作，包括在两个编译器编译的代码之间抛出异常。他们成立了一个工作组来设计一个 ABI 来支持这一点，其中包括一种不使用 longjmp 的异常处理方法。
+MSVC 不使用 Itanium C++ ABI</p>
+</blockquote>
+<p>重整名可以用实现指定的 API 转换到人类可读的形式，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;typeinfo&gt;  // 提供 typeid</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cxxabi.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">demangle</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">void</span><span class="p">(</span><span class="o">*</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">res</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">abi</span><span class="o">::</span><span class="n">__cxa_demangle</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">status</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">free</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">status</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="n">res</span><span class="p">.</span><span class="n">get</span><span class="p">()</span> <span class="o">:</span> <span class="n">name</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 使用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">demangle</span><span class="p">(</span><span class="k">typeid</span><span class="p">(</span><span class="n">obj</span><span class="p">).</span><span class="n">name</span><span class="p">())</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>也可以使用 <code>c++filt -t</code> 命令还原类型名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt; c++filt -t 4BaseI8Derived1E
+</span></span><span class="line"><span class="cl">Base&lt;Derived1&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>c++fit 用于还原由于名字重整（name mangling）机制的名称。例如使用 nm 列出二进制文件的符号表后，还原符号 _ZN4BaseI8Derived2E9interfaceEv：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">c++filt _ZN4BaseI8Derived2E9interfaceEv                    
+</span></span><span class="line"><span class="cl">Base&lt;Derived2&gt;::interface<span class="o">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<h4 id="dynamic_cast">dynamic_cast</h4>
+<p>沿继承层级向上、向下及侧向，安全地转换到其他类的指针和引用。主要有下面三种用法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// type 必须是类类型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">type</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>   <span class="c1">// e 必须是指针 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">type</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>   <span class="c1">// e 必须是左值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">dynamic_cast</span><span class="o">&lt;</span><span class="n">type</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>  <span class="c1">// e 非左值
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果转换失败且目标类型是指针，则返回该类型的空指针。如果转换失败且目标类型是引用类型，则会抛出与类型 std::bad_cast 的处理块匹配的异常。</p>
+<p>static_cast 也能用来进行向下转换，不会有运行时检查的开销，但只有在程序（通过其他逻辑）能够保证表达式指向的对象肯定是 Derived 时才是安全的。</p>
+<h3 id="对象切片">对象切片</h3>
+<p>当使用基类类型，利用拷贝初始化的方式实例化派生类对象时，会发生切片现象。基类无法容纳派生类的所有成员。以下面代码为例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Base</span><span class="p">(</span><span class="kt">int</span> <span class="n">_a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">_b</span><span class="p">)</span> <span class="o">:</span> <span class="n">a</span><span class="p">(</span><span class="n">_a</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="n">_b</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">const</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Dev1</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Dev1</span><span class="p">(</span><span class="kt">int</span> <span class="n">_a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">_b</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_c</span><span class="p">)</span> <span class="o">:</span> <span class="n">Base</span><span class="p">(</span><span class="n">_a</span><span class="p">,</span> <span class="n">_b</span><span class="p">),</span> <span class="n">c</span><span class="p">(</span><span class="n">_c</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Dev1 foo&#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Dev2</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Dev2</span><span class="p">(</span><span class="kt">int</span> <span class="n">_a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">_b</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">_c</span><span class="p">)</span> <span class="o">:</span> <span class="n">Base</span><span class="p">(</span><span class="n">_a</span><span class="p">,</span> <span class="n">_b</span><span class="p">),</span> <span class="n">c</span><span class="p">(</span><span class="n">_c</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">foo</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Dev2 foo&#34;</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">fooPrint</span><span class="p">(</span><span class="k">const</span> <span class="n">Base</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">b</span><span class="p">.</span><span class="n">foo</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Base</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">Dev1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>         <span class="c1">// 发生切片
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">const</span> <span class="n">Base</span><span class="o">&amp;</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">Dev1</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>  <span class="c1">// 给派生类创建基类引用，对象未被切片，但能通过引用使用的变量和函数不全
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">b2</span><span class="p">.</span><span class="n">foo</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 多态实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">const</span> <span class="n">Base</span><span class="o">&amp;</span> <span class="n">d1</span> <span class="o">=</span> <span class="n">Dev1</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">Base</span><span class="o">&amp;</span> <span class="n">d2</span> <span class="o">=</span> <span class="n">Dev2</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fooPrint</span><span class="p">(</span><span class="n">d1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fooPrint</span><span class="p">(</span><span class="n">d2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以使用基类的引用，在不使用 new 的情况下实例化派生类对象，并且能够实现多态性。</p>
+<h2 id="运算符重载">运算符重载</h2>
+<h3 id="限制">限制</h3>
+<ol>
+<li>不能重载 <code>::</code>（作用域解析）、<code>.</code>（成员访问）、<code>.*</code>（通过成员指针的成员访问 <code>a.*b</code>）及 <code>?:</code>（三目条件）运算符。</li>
+<li>不能创建新运算符，例如 <code>**</code>、<code>&lt;&gt;</code> 或 <code>&amp;|</code>。</li>
+<li>无法改变运算符的优先级、结合方向或操作数的数量。</li>
+<li>重载的运算符 <code>-&gt;</code> 必须要么返回裸指针，要么（按引用或值）返回同样重载了运算符 <code>-&gt;</code> 的对象。</li>
+<li>运算符 <code>&amp;&amp;</code> 与 <code>||</code> 的重载会失去短路求值。</li>
+</ol>
+<blockquote>
+<p><code>&amp;&amp;</code>、<code>||</code> 和 <code>,</code>（逗号）在被重载时失去它们特殊的定序性质，并且即使不使用函数调用记法，也表现为与常规的函数调用相似。</p>
+</blockquote>
+<p>一些资料中也提到了不能重载 <code>sizeof</code>。</p>
+<blockquote>
+<p><strong>不是所有运算符都可以重载为友元函数</strong>
+赋值 <code>=</code> 、下标 <code>[]</code> 、函数调用 <code>()</code> 和成员选择 <code>-&gt;</code>运算符必须重载为成员函数 (历史原因)。
+<strong>不是所有运算符都可以重载为成员函数</strong>
+通常，如果左操作数不是类（例如 int），或者是不能修改的类（例如 std：：ostream），无法使用成员重载。</p>
+</blockquote>
+<p>经验法则：</p>
+<ol>
+<li>赋值 <code>=</code> 、下标 <code>[]</code> 、函数调用 <code>()</code> 或成员选择 <code>-&gt;</code>，作为成员函数重载。</li>
+<li>一元运算符，作为成员函数重载。</li>
+<li>对不修改其左操作数的二元运算符（例如 operator+），作为一个普通函数（首选）或友元函数重载。</li>
+<li>对修改左操作数的二元操作符，但你不能向左操作数的类定义添加成员（例如 operator&laquo;，左操作数 ostream），作为普通函数（首选）或友元函数重载。</li>
+<li>对修改左操作数的二元运算符（例如 operator+=），并且可以修改左操作数的定义，作为一个成员函数重载。</li>
+</ol>
+<h3 id="opeartor">opeartor=</h3>
+<blockquote>
+<p>条款 10 : 令 operator= 返回一个 reference to *this<br>
+rule 10 : Have assignment operators return a reference to *this.    —— Effective C++</p>
+</blockquote>
+<blockquote>
+<p>条款 11 : 在 operator= 中处理“自我赋值”
+rule 11 : Handle assignment to self in operator=.    —— Effective C++</p>
+</blockquote>
+<h2 id="相关设计模式">相关设计模式</h2>
+<h3 id="组合">组合</h3>
+<h3 id="委托">委托</h3>
+<p>一个对象委托另一个对象执行特定的任务或操作。一般通过包含委托类指针或者引用实现。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 委托类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Delegate</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">doTask</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Delegate is performing the task.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 委托对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Delegator</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Delegate</span><span class="o">*</span> <span class="n">delegate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Delegator</span><span class="p">(</span><span class="n">Delegate</span><span class="o">*</span> <span class="n">del</span><span class="p">)</span> <span class="o">:</span> <span class="n">delegate</span><span class="p">(</span><span class="n">del</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">assignTask</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">delegate</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">delegate</span><span class="o">-&gt;</span><span class="n">doTask</span><span class="p">();</span> <span class="c1">// 通过指针委托给 Delegate 对象执行任务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;No delegate assigned.&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Delegate</span> <span class="n">delegate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Delegator</span> <span class="n">delegator</span><span class="p">(</span><span class="o">&amp;</span><span class="n">delegate</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">delegator</span><span class="p">.</span><span class="n">assignTask</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 修改委托对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Delegate</span> <span class="n">anotherDelegate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">delegator</span> <span class="o">=</span> <span class="n">Delegator</span><span class="p">(</span><span class="o">&amp;</span><span class="n">anotherDelegate</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">delegator</span><span class="p">.</span><span class="n">assignTask</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="pimpl">pimpl</h3>
+<h3 id="奇异递归模板模式-crtp">奇异递归模板模式 CRTP</h3>
+<p>CRTP 可用于在基类暴露接口而派生类实现该接口时实现“编译期多态”。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 基类模板
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">Derived</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Base</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">interface</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 下转型
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">Derived</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">impl</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">impl</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Base&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 派生类 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Derived1</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span><span class="o">&lt;</span><span class="n">Derived1</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">impl</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Derived1&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 派生类 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">Derived2</span> <span class="o">:</span> <span class="k">public</span> <span class="n">Base</span><span class="o">&lt;</span><span class="n">Derived2</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">impl</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Derived2&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 多态 func
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">func</span><span class="p">(</span><span class="n">Base</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&amp;</span> <span class="n">base</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">base</span><span class="p">.</span><span class="n">interface</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">argv</span><span class="o">&lt;::&gt;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Derived1</span> <span class="n">d1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Derived2</span> <span class="n">d2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">func</span><span class="p">(</span><span class="n">d1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">func</span><span class="p">(</span><span class="n">d2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意，这种方式需要在基类中向派生类添加功能，被称为颠倒继承（Upside Down Inheritance），和传统的实现多态方式相反。</p>
+<p>CRTP 能避免虚函数开销，实现编译时的静态多态性。但是编译后的二进制文件可能变大。采用 hands on design patterns with c++ 第八章代码进行性能测试，参见<a href="https://quick-bench.com/q/vORXUiFA_978rVueP-BuZH-AwwM" target="_blank" rel="noopener noreffer ">测压结果</a>，<strong>CRTP 的性能需要打开优化后体现</strong>。</p>
+<h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://www.learncpp.com/cpp-tutorial/member-functions/" target="_blank" rel="noopener noreffer ">Member functions</a></li>
+<li><a href="https://www.learncpp.com/cpp-tutorial/const-class-objects-and-const-member-functions/" target="_blank" rel="noopener noreffer ">Const class objects and const member functions</a></li>
+<li><a href="https://zh.cppreference.com/w/cpp/language/definition" target="_blank" rel="noopener noreffer ">定义与 ODR（单一定义规则）</a></li>
+<li><a href="https://zh.cppreference.com/w/cpp/language/friend" target="_blank" rel="noopener noreffer ">友元声明</a></li>
+<li><a href="https://zh.cppreference.com/w/cpp/language/reference_initialization" target="_blank" rel="noopener noreffer ">引用初始化</a></li>
+<li><a href="https://microcai.org/2024/01/22/constexpr-constructor.html" target="_blank" rel="noopener noreffer ">编译期对象构造优化 .bss 为 .rodata</a></li>
+<li><a href="https://zh.cppreference.com/w/cpp/language/converting_constructor" target="_blank" rel="noopener noreffer ">转换构造函数</a></li>
+<li><a href="https://learn.microsoft.com/zh-cn/cpp/cpp/delegating-constructors?view=msvc-170" target="_blank" rel="noopener noreffer ">委托构造函数</a></li>
+<li><a href="https://blog.csdn.net/KingOfMyHeart/article/details/107732764" target="_blank" rel="noopener noreffer ">C++11 新语法之委托构造函数</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/654786933" target="_blank" rel="noopener noreffer ">深入探索 C++ 多态 - 虚析构</a></li>
+<li><a href="https://www.bilibili.com/video/BV1Zi4y1F7o1/?spm_id_from=333.788&amp;vd_source=d669a99eaef48bca1935ad7a52416701" target="_blank" rel="noopener noreffer ">成员列表的作用</a></li>
+<li><a href="https://ustccoder.github.io/2020/07/28/C&#43;&#43;_oop_4/" target="_blank" rel="noopener noreffer ">C++ 面向对象拓展</a></li>
+<li><a href="https://learn.microsoft.com/zh-cn/cpp/cpp/this-pointer?view=msvc-170" target="_blank" rel="noopener noreffer "><code>this</code> 指针</a></li>
+<li><a href="https://www.learncpp.com/cpp-tutorial/the-hidden-this-pointer-and-member-function-chaining/" target="_blank" rel="noopener noreffer ">15.1 — The hidden “this” pointer and member function chaining</a></li>
+<li><a href="https://www.learncpp.com/cpp-tutorial/virtual-functions/" target="_blank" rel="noopener noreffer ">Virtual functions and polymorphism</a></li>
+<li><a href="https://stackoverflow.com/questions/290038/is-the-return-type-part-of-the-function-signature" target="_blank" rel="noopener noreffer ">Is the return type part of the function signature?</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/192178632" target="_blank" rel="noopener noreffer ">第 18 篇：C++ 静态绑定和动态绑定</a></li>
+<li><a href="https://www.learncpp.com/cpp-tutorial/object-slicing/" target="_blank" rel="noopener noreffer ">object slicing</a></li>
+<li><a href="https://www.learncpp.com/cpp-tutorial/pure-virtual-functions-abstract-base-classes-and-interface-classes/" target="_blank" rel="noopener noreffer ">Pure virtual functions, abstract base classes, and interface classes</a></li>
+<li><a href="https://www.zhihu.com/question/524268001/answer/2410267306" target="_blank" rel="noopener noreffer ">C++ RTTI</a></li>
+<li><a href="https://zh.cppreference.com/w/cpp/language/dynamic_cast" target="_blank" rel="noopener noreffer ">dynamic_cast 转换</a></li>
+<li><a href="https://news.ycombinator.com/item?id=30399707" target="_blank" rel="noopener noreffer ">Itanium C++ ABI new</a></li>
+<li><a href="https://zh.cppreference.com/w/cpp/language/operators" target="_blank" rel="noopener noreffer ">运算符重载</a></li>
+<li><a href="https://www.learncpp.com/cpp-tutorial/overloading-operators-using-member-functions/" target="_blank" rel="noopener noreffer ">Overloading operators using member functions</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/142407249" target="_blank" rel="noopener noreffer ">Design Patterns With C++（八）CRTP（上）</a></li>
+</ol>
+</div></div></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mufasa</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

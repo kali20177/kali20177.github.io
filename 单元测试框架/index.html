@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>单元测试框架 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="单元测试框架" />
+<meta property="og:description" content="1. 基本概念 单元测试是针对软件设计的最小单位进行测试，这里的最小单位可以是函数、模块或者类。目的是检查每个程序单元能否正确实现详细设计说明中的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kali20177.github.io/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-06T23:12:52+08:00" />
+<meta property="article:modified_time" content="2023-08-06T23:12:52+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
+
+<meta name="twitter:title" content="单元测试框架"/>
+<meta name="twitter:description" content="1. 基本概念 单元测试是针对软件设计的最小单位进行测试，这里的最小单位可以是函数、模块或者类。目的是检查每个程序单元能否正确实现详细设计说明中的"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" /><link rel="prev" href="https://kali20177.github.io/r-%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE/" /><link rel="next" href="https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "单元测试框架",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kali20177.github.io\/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6\/"
+        },"genre": "posts","keywords": "Unit Testing, C","wordcount":  6744 ,
+        "url": "https:\/\/kali20177.github.io\/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6\/","datePublished": "2023-08-06T23:12:52+08:00","dateModified": "2023-08-06T23:12:52+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mufasa"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">单元测试框架</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/unit-testing/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Unit Testing</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-06">2023-08-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6744 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-基本概念">1. 基本概念</a>
+      <ul>
+        <li><a href="#10-单元">1.0 单元</a></li>
+        <li><a href="#11-单元测试名词">1.1 单元测试名词</a></li>
+        <li><a href="#12-双目标开发">1.2 双目标开发</a></li>
+        <li><a href="#13-mock">1.3 Mock</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-需求预估">2. 需求预估</a></li>
+    <li><a href="#3-通用工具">3. 通用工具</a></li>
+    <li><a href="#4-框架对比">4. 框架对比</a></li>
+    <li><a href="#5-框架模板">5. 框架模板</a>
+      <ul>
+        <li><a href="#51-cpputest">5.1 CppUTest</a></li>
+        <li><a href="#52-unity">5.2 Unity</a></li>
+        <li><a href="#53-gtest">5.3 Gtest</a></li>
+        <li><a href="#54-cmocka">5.4 cmocka</a></li>
+        <li><a href="#55-cunit">5.5 CUnit</a></li>
+        <li><a href="#56-criterion">5.6 Criterion</a></li>
+        <li><a href="#57-mock">5.7 Mock</a>
+          <ul>
+            <li><a href="#571-gmock">5.7.1 Gmock</a></li>
+            <li><a href="#572-cpputest">5.7.2 CppUTest</a></li>
+            <li><a href="#573-cmock">5.7.3 CMock</a></li>
+            <li><a href="#574-cmocka">5.7.4 cmocka</a></li>
+            <li><a href="#575-其他独立的-mock-库">5.7.5 其他独立的 mock 库</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#6-测试用例设计">6. 测试用例设计</a>
+      <ul>
+        <li><a href="#61-测试数据">6.1 测试数据</a></li>
+        <li><a href="#62-测试用例表">6.2 测试用例表</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-其他">7. 其他</a>
+      <ul>
+        <li><a href="#7-1-qemu">7. 1 qemu</a></li>
+        <li><a href="#7-2-测试用例生成">7. 2 测试用例生成</a></li>
+        <li><a href="#7-3-主要参考书">7. 3 主要参考书</a></li>
+        <li><a href="#74-参考">7.4 参考</a></li>
+      </ul>
+    </li>
+    <li><a href="#todo">todo</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/unit-integration-testing.png"
+        data-srcset="/UnitTesting/unit-integration-testing.png, /UnitTesting/unit-integration-testing.png 1.5x, /UnitTesting/unit-integration-testing.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/unit-integration-testing.png"
+        title="unit integration testing" /></p>
+<h2 id="1-基本概念">1. 基本概念</h2>
+<p>单元测试是针对软件设计的最小单位进行测试，这里的最小单位可以是函数、模块或者类。目的是检查每个程序单元能否正确实现详细设计说明中的模块功能、性能、接口和设计约束等要求，发现各模块内部可能存在的各种错误。</p>
+<p>主要采用<strong>白盒测试</strong>保证单元的最大覆盖率，发现编码和设计中的错误。单元测试一般在<strong>宿主机</strong>中运行[4]。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/whitebox.png"
+        data-srcset="/UnitTesting/whitebox.png, /UnitTesting/whitebox.png 1.5x, /UnitTesting/whitebox.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/whitebox.png"
+        title="img" /></p>
+<h3 id="10-单元">1.0 单元</h3>
+<p>什么是单元，要不要从最小单元开测，不同人的观点都不相同。</p>
+<p>笼统的说法：单元测试是针对软件设计的最小单位进行测试，这里的最小单位可以是函数、模块或者类。</p>
+<p>《单元测试的艺术》</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/SUT.png"
+        data-srcset="/UnitTesting/SUT.png, /UnitTesting/SUT.png 1.5x, /UnitTesting/SUT.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/SUT.png"
+        title="SUT" /></p>
+<p>《<a href="https://qiangmzsx.github.io/Software-Engineering-at-Google/#/zh-cn/Chapter-12_Unit_Testing/Chapter-12_Unit_Testing" target="_blank" rel="noopener noreffer ">Google 软件工程</a>》</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/Google_test.png"
+        data-srcset="/UnitTesting/Google_test.png, /UnitTesting/Google_test.png 1.5x, /UnitTesting/Google_test.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/Google_test.png"
+        title="Google test" /></p>
+<blockquote>
+<p>什么是 &ldquo;公共 API &ldquo;并不总是很清楚，这个问题实际上涉及到单元测试中的 &ldquo;单元&quot;的核心。单元可以小到一个单独的函数，也可以大到由几个相关的包/模块组成的集合。当我们在这里说 &ldquo;公共 API&quot;时，我们实际上是在谈论该单元暴露给拥有该代码的团队之外的第三方的 API。</p>
+<p>对代码实现细节进行调用的测试是脆弱的，几乎任何对被测系统的重构（例如重命名其方法、将其分解为辅助类或更改序列化格式）都会导致测试中断，即使此类更改对类的实际用户是不可见的。</p>
+</blockquote>
+<h3 id="11-单元测试名词">1.1 单元测试名词</h3>
+<ul>
+<li>
+<p><strong>断言（Assertions）</strong> 是检查条件是否为真的语句。断言的结果可能是<em>成功</em>或者<em>失败</em>，而失败又分为<em>非致命失败</em>或<em>致命失败</em>。如果发生<em>致命失败</em>，测试进程将中止当前运行，否则它将继续运行。类似函数调用的<strong>宏</strong>。</p>
+<p>一般包含：</p>
+<ul>
+<li>bool 判断</li>
+<li>逻辑运算判断</li>
+<li>字符串判断</li>
+<li>浮点数判断</li>
+<li>异常判断</li>
+</ul>
+</li>
+<li>
+<p><strong>测试（Test）</strong> 使用断言来验证被测试代码的行为。如果测试崩溃或断言失败，则测试失败；否则测试成功。</p>
+</li>
+<li>
+<p><strong>测试套件（Test Suite）</strong> 包含一个或多个<strong>测试（Test）</strong>。当测试套件中的多个测试需要共享通用对象和子例程时，可以将它们放入<strong>测试夹具（Test Fixture）</strong>。</p>
+</li>
+<li>
+<p><strong>测试夹具</strong> 多个共有的数据配置的测试群 (包括初始化 Setup、运行 Run、验证结果 validate、清理 TearDown 四个过程)</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/Test_fixture.png"
+        data-srcset="/UnitTesting/Test_fixture.png, /UnitTesting/Test_fixture.png 1.5x, /UnitTesting/Test_fixture.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/Test_fixture.png"
+        title="img" /></p>
+</li>
+<li>
+<p>TAP 测试任意协议（Test Anything Protocol，TAP）是一种用于记录和报告测试结果的文本协议。它是一种轻量级的标准，旨在为不同编程语言的测试框架提供一种通用的格式，使测试结果能够被解析和分析，从而方便自动化测试的执行和报告。</p>
+<blockquote>
+<ol>
+<li>通用性：TAP 不限于特定的编程语言或测试框架，因此可以用于多种语言的测试。因此，可以使用 TAP 来记录 Perl、Python、Ruby、C、Java 等各种语言的测试结果。</li>
+<li>简洁的格式：TAP 使用简单的文本格式，易于阅读和理解。每个测试用例都表示为一行文本，其中包含测试结果、测试说明和其他信息。</li>
+<li>易于解析：TAP 的格式易于解析，可以使用脚本或工具来分析测试输出并生成有关测试结果的报告。这种特性使 TAP 在自动化测试流程中特别有用。</li>
+<li>丰富的测试结果表示：TAP 可以表示测试成功、失败、跳过、计划的测试数量等。</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>参数化框架 参数化测试是软件测试中的一种方法，它允许你在单个测试用例中运行多组测试数据，以便更全面地验证代码的不同输入情况。参数化测试框架是为了简化参数化测试的实现而设计的工具或库，它可以自动化地运行相同测试逻辑的不同参数组合，从而减少重复代码的编写，提高测试效率，并且更易于维护。</p>
+<blockquote>
+<p>一般情况下，参数化测试框架主要用于在相同测试逻辑下，对不同的输入数据进行测试。如果不同的测试数据需要调用不同的函数，并且这些函数的参数类型和数量都不同，那么通常参数化测试框架可能无法直接满足这种需求。
+参数化测试框架在运行时会根据预定义的参数组合，调用同一个测试函数，并传递不同的参数值。这个测试函数通常是事先定义好的，而且参数类型和数量是固定的。如果你需要在不同的测试数据情况下调用不同的函数，并且这些函数的参数类型和数量都不同，可能需要考虑其他的测试组织方式。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="12-双目标开发">1.2 双目标开发</h3>
+<ul>
+<li>目标设备</li>
+<li>宿主机（首要）</li>
+</ul>
+<p>目标机上的测试会花费更长的时间和成本，基于宿主机的测试代价较小，先在软件代码层面排除所有问题。避免同时修改硬件和软件 bug，防止硬件部和软件部相互扯皮。并且能更容易移植到其他平台[1]。</p>
+<p>定时问题有关的白盒测试、中断测试、硬件接口测试只能在目标机运行，在开发周期中处于靠后位置[4]。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/%e6%9c%80%e7%bb%88%e6%b5%8b%e8%af%95.jpg"
+        data-srcset="/UnitTesting/%e6%9c%80%e7%bb%88%e6%b5%8b%e8%af%95.jpg, /UnitTesting/%e6%9c%80%e7%bb%88%e6%b5%8b%e8%af%95.jpg 1.5x, /UnitTesting/%e6%9c%80%e7%bb%88%e6%b5%8b%e8%af%95.jpg 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/最终测试.jpg"
+        title="img" /></p>
+<h3 id="13-mock">1.3 Mock</h3>
+<p>在进行单元测试时，我们想要测试模块 A，但是模块 A 却依赖于模块 B，当模块 B 无法满足预期时就无法对模块 A 进行测试，主要由于下面几个原因：</p>
+<blockquote>
+<ul>
+<li><strong>模块 B 依赖于硬件设备</strong></li>
+<li>真实的模块 B 的返回值无法满足我们的预期</li>
+<li><strong>团队开发中模块 B 尚未实现</strong></li>
+<li>如何比较方便的控制模块 B 的行为，返回特定数据</li>
+</ul>
+</blockquote>
+<p>这时就需要对函数 B 进行打桩，使其达到我们预期的效果。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/MO.png"
+        data-srcset="/UnitTesting/MO.png, /UnitTesting/MO.png 1.5x, /UnitTesting/MO.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/MO.png"
+        title="img" /></p>
+<p>生成测试桩方式：</p>
+<ul>
+<li>返回固定值</li>
+<li>模拟真实的下层模块（虚拟机之类）</li>
+<li>仿制对象（mock）</li>
+</ul>
+<blockquote>
+<p><strong>开发一个测试桩的工作量和开发一个实际的模块的工作量是相当的[1]。一般开发中选择第三种</strong></p>
+</blockquote>
+<p>Mock 是为了解决不同的单元之间由于耦合而难于开发、测试的问题，Mock 既能出现在单元测试中，也会出现在集成测试、系统测试过程中。Mock 最大的功能是帮你把单元测试的耦合分解开，如果你的代码对另一个类或者接口有依赖，它能够帮你模拟这些依赖，并帮你验证所调用的依赖的行为。</p>
+<p><strong>Fake、Stub 和 Mock</strong> 的区别：</p>
+<p><a href="https://blog.csdn.net/yufaxingxing/article/details/113713433" target="_blank" rel="noopener noreffer ">伪对象、桩对象、模拟对象 | 单元测试</a></p>
+<ul>
+<li>
+<p>Fake 译作<strong>伪对象</strong>，生产环境下具体实现的简化版本的对象，可以指 Stub 也可以指 Mock。</p>
+</li>
+<li>
+<p>Stub 译作<strong>测试桩</strong>或<strong>存根</strong>，在当前测试用例的指示下返回某些值。</p>
+</li>
+<li>
+<p>Mock 译作<strong>仿制对象</strong>或模拟对象，校验函数调用、调用顺序，以及从被测试代码传向依赖组建的参数，还可以设定向被测代码返回指定的值，常用于处理有多个复杂交互的场景。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/mock.png"
+        data-srcset="/UnitTesting/mock.png, /UnitTesting/mock.png 1.5x, /UnitTesting/mock.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/mock.png"
+        title="img" /></p>
+<p><strong>三者概念不必做严格区分</strong>。</p>
+</li>
+</ul>
+<p>对 C 语言进行 mock 的三种方法：函数指针、预处理时期条件编译替换、编译后 Link 替换[5]。</p>
+<p>三种测试方法分别对应的场景[3]：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/mock%e9%80%89%e6%8b%a9.png"
+        data-srcset="/UnitTesting/mock%e9%80%89%e6%8b%a9.png, /UnitTesting/mock%e9%80%89%e6%8b%a9.png 1.5x, /UnitTesting/mock%e9%80%89%e6%8b%a9.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/mock选择.png"
+        title="img" /></p>
+<p>所以最好在一开始选择支持 Mock 对象的测试框架。</p>
+<h2 id="2-需求预估">2. 需求预估</h2>
+<ul>
+<li>Unit Test</li>
+<li>硬件对象模拟（mock），并且由于我们有 HAL 层，更容易做到隔离</li>
+</ul>
+<h2 id="3-通用工具">3. 通用工具</h2>
+<ul>
+<li>
+<p>代码覆盖率工具</p>
+<ul>
+<li>gcovr / lcov —— linux <a href="https://github.com/RWTH-HPC/CMake-codecov" target="_blank" rel="noopener noreffer ">github CMake codecov</a></li>
+<li><a href="https://github.com/OpenCppCoverage/OpenCppCoverage" target="_blank" rel="noopener noreffer ">OpenCppCoverage</a> —— windows</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/lcov.png"
+        data-srcset="/UnitTesting/lcov.png, /UnitTesting/lcov.png 1.5x, /UnitTesting/lcov.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/lcov.png"
+        title="lcov" /></p>
+</li>
+<li>
+<p>代码复杂度分析 (圈复杂度)</p>
+<ul>
+<li><a href="https://github.com/terryyin/lizard" target="_blank" rel="noopener noreffer ">lizard</a></li>
+</ul>
+</li>
+<li>
+<p>静态检查类工具</p>
+<ul>
+<li>cppcheck</li>
+<li>splint</li>
+<li>clang-tidy</li>
+<li><a href="https://github.com/david-a-wheeler/flawfinder" target="_blank" rel="noopener noreffer ">flawfinder</a></li>
+</ul>
+</li>
+<li>
+<p>代码格式化</p>
+<ul>
+<li>clang-format</li>
+</ul>
+</li>
+<li>
+<p>ctest</p>
+<blockquote>
+<p><code>CTest</code> 是 CMake 集成的一个测试工具，在使用 CMakeLists.txt 文件编译工程的时候，CTest 会自动 configure、build、test 和展现测试结果。能执行一些<strong>简单</strong>测试，并集成 python 和 shell 脚本。</p>
+<ul>
+<li>
+<p><code>enable_testing()</code>，测试这个目录和所有子文件夹。</p>
+</li>
+<li>
+<p><code>add_test()</code>，定义了一个新的测试，并设置测试名称和运行命令。</p>
+</li>
+</ul>
+<p><strong>在使用测试框架的情况下，这个选项不是必须开启的，但是当测试框架产生的可执行文件较多时，<code>CTest</code> 可以执行批量测试并展示结果。</strong></p>
+</blockquote>
+</li>
+<li>
+<p>git hooks 服务器端自动执行测试，持续集成工具</p>
+</li>
+<li>
+<p>脚本生成测试项目，使用 TUI 程序选择模块测试，类似编译 linux kernal 时的 menuconfig</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/menuconfig.png"
+        data-srcset="/UnitTesting/menuconfig.png, /UnitTesting/menuconfig.png 1.5x, /UnitTesting/menuconfig.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/menuconfig.png"
+        title="img" /></p>
+<p><a href="https://github.com/bredlej/init-cmake-project/blob/main/init-cmake-project" target="_blank" rel="noopener noreffer ">脚本生成 CMake + Unity 项目</a></p>
+</li>
+</ul>
+<h2 id="4-框架对比">4. 框架对比</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">on mcu</th>
+<th style="text-align:center">参考 &amp; 使用</th>
+<th style="text-align:center">维护</th>
+<th style="text-align:center">行业</th>
+<th style="text-align:center">mock</th>
+<th style="text-align:center">易用性</th>
+<th style="text-align:center">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">CppUTest</td>
+<td style="text-align:center">☑️</td>
+<td style="text-align:center">🔥🔥</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">博世、AWS</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">gtest</td>
+<td style="text-align:center">☑️</td>
+<td style="text-align:center">🔥🔥🔥</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Google</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Unity</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">🔥🔥</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">cmocka</td>
+<td style="text-align:center">☑️</td>
+<td style="text-align:center">🔥</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">小米</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">CUnit</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">🔥</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">criterion</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">libcester</td>
+<td style="text-align:center">☑️</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">cutest</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">cgreen</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">PARASOFT C/C++TEST</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">商业软件</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">GNU Autounit</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">EmbeddedUnit</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Cmockery</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">AceUnit</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">Check</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">❌</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>☑️ 表示能运行在性能较强的嵌入式平台 (包含操作系统)； ✅ 表示能运行在性能较差的嵌入式平台</p>
+</blockquote>
+<p><a href="https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks#C" target="_blank" rel="noopener noreffer ">完整列表在此处</a> 已经删除一些过于小众的测试框架。</p>
+<h2 id="5-框架模板">5. 框架模板</h2>
+<p>使用 cmake 方式，给表上靠前的框架构建单元测试模板，统一做 CRC 校验测试。</p>
+<h3 id="51-cpputest">5.1 CppUTest</h3>
+<p><a href="https://cpputest.github.io/" target="_blank" rel="noopener noreffer ">CppUTest 官方</a></p>
+<p>CppUTest 是一个基于 C/C++ 的单元 xUnit 测试框架，用于单元测试和代码测试驱动。它是用 C++ 编写的，但在 C 和 C++ 项目中使用，在嵌入式测试中经常使用，但它适用于任何 C/C++ 项目。</p>
+<blockquote>
+<p><strong>为什么使用 C++ 框架测试 C？</strong></p>
+<p>标准的 C 无法处理测试用例自安装问题，容易造成测试丢失[1]。</p>
+</blockquote>
+<p>C++ 支持 C/C++ 测试，只使用有限的 C++ 语言特性。</p>
+<p>特点：</p>
+<ul>
+<li>指针恢复机制</li>
+<li>支持 mock</li>
+<li>IEEE754 浮点数异常检测</li>
+<li>内存泄漏检测</li>
+</ul>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>提示<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><code>Cpputest</code> 仓库中有 ruby 脚本文件，能将测试的 <code>cpp</code> 文件转为 <code>unity</code> 测试用文件。</div>
+        </div>
+    </div>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">qpc</th>
+<th style="text-align:center">STM32</th>
+<th style="text-align:center">arm-eabi-gcc</th>
+<th style="text-align:center">mock</th>
+<th style="text-align:center">RTOS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+</tr>
+</tbody>
+</table>
+<p>安装：</p>
+<p><code>sudo apt-get install cpputest</code></p>
+<p>项目结构，用于测试嵌入式项目时，<code>src</code>作为源码目录存放<code>.c</code>文件，<code>tests</code>中存放测试框架的<code>.cpp</code>文件，基本所有测试框架都可以按照这个方式组织。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cmake_cpputest
+</span></span><span class="line"><span class="cl">   ├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">   ├── src
+</span></span><span class="line"><span class="cl">   │    ├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">   │    ├── code.c     <span class="c1"># 模板自带，添加多项式拟合函数</span>
+</span></span><span class="line"><span class="cl">   │    ├── code.h     
+</span></span><span class="line"><span class="cl">   │    ├── crc.c      <span class="c1"># 添加 CRC 校验函数</span>
+</span></span><span class="line"><span class="cl">   │    ├── crc.h
+</span></span><span class="line"><span class="cl">   │    └── main.c      
+</span></span><span class="line"><span class="cl">   └── tests
+</span></span><span class="line"><span class="cl">        ├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">        ├── codeTest.cpp   <span class="c1"># 测试多项式拟合</span>
+</span></span><span class="line"><span class="cl">        ├── crc_test.cpp   <span class="c1"># 测试crc</span>
+</span></span><span class="line"><span class="cl">        └── main.cpp
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>tests/main.cpp 测试框架 main 函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;CppUTest/CommandLineTestRunner.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">ac</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">av</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// CommandLineTestRunner 类名
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">CommandLineTestRunner</span><span class="o">::</span><span class="n">RunAllTests</span><span class="p">(</span><span class="n">ac</span><span class="p">,</span> <span class="n">av</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>tests/codeTest.cpp 被测函数/模块</p>
+<blockquote>
+<p>需要使用 <code>extern &quot;C&quot;</code> 引入模块的头文件</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;CppUTest/TestHarness.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cp">#include</span> <span class="cpf">&#34;code.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">TEST_GROUP</span><span class="p">(</span><span class="n">AwesomeExamples</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">TEST</span><span class="p">(</span><span class="n">AwesomeExamples</span><span class="p">,</span> <span class="n">FirstExample</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">test_func</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">CHECK_EQUAL</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>src/code.c</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;code.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">test_func</span> <span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>src/code.h</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#ifndef __code_h__
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define __code_h__
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">test_func</span> <span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>src/main.c</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;code.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">test_func</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;hello world!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>顶层 cmake 模板：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">3.7</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">project</span><span class="p">(</span><span class="n">cmakeCppUTestDemo</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 使能测试功能
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">enable_testing</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 设置语言标准
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_CXX_STANDARD</span> <span class="mi">11</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_C_STANDARD</span> <span class="mi">99</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 禁止在源码目录修改和编译
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_DISABLE_IN_SOURCE_BUILD</span> <span class="n">ON</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">CMAKE_DISABLE_SOURCE_CHANGES</span> <span class="n">ON</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#-Wall: 编译后显示所有警告⚠️
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_compile_options</span><span class="p">(</span><span class="o">-</span><span class="n">Wall</span> <span class="o">-</span><span class="n">Werror</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">PROJECT</span> <span class="n">fooApp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">APP_LIB_NAME</span> <span class="n">fooAppLib</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 子项目
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_subdirectory</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 测试构建选项,源外构建 cmake -D COMPILE_TESTS ..
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">option</span><span class="p">(</span><span class="n">COMPILE_TESTS</span> <span class="s">&#34;Compile the tests&#34;</span> <span class="n">ON</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">COMPILE_TESTS</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">add_subdirectory</span><span class="p">(</span><span class="n">tests</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">(</span><span class="n">COMPILE_TESTS</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>src/cmakelist:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">APP_LIB_SOURCE</span> <span class="n">code</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="cp"># 添加库文件
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_library</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">APP_LIB_NAME</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">APP_LIB_SOURCE</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="cp"># 添加可执行文件
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_execiteable</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT</span><span class="p">}</span> <span class="n">main</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="cp"># 链接库
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">target_link_libraries</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">APP_LIB_SOURCE</span><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>tests/cmakelist:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp"># 寻找安装的CppUTest
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">if</span><span class="p">(</span><span class="n">DEFINED</span> <span class="n">ENV</span><span class="p">{</span><span class="n">CPPUTEST_HOME</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="n">message</span><span class="p">(</span><span class="n">STATUS</span> <span class="s">&#34;Using CppUTest home: $ENV{CPPUTEST_HOME}&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">set</span><span class="p">(</span><span class="n">CPPUTEST_INCLUDE_DIRS</span> <span class="err">$</span><span class="n">ENV</span><span class="p">{</span><span class="n">CPPUTEST_HOME</span><span class="p">}</span><span class="o">/</span><span class="n">include</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">set</span><span class="p">(</span><span class="n">CPPUTEST_LIBRARIES</span> <span class="err">$</span><span class="n">ENV</span><span class="p">{</span><span class="n">CPPUTEST_HOME</span><span class="p">}</span><span class="o">/</span><span class="n">lib</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">set</span><span class="p">(</span><span class="n">CPPUTEST_LDFLAGS</span> <span class="n">CppUTest</span> <span class="n">CppUTestExt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="n">find_package</span><span class="p">(</span><span class="n">PkgConfig</span> <span class="n">REQUIRED</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">pkg_search_module</span><span class="p">(</span><span class="n">CPPUTEST</span> <span class="n">REQUIRED</span> <span class="n">cpputest</span><span class="o">&gt;=</span><span class="mf">3.8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">message</span><span class="p">(</span><span class="n">STATUS</span> <span class="s">&#34;Found CppUTest version ${CPPUTEST_VERSION}&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 单元测试相关变量
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">set</span><span class="p">(</span><span class="n">TEST_PROJECT</span> <span class="err">$</span><span class="p">{</span><span class="n">PROJECT</span><span class="p">}</span><span class="n">_tests</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">TEST_SOURCES</span> <span class="n">codeTest</span><span class="p">.</span><span class="n">cpp</span> <span class="n">main</span><span class="p">.</span><span class="n">cpp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 外部目录
+</span></span></span><span class="line"><span class="cl"><span class="cp"># cpputest and current src
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">include_directories</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">CPPUTEST_INCLUDE_DIRS</span><span class="p">}</span> <span class="p">..</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="cp"># link
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">link_directories</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">CPPUTEST_LIBRARIES</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">#
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_executable</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">TEST_PROJECT</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">TEST_SOURCES</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_link_libraries</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">TEST_PROJECT</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">APP_LIB_NAME</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">CPPUTEST_LDFLAGS</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># run test once build is done
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_custom_command</span><span class="p">(</span><span class="n">TARGET</span> <span class="err">$</span><span class="p">{</span><span class="n">TEST_APP_NAME</span><span class="p">}</span> <span class="n">COMMAND</span> <span class="p">.</span><span class="o">/</span><span class="err">$</span><span class="p">{</span><span class="n">TEST_APP_NAME</span><span class="p">}</span> <span class="n">POST_BUILD</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>新增 polyfit.c polyfit.h，在 codeTest.cpp 中加入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;CppUTest/CommandLineTestRunner.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;CppUTest/TestHarness.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;CppUTestExt/MockSupport.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cp">#include</span> <span class="cpf">&#34;code.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="cp">#include</span> <span class="cpf">&#34;polyfit.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">TEST_GROUP</span><span class="p">(</span><span class="n">AwesomeExamples</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">TEST</span><span class="p">(</span><span class="n">AwesomeExamples</span><span class="p">,</span> <span class="n">FirstExample</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">test_func</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">CHECK_EQUAL</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">TEST_GROUP</span><span class="p">(</span><span class="n">TestPolyfit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="nf">teardown</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mock</span><span class="p">().</span><span class="n">clear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//----------------------------------------------------
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Testing Third Order Polynomial fitting...
+</span></span></span><span class="line"><span class="cl"><span class="c1">//--------------------------------------------------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">TEST</span><span class="p">(</span><span class="n">TestPolyfit</span><span class="p">,</span> <span class="n">ThirdOrderPoly</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">order</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">countOfElements</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">double</span> <span class="n">acceptableError</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// These inputs should result in the following approximate coefficients:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//         0.5           2.5           1.0        3.0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//    y = (0.5 * x^3) + (2.5 * x^2) + (1.0 * x) + 3.0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">double</span>    <span class="n">xData</span><span class="p">[</span><span class="n">countOfElements</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>    <span class="mf">12.0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                            <span class="mf">77.8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                            <span class="mf">44.1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                            <span class="mf">23.6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                           <span class="mf">108.2</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span>    <span class="n">yData</span><span class="p">[</span><span class="n">countOfElements</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>  <span class="mf">1239.00</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                        <span class="mf">250668.38</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                         <span class="mf">47792.19</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                          <span class="mf">7991.13</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                        <span class="mf">662740.98</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">coefficients</span><span class="p">[</span><span class="n">order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span> <span class="c1">// resulting array of coefs
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Perform the polyfit
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">result</span> <span class="o">=</span> <span class="n">polyfit</span><span class="p">(</span><span class="n">xData</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">yData</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">countOfElements</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">order</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                     <span class="n">coefficients</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">CHECK_EQUAL</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DOUBLES_EQUAL</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">acceptableError</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DOUBLES_EQUAL</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">acceptableError</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DOUBLES_EQUAL</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">acceptableError</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DOUBLES_EQUAL</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">acceptableError</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//----------------------------------------------------
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Verify incorrect result - insufficient count of xData
+</span></span></span><span class="line"><span class="cl"><span class="c1">// and yData for the specified polyfit order.
+</span></span></span><span class="line"><span class="cl"><span class="c1">//--------------------------------------------------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">TEST</span><span class="p">(</span><span class="n">TestPolyfit</span><span class="p">,</span> <span class="n">InsufficientInputData</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">order</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">countOfElements</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// These inputs should result in the following approximate coefficients:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//         0.1           -3.2           -0.1        40.0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//    y = (0.1 * x^3) + (-3.2 * x^2) + (-0.1 * x) + 40.0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">double</span>    <span class="n">xData</span><span class="p">[</span><span class="n">countOfElements</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>    <span class="mf">15.0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                            <span class="mf">77.0</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span>    <span class="n">yData</span><span class="p">[</span><span class="n">countOfElements</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>  <span class="o">-</span><span class="mf">344.0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                         <span class="mf">26712.8</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">coefficients</span><span class="p">[</span><span class="n">order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span> <span class="c1">// resulting array of coefs
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// Perform the polyfit
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="n">result</span> <span class="o">=</span> <span class="n">polyfit</span><span class="p">(</span><span class="n">xData</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">yData</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">countOfElements</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">order</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">coefficients</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="n">CHECK_EQUAL</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>新增 crc.c 和 crc.h 文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">crc_table</span><span class="p">[</span><span class="mi">256</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cp">#include</span> <span class="cpf">&#34;crc_table.inc&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">uint16_t</span> <span class="n">INIT</span> <span class="o">=</span> <span class="mh">0xffff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">uint16_t</span> <span class="nf">CalculateCRC</span><span class="p">(</span><span class="kt">uint8_t</span><span class="o">*</span> <span class="n">message</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">length</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc</span> <span class="o">=</span> <span class="n">INIT</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">table_index</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">table_index</span> <span class="o">=</span> <span class="p">((</span><span class="n">crc</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">^</span> <span class="n">message</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">crc</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uint16_t</span><span class="p">)((</span><span class="n">crc</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">^</span> <span class="n">crc_table</span><span class="p">[</span><span class="n">table_index</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">crc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>进行了上述拟合多项式测试和 CRC 校验测试，输出情况：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/cpputest_output.png"
+        data-srcset="/UnitTesting/cpputest_output.png, /UnitTesting/cpputest_output.png 1.5x, /UnitTesting/cpputest_output.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/cpputest_output.png"
+        title="img" /></p>
+<p>测试成功时输出最少，重点显示测试失败的位置，行数。</p>
+<h3 id="52-unity">5.2 Unity</h3>
+<p>Unity 是一个用 C 语言构建的单元测试框架，专注于嵌入式领域。</p>
+<p><a href="https://github.com/ThrowTheSwitch/Unity" target="_blank" rel="noopener noreffer ">Unity github</a></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">状态机</th>
+<th style="text-align:center">STM32</th>
+<th style="text-align:center">arm-eabi-gcc</th>
+<th style="text-align:center">mock</th>
+<th style="text-align:center">RTOS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+<td style="text-align:center">✅</td>
+</tr>
+</tbody>
+</table>
+<p>项目结构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">├── include
+</span></span><span class="line"><span class="cl">│   └── example
+</span></span><span class="line"><span class="cl">│       ├── crc.h
+</span></span><span class="line"><span class="cl">│       └── example.h
+</span></span><span class="line"><span class="cl">├── src
+</span></span><span class="line"><span class="cl">│   ├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">│   ├── example         <span class="c1"># 被测模块</span>
+</span></span><span class="line"><span class="cl">│   │   ├── crc.c        
+</span></span><span class="line"><span class="cl">│   │   ├── crc_table.inc
+</span></span><span class="line"><span class="cl">│   │   └── example.c
+</span></span><span class="line"><span class="cl">│   └── main.c
+</span></span><span class="line"><span class="cl">└── <span class="nb">test</span>
+</span></span><span class="line"><span class="cl">    ├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">    ├── example
+</span></span><span class="line"><span class="cl">    │   ├── crc_test.c   <span class="c1"># crc 测试模块</span>
+</span></span><span class="line"><span class="cl">    │   └── main_test.c  <span class="c1"># 测试部分主函数</span>
+</span></span><span class="line"><span class="cl">    └── lib
+</span></span><span class="line"><span class="cl">        └── Unity        <span class="c1"># Unity 源码</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中 <code>unity</code> 包含在 <code>tests</code> 目录的 <code>lib</code> 中，以第三方库的形式集成在项目中。</p>
+<p>tests/CMakeLists.txt:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp"># Set project name
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">project</span><span class="p">(</span><span class="n">Test</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># Add unity cmakes
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_subdirectory</span><span class="p">(</span><span class="n">lib</span><span class="o">/</span><span class="n">Unity</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># Add their include files 要使用完整的 Unity 功能，需要引入这三个目录
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">include_directories</span><span class="p">(</span><span class="n">lib</span><span class="o">/</span><span class="n">Unity</span><span class="o">/</span><span class="n">src</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">include_directories</span><span class="p">(</span><span class="n">lib</span><span class="o">/</span><span class="n">Unity</span><span class="o">/</span><span class="n">extras</span><span class="o">/</span><span class="n">fixture</span><span class="o">/</span><span class="n">src</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">include_directories</span><span class="p">(</span><span class="n">lib</span><span class="o">/</span><span class="n">Unity</span><span class="o">/</span><span class="n">extras</span><span class="o">/</span><span class="n">memory</span><span class="o">/</span><span class="n">src</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># Set the source of the tests
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">set</span><span class="p">(</span><span class="n">Sources</span> <span class="n">example</span><span class="o">/</span><span class="n">crc_test</span><span class="p">.</span><span class="n">c</span> <span class="n">example</span><span class="o">/</span><span class="n">main_test</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># Set the target executable
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">add_executable</span><span class="p">(</span><span class="n">Test_run</span> <span class="err">$</span><span class="p">{</span><span class="n">Sources</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># Add teh target link libraries
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">target_link_libraries</span><span class="p">(</span><span class="n">Test_run</span> <span class="n">unity</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_link_libraries</span><span class="p">(</span><span class="n">Test_run</span> <span class="n">Example_lib</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>被测试模块 <code>Example_lib</code> 编译成库给测试模块使用。</p>
+<blockquote>
+<p>使用 Unity 的 fixture 和 memory 功能时，要打开 Unity 目录下 CMakeLists.txt 文件的两个选项。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp"># Options to Build With Extras -------------------------------------------------
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="n">option</span><span class="p">(</span><span class="n">UNITY_EXTENSION_FIXTURE</span> <span class="s">&#34;Compiles Unity with the </span><span class="se">\&#34;</span><span class="s">fixture</span><span class="se">\&#34;</span><span class="s"> extension.&#34;</span> <span class="n">ON</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">option</span><span class="p">(</span><span class="n">UNITY_EXTENSION_MEMORY</span> <span class="s">&#34;Compiles Unity with the </span><span class="se">\&#34;</span><span class="s">memory</span><span class="se">\&#34;</span><span class="s"> extension.&#34;</span> <span class="n">ON</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></blockquote>
+<p>测试模块函数 tests/crc_test.c</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;unity_fixture.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;example/crc.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="n">TEST_GROUP</span><span class="p">(</span><span class="n">CRC</span><span class="p">)</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">TEST_SETUP</span><span class="p">(</span><span class="n">CRC</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">TEST_TEAR_DOWN</span><span class="p">(</span><span class="n">CRC</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// CRC 组测试 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">TEST</span><span class="p">(</span><span class="n">CRC</span><span class="p">,</span> <span class="n">known_crc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">message1</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0xaa</span><span class="p">,</span> <span class="mh">0xde</span><span class="p">,</span> <span class="mh">0xad</span><span class="p">,</span> <span class="mh">0xbe</span><span class="p">,</span> <span class="mh">0xef</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">message2</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0x0b</span><span class="p">,</span> <span class="mh">0xb9</span><span class="p">,</span> <span class="mh">0x7f</span><span class="p">,</span> <span class="mh">0x4c</span><span class="p">,</span> <span class="mh">0x4a</span><span class="p">,</span> <span class="mh">0x32</span><span class="p">,</span> <span class="mh">0xe6</span><span class="p">,</span> <span class="mh">0x6b</span><span class="p">,</span> <span class="mh">0x5e</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                          <span class="mh">0xef</span><span class="p">,</span> <span class="mh">0x86</span><span class="p">,</span> <span class="mh">0xb1</span><span class="p">,</span> <span class="mh">0xc2</span><span class="p">,</span> <span class="mh">0x4b</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc1</span> <span class="o">=</span> <span class="n">CalculateCRC</span><span class="p">(</span><span class="n">message1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc2</span> <span class="o">=</span> <span class="n">CalculateCRC</span><span class="p">(</span><span class="n">message2</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">TEST_ASSERT_EQUAL_UINT16</span><span class="p">(</span><span class="mh">0xC149</span><span class="p">,</span> <span class="n">crc1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TEST_ASSERT_EQUAL_UINT16</span><span class="p">(</span><span class="mh">0x5BEE</span><span class="p">,</span> <span class="n">crc2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// CRC 组测试 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">TEST</span><span class="p">(</span><span class="n">CRC</span><span class="p">,</span> <span class="n">Nonzero_output</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">message</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc</span> <span class="o">=</span> <span class="n">CalculateCRC</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TEST_ASSERT_TRUE</span><span class="p">(</span><span class="n">crc</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// CRC 组测试 3
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">TEST</span><span class="p">(</span><span class="n">CRC</span><span class="p">,</span> <span class="n">Long_message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">message</span><span class="p">[</span><span class="mi">4096</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message</span><span class="p">);</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">message</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">256</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">crc</span> <span class="o">=</span> <span class="n">CalculateCRC</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 定义本组哪些测试运行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">TEST_GROUP_RUNNER</span><span class="p">(</span><span class="n">CRC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RUN_TEST_CASE</span><span class="p">(</span><span class="n">CRC</span><span class="p">,</span> <span class="n">known_crc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RUN_TEST_CASE</span><span class="p">(</span><span class="n">CRC</span><span class="p">,</span> <span class="n">Nonzero_output</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RUN_TEST_CASE</span><span class="p">(</span><span class="n">CRC</span><span class="p">,</span> <span class="n">Long_message</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>相比以 C++ 为基础的测试框架，Unity 看起来断言种类要更多，比如判断整数相等会分为 8，16，32 位，有无符号等。猜测由于 C++ 支持函数重载和泛型编程等特性导致。</p>
+<p>tests/main_test.c</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;unity_fixture.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">runAllTests</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RUN_TEST_GROUP</span><span class="p">(</span><span class="n">CRC</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">UnityMain</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">runAllTests</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 <code>build</code> 目录中执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cmake --graphviz<span class="o">=</span>foo.dot ..
+</span></span><span class="line"><span class="cl">dot -T png foo.dot -o foo.png
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以生成项目依赖关系图：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/foo.png"
+        data-srcset="/UnitTesting/foo.png, /UnitTesting/foo.png 1.5x, /UnitTesting/foo.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/foo.png"
+        title="foo" /></p>
+<p>进行了 CRC 校验测试，输出情况：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/Unity_output.png"
+        data-srcset="/UnitTesting/Unity_output.png, /UnitTesting/Unity_output.png 1.5x, /UnitTesting/Unity_output.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/Unity_output.png"
+        title="img" /></p>
+<p>基本和 cpputest 一致。 <a href="https://vimeo.com/73660695" target="_blank" rel="noopener noreffer ">教学</a></p>
+<h3 id="53-gtest">5.3 Gtest</h3>
+<p>最常见的单元测试框架，Google 开发，功能最多，多用于 C++ 项目测试。新版本 <code>gtest</code> 和 <code>gmock</code> 已经合并。</p>
+<p>使用源码编译安装，编译前需要打开 gmock 下 cmake 文件的编译选项。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://github.com/google/googletest/archive/refs/tags/v1.14.0.tar.gz
+</span></span><span class="line"><span class="cl">tar -zxf v1.14.0.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> googletest-release-1.14.1
+</span></span><span class="line"><span class="cl">mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+</span></span><span class="line"><span class="cl">cmake ..
+</span></span><span class="line"><span class="cl">make
+</span></span><span class="line"><span class="cl">sudo make install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>头文件安装在 <code>/usr/local/include/gtest/</code>
+库文件安装在 <code>/usr/local/lib/</code></p>
+<p>下面是 CRC 校验测试项目结构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">├── build
+</span></span><span class="line"><span class="cl">├── src
+</span></span><span class="line"><span class="cl">│   ├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">│   ├── crc.c
+</span></span><span class="line"><span class="cl">│   ├── crc.h
+</span></span><span class="line"><span class="cl">│   ├── crc_table.inc
+</span></span><span class="line"><span class="cl">│   └── main.c
+</span></span><span class="line"><span class="cl">└── tests
+</span></span><span class="line"><span class="cl">    ├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">    └── crc_test.cpp
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用方式和前两者基本相同，<code>main()</code> 函数所在文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;gtest/gtest.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">extern</span> <span class="s">&#34;C&#34;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cp">#include</span> <span class="cpf">&#34;crc.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">TEST</span><span class="p">(</span><span class="n">CRC</span><span class="p">,</span> <span class="n">known_crc</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">message1</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0xaa</span><span class="p">,</span> <span class="mh">0xde</span><span class="p">,</span> <span class="mh">0xad</span><span class="p">,</span> <span class="mh">0xbe</span><span class="p">,</span> <span class="mh">0xef</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">message2</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0x0b</span><span class="p">,</span> <span class="mh">0xb9</span><span class="p">,</span> <span class="mh">0x7f</span><span class="p">,</span> <span class="mh">0x4c</span><span class="p">,</span> <span class="mh">0x4a</span><span class="p">,</span> <span class="mh">0x32</span><span class="p">,</span> <span class="mh">0xe6</span><span class="p">,</span> <span class="mh">0x6b</span><span class="p">,</span> <span class="mh">0x5e</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                          <span class="mh">0xef</span><span class="p">,</span> <span class="mh">0x86</span><span class="p">,</span> <span class="mh">0xb1</span><span class="p">,</span> <span class="mh">0xc2</span><span class="p">,</span> <span class="mh">0x4b</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc1</span> <span class="o">=</span> <span class="n">CalculateCRC</span><span class="p">(</span><span class="n">message1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc2</span> <span class="o">=</span> <span class="n">CalculateCRC</span><span class="p">(</span><span class="n">message2</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mh">0xC149</span><span class="p">,</span> <span class="n">crc1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mh">0x5BEE</span><span class="p">,</span> <span class="n">crc2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">TEST</span><span class="p">(</span><span class="n">CRC</span><span class="p">,</span> <span class="n">Nonzero_output</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">message</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc</span> <span class="o">=</span> <span class="n">CalculateCRC</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">EXPECT_TRUE</span><span class="p">(</span><span class="n">crc</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">TEST</span><span class="p">(</span><span class="n">CRC</span><span class="p">,</span> <span class="n">Long_message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">message</span><span class="p">[</span><span class="mi">4096</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="kt">int</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">message</span><span class="p">));</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">message</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">256</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">crc</span> <span class="o">=</span> <span class="n">CalculateCRC</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">EXPECT_EQ</span><span class="p">(</span><span class="mh">0x1f5</span><span class="p">,</span> <span class="n">crc</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="c1">//EXPECT_EQ(0x1fb5, crc);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Running main() from %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">testing</span><span class="o">::</span><span class="n">InitGoogleTest</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">RUN_ALL_TESTS</span><span class="p">();</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/gtest_output.png"
+        data-srcset="/UnitTesting/gtest_output.png, /UnitTesting/gtest_output.png 1.5x, /UnitTesting/gtest_output.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/gtest_output.png"
+        title="img" /></p>
+<h3 id="54-cmocka">5.4 cmocka</h3>
+<p>cmocka, C 单元测试框架，支持 mock。只依赖 C 标准库，由 C 语言开发。</p>
+<p>API:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/cmocka.png"
+        data-srcset="/UnitTesting/cmocka.png, /UnitTesting/cmocka.png 1.5x, /UnitTesting/cmocka.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/cmocka.png"
+        title="cmocka" /></p>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>注意<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Misra 规则 Rule21.4 必然无法在单元测试中被满足，所有框架的底层都依赖头文件 <code>setjmp.h</code></div>
+        </div>
+    </div>
+<p>项目模板：</p>
+<p><a href="https://github.com/NikLeberg/cmake-cmocka-tdd-template" target="_blank" rel="noopener noreffer ">cmocka 单元测试模板</a></p>
+<p>可以以此为基准构建测试项目：</p>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>action</th>
+<th> </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>make test_cppcheck</code></td>
+<td>check source code with cppcheck</td>
+<td> </td>
+</tr>
+<tr>
+<td><code>make</code></td>
+<td>compile source code</td>
+<td>executable can be found under <a href="build/src/" rel="">build/src/</a></td>
+</tr>
+<tr>
+<td><code>cmake ..</code></td>
+<td>generate buildsystem</td>
+<td> </td>
+</tr>
+<tr>
+<td><code>make doc</code></td>
+<td>generate documentation</td>
+<td>to view open <a href="build/doc/html/index.html" rel="">build/doc/html/index.html</a></td>
+</tr>
+<tr>
+<td><code>make clean</code></td>
+<td>remove compiled files</td>
+<td> </td>
+</tr>
+<tr>
+<td><code>make tests</code></td>
+<td>run all tests</td>
+<td>cmocka &amp; cppcheck</td>
+</tr>
+<tr>
+<td><code>make test_cmocka</code></td>
+<td>run cmocka tests</td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<p>项目框架：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── build
+</span></span><span class="line"><span class="cl">├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">├── doc
+</span></span><span class="line"><span class="cl">│   ├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">│   └── Doxyfile.in
+</span></span><span class="line"><span class="cl">├── lib
+</span></span><span class="line"><span class="cl">│   └── CMakeLists.txt
+</span></span><span class="line"><span class="cl">├── src
+</span></span><span class="line"><span class="cl">│   ├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">│   ├── main.c
+</span></span><span class="line"><span class="cl">│   └── mylib
+</span></span><span class="line"><span class="cl">│       ├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">│       ├── crc.c
+</span></span><span class="line"><span class="cl">│       ├── crc.h
+</span></span><span class="line"><span class="cl">│       ├── crc_table.inc
+</span></span><span class="line"><span class="cl">│       ├── mylib.c
+</span></span><span class="line"><span class="cl">│       └── mylib.h
+</span></span><span class="line"><span class="cl">└── <span class="nb">test</span>
+</span></span><span class="line"><span class="cl">    ├── CMakeLists.txt
+</span></span><span class="line"><span class="cl">    ├── mylib.c
+</span></span><span class="line"><span class="cl">    └── test.h
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>测试函数使用相对前三者较复杂，需要手动将测试函数添加到主函数的编组。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/***优先包含这几项***/</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdarg.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stddef.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;setjmp.h&gt;   // 可能违反 Misra Rule 21.4</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;   </span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="cm">/***否则无法通过编译***/</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;cmocka.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">says_hello</span><span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mylib_sayHello</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">assert_string_equal</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">,</span> <span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">crc_kownc</span><span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">message1</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0xaa</span><span class="p">,</span> <span class="mh">0xde</span><span class="p">,</span> <span class="mh">0xad</span><span class="p">,</span> <span class="mh">0xbe</span><span class="p">,</span> <span class="mh">0xef</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">message2</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0x0b</span><span class="p">,</span> <span class="mh">0xb9</span><span class="p">,</span> <span class="mh">0x7f</span><span class="p">,</span> <span class="mh">0x4c</span><span class="p">,</span> <span class="mh">0x4a</span><span class="p">,</span> <span class="mh">0x32</span><span class="p">,</span> <span class="mh">0xe6</span><span class="p">,</span> <span class="mh">0x6b</span><span class="p">,</span> <span class="mh">0x5e</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                          <span class="mh">0xef</span><span class="p">,</span> <span class="mh">0x86</span><span class="p">,</span> <span class="mh">0xb1</span><span class="p">,</span> <span class="mh">0xc2</span><span class="p">,</span> <span class="mh">0x4b</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc1</span> <span class="o">=</span> <span class="n">CalculateCRC</span><span class="p">(</span><span class="n">message1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc2</span> <span class="o">=</span> <span class="n">CalculateCRC</span><span class="p">(</span><span class="n">message2</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">assert_uint_equal</span><span class="p">(</span><span class="mh">0xC149</span><span class="p">,</span> <span class="n">crc1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">assert_uint_equal</span><span class="p">(</span><span class="mh">0x5BEE</span><span class="p">,</span> <span class="n">crc2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">Nonzero_output</span><span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">message</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc</span> <span class="o">=</span> <span class="n">CalculateCRC</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">assert_true</span><span class="p">(</span><span class="n">crc</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">Long_message</span><span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">message</span><span class="p">[</span><span class="mi">4096</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint16_t</span> <span class="n">crc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">message</span><span class="p">));</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">message</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">256</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">crc</span> <span class="o">=</span> <span class="n">CalculateCRC</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">message</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">assert_uint_equal</span><span class="p">(</span><span class="mh">0x1f5</span><span class="p">,</span> <span class="n">crc</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="c1">//TEST_ASSERT_EQUAL_UINT16(0x1fb5, crc);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="k">struct</span> <span class="n">CMUnitTest</span> <span class="n">tests_mylib</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cmocka_unit_test</span><span class="p">(</span><span class="n">says_hello</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cmocka_unit_test</span><span class="p">(</span><span class="n">crc_kownc</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cmocka_unit_test</span><span class="p">(</span><span class="n">Nonzero_output</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cmocka_unit_test</span><span class="p">(</span><span class="n">Long_message</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">cmocka_run_group_tests</span><span class="p">(</span><span class="n">tests_mylib</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>输出内容和 goolgetest 类似，两者都是 google 开发的：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/cmocka_output.png"
+        data-srcset="/UnitTesting/cmocka_output.png, /UnitTesting/cmocka_output.png 1.5x, /UnitTesting/cmocka_output.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/cmocka_output.png"
+        title="cmocka output" /></p>
+<h3 id="55-cunit">5.5 CUnit</h3>
+<p>其他框架主函数部分基本不用改动，相比之下 <code>CUnit</code> 使用不便捷，虽然能以列表的方式输出结果。</p>
+<p><code>main()</code>函数部分：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">...</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CU_pSuite</span> <span class="n">pSuite</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">    <span class="c1">//初始化 CUnit 注册表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span><span class="p">(</span><span class="n">CUE_SUCCESS</span> <span class="o">!=</span> <span class="n">CU_initialize_registry</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">CU_get_error</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">    <span class="c1">//向 CUnit 注册表添加单元
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">pSuite</span> <span class="o">=</span> <span class="n">CU_add_suite</span><span class="p">(</span><span class="s">&#34;Suite_1&#34;</span><span class="p">,</span> <span class="n">init_suite1</span><span class="p">,</span> <span class="n">clean_suite1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">pSuite</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">CU_cleanup_registry</span><span class="p">();</span>  <span class="c1">//清空注册表，释放内存
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="n">CU_get_error</span><span class="p">();</span>  <span class="c1">//返回错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">    <span class="c1">//向单元添加测试用例
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span><span class="p">((</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">CU_add_test</span><span class="p">(</span><span class="n">pSuite</span><span class="p">,</span> <span class="s">&#34;test of fprintf()&#34;</span><span class="p">,</span> <span class="n">testFPRINTF</span><span class="p">))</span> <span class="o">||</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nb">NULL</span> <span class="o">==</span> <span class="n">CU_add_test</span><span class="p">(</span><span class="n">pSuite</span><span class="p">,</span> <span class="s">&#34;test of fread()&#34;</span><span class="p">,</span> <span class="n">testFREAD</span><span class="p">)))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">CU_cleanup_registry</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">CU_get_error</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">    <span class="c1">//使用 CUnit Basic 接口运行所有测试单元
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">CU_basic_set_mode</span><span class="p">(</span><span class="n">CU_BRM_VERBOSE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CU_basic_run_tests</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">    <span class="n">CU_cleanup_registry</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">CU_get_error</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="56-criterion">5.6 Criterion</h3>
+<p>特点：</p>
+<ul>
+<li>自动注册测试</li>
+<li>不需要声明 main 函数</li>
+<li>测试过程隔离</li>
+<li>hook 机制跟踪统计</li>
+</ul>
+<p>使用便捷性好，但是不支持 mock 是主要问题。</p>
+<h3 id="57-mock">5.7 Mock</h3>
+<p>全网关于单元测试的内容远大于 mock 相关内容。</p>
+<h4 id="571-gmock">5.7.1 Gmock</h4>
+<p>用 gmock 模拟 C 函数接口需要将其重写到一个类中，并且写成虚函数[2]。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/serialport_def.png"
+        data-srcset="/UnitTesting/serialport_def.png, /UnitTesting/serialport_def.png 1.5x, /UnitTesting/serialport_def.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/serialport_def.png"
+        title="img" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/serialport_mock.png"
+        data-srcset="/UnitTesting/serialport_mock.png, /UnitTesting/serialport_mock.png 1.5x, /UnitTesting/serialport_mock.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/serialport_mock.png"
+        title="img" /></p>
+<p>官方：<a href="https://gitlab-public.fz-juelich.de/j.coenen/frida/-/blob/ad2120277a2871efd21990c28e787360a513e861/pub/3rdparty/yaml-cpp/test/gtest-1.8.0/googlemock/docs/v1_6/CookBook.md" target="_blank" rel="noopener noreffer ">Mocking Free Functions</a></p>
+<h4 id="572-cpputest">5.7.2 CppUTest</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/cppumock.png"
+        data-srcset="/UnitTesting/cppumock.png, /UnitTesting/cppumock.png 1.5x, /UnitTesting/cppumock.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/cppumock.png"
+        title="img" /></p>
+<h4 id="573-cmock">5.7.3 CMock</h4>
+<p>和 Unity 同一作者写的 mock 框架。但案例很少。</p>
+<h4 id="574-cmocka">5.7.4 cmocka</h4>
+<p>cmocka 相关资料很少
+<a href="https://lwn.net/Articles/558106/" target="_blank" rel="noopener noreffer ">cmocka</a></p>
+<h4 id="575-其他独立的-mock-库">5.7.5 其他独立的 mock 库</h4>
+<ol>
+<li><a href="https://github.com/meekrosoft/fff" target="_blank" rel="noopener noreffer ">fff</a></li>
+<li><a href="https://github.com/coolxv/cpp-stub" target="_blank" rel="noopener noreffer ">cpp-stub</a></li>
+</ol>
+<p><strong>参考回答：</strong></p>
+<ol>
+<li>
+<p><a href="https://stackoverflow.com/questions/60552301/google-test-for-embedded-systems/65238678#65238678" target="_blank" rel="noopener noreffer ">嵌入式设备测试问题</a></p>
+<p>描述了一个嵌入式设备测试问题，解决方案是使用一大一小两个框架，部署前主要在 PC 上进行测试，使用 Gtest 或者 CppUTest，实体设备使用 minunit(只有一个头文件，300 多行)。</p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/1468110/unit-testing-frameworks-for-c-comparison/18972102#18972102" target="_blank" rel="noopener noreffer ">Unit Testing Frameworks for C: Comparison</a></p>
+</li>
+</ol>
+<h2 id="6-测试用例设计">6. 测试用例设计</h2>
+<h3 id="61-测试数据">6.1 测试数据</h3>
+<ol>
+<li>
+<p>基于需求的测试</p>
+</li>
+<li>
+<p>正面 / 负面测试</p>
+</li>
+<li>
+<p>边界值分析</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/%e8%be%b9%e7%95%8c.png"
+        data-srcset="/UnitTesting/%e8%be%b9%e7%95%8c.png, /UnitTesting/%e8%be%b9%e7%95%8c.png 1.5x, /UnitTesting/%e8%be%b9%e7%95%8c.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/边界.png"
+        title="img" /></p>
+</li>
+<li>
+<p>决策表</p>
+</li>
+<li>
+<p>等效类划分</p>
+</li>
+<li>
+<p>基于状态的测试</p>
+</li>
+<li>
+<p>用户文档测试</p>
+</li>
+</ol>
+<h3 id="62-测试用例表">6.2 测试用例表</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/test_case_table.jpg"
+        data-srcset="/UnitTesting/test_case_table.jpg, /UnitTesting/test_case_table.jpg 1.5x, /UnitTesting/test_case_table.jpg 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/test_case_table.jpg"
+        title="img" /></p>
+<h2 id="7-其他">7. 其他</h2>
+<h3 id="7-1-qemu">7. 1 qemu</h3>
+<p>官方的 qemu 不支持所有的 STM32 模拟功能，类似的开源项目只针对特定型号进行过二次开发。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/qemu.png"
+        data-srcset="/UnitTesting/qemu.png, /UnitTesting/qemu.png 1.5x, /UnitTesting/qemu.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/qemu.png"
+        title="img" /></p>
+<p>官方：
+<a href="https://www.qemu.org/docs/master/system/arm/stm32.html" target="_blank" rel="noopener noreffer ">STMicroelectronics STM32 boards (netduino2, netduinoplus2, stm32vldiscovery) — QEMU documentation</a></p>
+<p>非官方：</p>
+<p><a href="https://github.com/beckus/qemu_stm32" target="_blank" rel="noopener noreffer ">GitHub - beckus/qemu_stm32: QEMU with an STM32 microcontroller implementation</a></p>
+<h3 id="7-2-测试用例生成">7. 2 测试用例生成</h3>
+<ol>
+<li>
+<p>allpairspy</p>
+<p>参数组合测试工具</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">allpairspy</span> <span class="kn">import</span> <span class="n">AllPairs</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;Brand X&#34;</span><span class="p">,</span> <span class="s2">&#34;Brand Y&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;98&#34;</span><span class="p">,</span> <span class="s2">&#34;NT&#34;</span><span class="p">,</span> <span class="s2">&#34;2000&#34;</span><span class="p">,</span> <span class="s2">&#34;XP&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;Internal&#34;</span><span class="p">,</span> <span class="s2">&#34;Modem&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s2">&#34;Salaried&#34;</span><span class="p">,</span> <span class="s2">&#34;Hourly&#34;</span><span class="p">,</span> <span class="s2">&#34;Part-Time&#34;</span><span class="p">,</span> <span class="s2">&#34;Contr.&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;PAIRWISE:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pairs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">AllPairs</span><span class="p">(</span><span class="n">parameters</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">{:2d}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">pairs</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>[1]. <a href="https://pypi.org/project/allpairspy/" target="_blank" rel="noopener noreffer ">allpairspy</a></p>
+</li>
+<li>
+<p>KLEE</p>
+<p>基于苹果 LLVM 的开源测试样例检测工具。需要 clang 编译环境，可运行在 docker 中。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/UnitTesting/KLEE.png"
+        data-srcset="/UnitTesting/KLEE.png, /UnitTesting/KLEE.png 1.5x, /UnitTesting/KLEE.png 2x"
+        data-sizes="auto"
+        alt="/UnitTesting/KLEE.png"
+        title="img" /></p>
+<p>[1]. <a href="https://zhuanlan.zhihu.com/p/350222671" target="_blank" rel="noopener noreffer ">KLEE_为复杂系统程序自动生成高覆盖率的测试</a></p>
+<p>[2]. <a href="https://klee.github.io/" target="_blank" rel="noopener noreffer ">KLEE Symbolic Execution Engine</a></p>
+</li>
+<li>
+<p><a href="https://github.com/n7space/asn1scc.Fuzzer" target="_blank" rel="noopener noreffer ">生成 ASN1 测试用例，模拟恶意数据</a></p>
+</li>
+<li>
+<p>商业工具</p>
+<ul>
+<li>Parasoft C/C++test</li>
+<li>Tessy</li>
+</ul>
+</li>
+<li>
+<p>Monkey 测试</p>
+<p><a href="https://developer.android.com/studio/test/monkey?hl=zh-cn" target="_blank" rel="noopener noreffer ">Monkey</a>是一个 Android 设备（模拟器或真实设备）上的一个程序，可以产生大量随机的用户输入事件，如点击、触摸、手势等。因此 Monkey 可用于 UI 上的压力测试。</p>
+</li>
+</ol>
+<h3 id="7-3-主要参考书">7. 3 主要参考书</h3>
+<p>[1]. <a href="https://book.douban.com/subject/10455879/" target="_blank" rel="noopener noreffer ">测试驱动的嵌入式 C 语言开发</a></p>
+<p>[2]. <a href="https://www.armbbs.cn/forum.php?mod=viewthread&amp;tid=95201" target="_blank" rel="noopener noreffer ">软件单元测试入门与实践</a></p>
+<p>[3]. <a href="https://book.douban.com/subject/26756137/" target="_blank" rel="noopener noreffer ">C 现代编程</a></p>
+<p>[4]. <a href="https://book.douban.com/subject/3149471/" target="_blank" rel="noopener noreffer ">嵌入式软件测试</a></p>
+<p>[5]. <a href="https://book.douban.com/subject/2248759/" target="_blank" rel="noopener noreffer ">代码修改的艺术</a></p>
+<h3 id="74-参考">7.4 参考</h3>
+<ol>
+<li><a href="https://www.bilibili.com/video/BV1AX4y1J7dh/?spm_id_from=333.999.0.0&amp;vd_source=d669a99eaef48bca1935ad7a52416701" target="_blank" rel="noopener noreffer ">从零搭建一个 c/c++ 工程 - 将 gtest 引入到项目中</a></li>
+<li><a href="https://interrupt.memfault.com/blog/unit-test-mocking" target="_blank" rel="noopener noreffer ">unit test mocking</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1900402" target="_blank" rel="noopener noreffer ">详解圈复杂度</a></li>
+</ol>
+<h2 id="todo">todo</h2>
+<ul>
+<li><i class="far fa-square fa-fw" aria-hidden="true"></i> mock 部分</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2023-08-06</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali20177.github.io/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" data-title="单元测试框架"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali20177.github.io/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" data-title="单元测试框架"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/unit-testing/">Unit Testing</a>,&nbsp;<a href="/tags/c/">C</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/r-%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE/" class="prev" rel="prev" title="R 语言绘图"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>R 语言绘图</a>
+            <a href="/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" class="next" rel="next" title="CMake 构建项目">CMake 构建项目<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mufasa</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

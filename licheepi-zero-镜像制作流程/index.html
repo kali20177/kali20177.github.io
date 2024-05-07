@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Licheepi Zero 镜像制作流程 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="Licheepi Zero 镜像制作流程" />
+<meta property="og:description" content="licheepi-zero 采用全志 V3s 芯片，是一款小型的 Linux 开发板。官方提供了镜像可以直接使用 Win32DiskImager 烧录，也可以根据需要自己制作。和大多嵌入式 Linux 系统一样主要分为 uboot 系统引导，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kali20177.github.io/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-12T17:11:59+08:00" />
+<meta property="article:modified_time" content="2022-02-12T17:11:59+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Licheepi Zero 镜像制作流程"/>
+<meta name="twitter:description" content="licheepi-zero 采用全志 V3s 芯片，是一款小型的 Linux 开发板。官方提供了镜像可以直接使用 Win32DiskImager 烧录，也可以根据需要自己制作。和大多嵌入式 Linux 系统一样主要分为 uboot 系统引导，"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/" /><link rel="prev" href="https://kali20177.github.io/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6/" /><link rel="next" href="https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Licheepi Zero 镜像制作流程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kali20177.github.io\/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B\/"
+        },"genre": "posts","keywords": "嵌入式, Linux, Licheepi","wordcount":  1531 ,
+        "url": "https:\/\/kali20177.github.io\/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B\/","datePublished": "2022-02-12T17:11:59+08:00","dateModified": "2022-02-12T17:11:59+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mufasa"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Licheepi Zero 镜像制作流程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>嵌入式</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-02-12">2022-02-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1531 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-前期准备">1. 前期准备</a></li>
+    <li><a href="#2-编译系统">2. 编译系统</a>
+      <ul>
+        <li><a href="#21-uboot">2.1 uboot</a></li>
+        <li><a href="#22-kernel">2.2 kernel</a></li>
+        <li><a href="#23-rootfs">2.3 rootfs</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-镜像制作">3. 镜像制作</a>
+      <ul>
+        <li><a href="#31-sd-卡分区和挂载">3.1 SD 卡分区和挂载</a></li>
+        <li><a href="#32-复制文件">3.2 复制文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-效果">4. 效果</a></li>
+    <li><a href="#5-参考链接">5. 参考链接</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>licheepi-zero 采用全志 V3s 芯片，是一款小型的 Linux 开发板。官方提供了镜像可以直接使用 Win32DiskImager 烧录，也可以根据需要自己制作。和大多嵌入式 Linux 系统一样主要分为 uboot 系统引导，linux 内核以及根文件系统三个部分。本文主要记录制作过程中可能遇到的问题和教程中缺失的部分。</p>
+<h2 id="1-前期准备">1. 前期准备</h2>
+<p><strong>知识：</strong></p>
+<ol>
+<li>Linux 常用命令</li>
+<li>Makefile 的基本概念</li>
+</ol>
+<p><strong>设备：</strong></p>
+<ul>
+<li>usb-ttl 模块</li>
+<li>licheepi-zero 开发板</li>
+<li>sd 卡</li>
+<li>4.3 寸通用屏</li>
+<li>linux 系统 (实体机或者虚拟机，用于编译和烧录 SD 卡)</li>
+</ul>
+<p><strong>工具链：</strong></p>
+<ol>
+<li>
+<p>交叉编译器 <code>arm-linux-gnueabihf</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://releases.linaro.org/components/toolchain/binaries/latest/arm-linux-gnueabihf/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf.tar.xz
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>解压后放到某处，并在 zshrc 或者 bashrc 中添加环境变量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/usr/local/arm/gcc-linaro-6.3.1-2017.05-x86_64_arm-linux-gnueabihf/bin
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>编译过程中依赖的包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install git wget make gcc g++ flex bison libssl-dev bc kmod automake autoconf libtool
+</span></span><span class="line"><span class="cl">sudo apt installl linux-headers-<span class="k">$(</span>uname -r<span class="k">)</span>
+</span></span><span class="line"><span class="cl">sudo apt installl libncurses5-dev
+</span></span><span class="line"><span class="cl">sudo apt-get install device-tree-compiler
+</span></span><span class="line"><span class="cl">sudo apt-get install patch cpio unzip rsync 
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>Python 2 环境</p>
+<p>实际使用过程中发现，在编译根文件系统时会用到系统的 Python，并且是 Python2 脚本，所以需要确保系统的环境变量 <code>python</code> 指向的是 <code>python2.7</code>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Licheepi-image/python2.png"
+        data-srcset="/Licheepi-image/python2.png, /Licheepi-image/python2.png 1.5x, /Licheepi-image/python2.png 2x"
+        data-sizes="auto"
+        alt="/Licheepi-image/python2.png"
+        title="python2" /></p>
+</li>
+</ol>
+<h2 id="2-编译系统">2. 编译系统</h2>
+<h3 id="21-uboot">2.1 uboot</h3>
+<p>uboot 中相关的配置有 Soc 架构、DDR、LCD、时钟和 SPL 等，详细内容和参看官方文档。</p>
+<p>下载 uboot:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/Lichee-Pi/u-boot.git -b v3s-current
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>此时需要修改配置文件</strong>，使 u-boot 可以直接从 tf 卡启动，在 u-boot 目录的 <code>include/configs/sun8i.h</code> 文件中添加</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define CONFIG_BOOTCOMMAND   &#34;setenv bootm_boot_mode sec; &#34; \
+</span></span></span><span class="line"><span class="cl"><span class="cp">                            &#34;load mmc 0:1 0x41000000 zImage; &#34;  \
+</span></span></span><span class="line"><span class="cl"><span class="cp">                            &#34;load mmc 0:1 0x41800000 sun8i-v3s-licheepi-zero-dock.dtb; &#34; \
+</span></span></span><span class="line"><span class="cl"><span class="cp">                            &#34;bootz 0x41000000 - 0x41800000;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define CONFIG_BOOTARGS      &#34;console=ttyS0,115200 panic=5 rootwait root=/dev/mmcblk0p2 earlyprintk rw  vt.global_cursor_default=0&#34;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译 (这里使用 4.3 寸屏幕):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">make <span class="nv">ARCH</span><span class="o">=</span>arm <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabihf- LicheePi_Zero_480x272LCD_defconfig 
+</span></span><span class="line"><span class="cl">make <span class="nv">ARCH</span><span class="o">=</span>arm menuconfig
+</span></span><span class="line"><span class="cl"><span class="nb">time</span> make <span class="nv">ARCH</span><span class="o">=</span>arm <span class="nv">CROSS_COMPILE</span><span class="o">=</span>arm-linux-gnueabihf- 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee build.log
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译完成后结果在当前目录，文件名 <code>u-boot-sunxi-with-spl.bin</code>。</p>
+<h3 id="22-kernel">2.2 kernel</h3>
+<p>下一步编译 Linux 内核，首先下载：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone -b zero-5.2.y --depth <span class="m">1</span> https://github.com/Lichee-Pi/linux.git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>进入 Linux 文件夹，修改 Makefile 文件，找到 364 行写入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[364]ARCH            = arm
+</span></span><span class="line"><span class="cl">[365]CROSS_COMPILE   = arm-linux-gnueabihf-
+</span></span><span class="line"><span class="cl">[366]INSTALL_MOD_PATH = out
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>开始编译：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">make licheepi_zero_defconfig
+</span></span><span class="line"><span class="cl">make menuconfig
+</span></span><span class="line"><span class="cl">make -j4
+</span></span><span class="line"><span class="cl">make dtbs
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>完成后 zImage 文件在<code>arch/arm/boot/</code>下，设备树在<code>arch/arm/ boot/dts</code>下。</p>
+<p><strong>首次编译一般都会遇到如下问题：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/usr/bin/ld: scripts/dtc/dtc-parser.tab.o:<span class="o">(</span>.bss+0x20<span class="o">)</span>: multiple definition of <span class="sb">`</span>yylloc<span class="err">&#39;</span><span class="p">;</span> scripts/dtc/dtc-lexer.lex.o:<span class="o">(</span>.bss+0x0<span class="o">)</span>: first defined here
+</span></span><span class="line"><span class="cl">collect2: error: ld returned <span class="m">1</span> <span class="nb">exit</span> status
+</span></span><span class="line"><span class="cl">make<span class="o">[</span>1<span class="o">]</span>: *** <span class="o">[</span>scripts/Makefile.host:99: scripts/dtc/dtc<span class="o">]</span> Error <span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>需要对源文件修改几处：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim scripts/dtc/dtc-parser.tab.h
+</span></span><span class="line"><span class="cl">修改extern XXX yylloc 为yyloc
+</span></span><span class="line"><span class="cl">vim scripts/dtc/dtc-lexer.l
+</span></span><span class="line"><span class="cl">修改XXX yylloc 为 extern XXX yylloc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="23-rootfs">2.3 rootfs</h3>
+<p>下载 buildroot：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://buildroot.org/downloads/buildroot-2017.08.tar.gz
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置根文件系统：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">make menuconfig
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>比较重要的包括：</p>
+<ul>
+<li>配置文件保存位置</li>
+<li>外部工具链</li>
+<li>C library</li>
+<li>hostname</li>
+<li>Root password</li>
+<li>Target package(常用软件库)</li>
+</ul>
+<p><strong>在选择常用软件库时，部分库需要在 configmenu 中选中 C++ 支持才能选中</strong>，例如 Qt。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Licheepi-image/Cpp_support.png"
+        data-srcset="/Licheepi-image/Cpp_support.png, /Licheepi-image/Cpp_support.png 1.5x, /Licheepi-image/Cpp_support.png 2x"
+        data-sizes="auto"
+        alt="/Licheepi-image/Cpp_support.png"
+        title="Cpp_support" /></p>
+<p>直接使用 make 命令编译。编译过程中会联网下载选中的包，部分托管在 github 等境外服务器的包可能会遇到网络问题。此时可暂停编译，复制当前下载包的地址，通过 ghproxy 代理手动下载到 dl 目录下，再执行编译将自动检测到目标。
+编译完成后会在 <code>output/images</code> 下生成 rootfs.tar。</p>
+<h2 id="3-镜像制作">3. 镜像制作</h2>
+<h3 id="31-sd-卡分区和挂载">3.1 SD 卡分区和挂载</h3>
+<p>在 Linux 安装 Gparted 图形化分区工具。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install gparted
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过 <code>ls /dev/sd*</code> 命令查看当前插入 sd 卡名称。</p>
+<p>将 SD 卡原本的分区删掉，建立一个 32M FAT16 格式 (或 FAT32) 的分区存放引导文件和系统镜像，用剩余部分建立 ext4 格式分区。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Licheepi-image/fenqu.png#right"
+        data-srcset="/Licheepi-image/fenqu.png#right, /Licheepi-image/fenqu.png#right 1.5x, /Licheepi-image/fenqu.png#right 2x"
+        data-sizes="auto"
+        alt="/Licheepi-image/fenqu.png#right"
+        title="fenqu" /></p>
+<p>重新插拔 SD 卡，需要确认两个分区是否挂载成功：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">df -h
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>实际使用过程中，一般两个分区无法同时自动挂载成功。
+如果存在未被挂载的情况需要手动挂载，首先创建挂载文件夹 BOOT 和 rootfs(一般在 <code>/media</code> 或者 <code>/mnt</code> 下)，然后使用<code>mount</code>命令挂载 (umount 取消挂载）:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mount /dev/sda1 /media/mufasa/BOOT
+</span></span><span class="line"><span class="cl">sudo mount /dev/sda2 /media/mufasa/rootfs
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="32-复制文件">3.2 复制文件</h3>
+<p>将四个文件 rootfs.tar，sun8i-v3s-licheepi-zero-dock.dtb，u-boot-sunxi-with-spl.bin，zImage 复制到同一文件夹中。</p>
+<ol>
+<li>
+<p>使用 dd 命令将 uboot 文件写到 8k 位置 (规定)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo dd <span class="k">if</span><span class="o">=</span>u-boot-sunxi-with-spl.bin <span class="nv">of</span><span class="o">=</span>/dev/sdx <span class="nv">bs</span><span class="o">=</span><span class="m">1024</span> <span class="nv">seek</span><span class="o">=</span><span class="m">8</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>将 dtb 和 zImage 拷贝到 fat16 分区。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp sun8i-v3s-licheepi-zero-dock.dtb /media/mufasa-/BOOT/
+</span></span><span class="line"><span class="cl">cp zImage /media/mufasa/BOOT/
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>根文件系统解压到 ext4 分区</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo tar xvf rootfs.tar -C /media/mufasa/rootfs/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>默认使能串口登录，需要修改 /etc/inittab :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#console::respawn:/sbin/getty -L  console 0 vt100 # GENERIC_SERIAL
+</span></span><span class="line"><span class="cl">ttyS0::respawn:/sbin/getty -L ttyS0 115200 vt100 # GE
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>需要免密码登录，直接</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">#console::respawn:/sbin/getty -L  console 0 vt100 # GENERIC_SERIAL
+</span></span><span class="line"><span class="cl">ttyS0::respawn:/bin/sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ol>
+<h2 id="4-效果">4. 效果</h2>
+<p>打开 MobaXterm 新建一个串口会话，波特率 115200。使用杜邦线按照如下方式连接开发板和 usb-ttl 模块：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">usb-ttl --&gt; 开发板引脚
+</span></span><span class="line"><span class="cl">3.3V --&gt; 供电
+</span></span><span class="line"><span class="cl">GND --&gt; GND 
+</span></span><span class="line"><span class="cl">RX  --&gt; TX(U0) 
+</span></span><span class="line"><span class="cl">TX  --&gt; RX(U0)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>打开串口后能看到屏幕被点亮，并通过电脑串口能够登录和操作开发板。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/Licheepi-image/licheepi_zero_image_disp.png"
+        data-srcset="/Licheepi-image/licheepi_zero_image_disp.png, /Licheepi-image/licheepi_zero_image_disp.png 1.5x, /Licheepi-image/licheepi_zero_image_disp.png 2x"
+        data-sizes="auto"
+        alt="/Licheepi-image/licheepi_zero_image_disp.png"
+        title="licheepi_zero_disp" /></p>
+<h2 id="5-参考链接">5. 参考链接</h2>
+<ol>
+<li><a href="https://wiki.sipeed.com/soft/Lichee/zh/Zero-Doc/Start/intro_cn.html" target="_blank" rel="noopener noreffer ">licheepi 官方文档</a></li>
+<li><a href="https://whycan.com/t_561.html" target="_blank" rel="noopener noreffer ">荔枝派 Zero V3s 开发板入坑记录</a></li>
+<li><a href="https://blingblingxuanxuan.github.io/2021/03/07/lichee-start/" target="_blank" rel="noopener noreffer ">荔枝派 zero 镜像制作及烧录</a></li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-12</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali20177.github.io/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/" data-title="Licheepi Zero 镜像制作流程"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali20177.github.io/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/" data-title="Licheepi Zero 镜像制作流程"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a>,&nbsp;<a href="/tags/linux/">Linux</a>,&nbsp;<a href="/tags/licheepi/">Licheepi</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6/" class="prev" rel="prev" title="C&#43;&#43; 预编译头文件"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>C++ 预编译头文件</a>
+            <a href="/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" class="next" rel="next" title="Opencv Cuda 版本编译流程">Opencv Cuda 版本编译流程<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mufasa</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

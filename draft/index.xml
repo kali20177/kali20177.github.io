@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Drafts on mufasa 个人站</title>
+    <link>https://kali20177.github.io/draft/</link>
+    <description>Recent content in Drafts on mufasa 个人站</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>2862606190@qq.com (mufasa)</managingEditor>
+    <webMaster>2862606190@qq.com (mufasa)</webMaster>
+    <lastBuildDate>Thu, 21 Mar 2024 20:50:00 +0800</lastBuildDate><atom:link href="https://kali20177.github.io/draft/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Manim</title>
+      <link>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/manim/</link>
+      <pubDate>Thu, 21 Mar 2024 20:50:00 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/manim/</guid>
+      <description>安装 MacOS 在 MacOS 上推荐创建虚拟环境后再使用 pip 安装依赖包。直接使用 pip3 安装会导致如下错误： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 error: externally-managed-environment × This environment is externally managed ╰─&amp;gt; To install</description>
+    </item>
+    
+    <item>
+      <title>Qt 相关</title>
+      <link>https://kali20177.github.io/draft/%E7%99%BE%E7%A7%91/qt-%E7%9B%B8%E5%85%B3/</link>
+      <pubDate>Thu, 21 Mar 2024 20:47:00 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/%E7%99%BE%E7%A7%91/qt-%E7%9B%B8%E5%85%B3/</guid>
+      <description>Mac 下 GUI 程序不显示 编译示例图形界面程序后，程序坞出现图标但是不显示窗体。需要在项目的 .pro 文件添加： 1 2 CONFIG += sdk_no_version_check QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.15 清理当前构建后重新编译即可。 Linux</description>
+    </item>
+    
+    <item>
+      <title>[未完成] C 语言面向对象编程</title>
+      <link>https://kali20177.github.io/draft/cpp/c-%E8%AF%AD%E8%A8%80%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Sun, 25 Feb 2024 21:55:29 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/cpp/c-%E8%AF%AD%E8%A8%80%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</guid>
+      <description>封装 继承 多态 参考 面向对象编程 (OOP) 的 C 语言实现 C++ this 指针的理解和作用 Object-Oriented Programming</description>
+    </item>
+    
+    <item>
+      <title>[未完成] QP 状态机编程</title>
+      <link>https://kali20177.github.io/draft/%E5%B5%8C%E5%85%A5%E5%BC%8F/qp%E7%8A%B6%E6%80%81%E6%9C%BA%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Sun, 25 Feb 2024 20:39:11 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/%E5%B5%8C%E5%85%A5%E5%BC%8F/qp%E7%8A%B6%E6%80%81%E6%9C%BA%E7%BC%96%E7%A8%8B/</guid>
+      <description>总体结构 概念 AO 事件驱动 设计模式 主动对象模式 发布订阅模式 使用方法 移植过程 Design by Contract 参考 Design by Contract</description>
+    </item>
+    
+    <item>
+      <title>[未完成] C&#43;&#43; 基本概念</title>
+      <link>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Sun, 25 Feb 2024 20:12:56 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid>
+      <description>C 风格数组退化 C 语言传递数组时，数组类型会退化（decay）成指针类型，同时丢失长度信息。 C 风格的数组在大多数情况下退化为指针，认为数组 = 指</description>
+    </item>
+    
+    <item>
+      <title>[未完成] C&#43;&#43; 并发</title>
+      <link>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E5%B9%B6%E5%8F%91/</link>
+      <pubDate>Sun, 25 Feb 2024 20:02:09 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E5%B9%B6%E5%8F%91/</guid>
+      <description>同步原语 posix 接口 modern C++ 并发支持 C++11 之后， 事件驱动 协程 C++20 后，</description>
+    </item>
+    
+    <item>
+      <title>[未完成] C&#43;&#43; 模板</title>
+      <link>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E6%A8%A1%E6%9D%BF%E7%BC%96%E7%A8%8B/</link>
+      <pubDate>Sun, 25 Feb 2024 20:02:00 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E6%A8%A1%E6%9D%BF%E7%BC%96%E7%A8%8B/</guid>
+      <description>SFINAE: Substitution Failure Is Not An Error，替换失败不是错误 函数模板 从简单例子开始： 1 2 3 4 template&amp;lt;typename T&amp;gt; T max(const T&amp;amp; a, const T&amp;amp; b) { return a &amp;gt; b ? a : b; } 如果调用时传入两个不同类型值，</description>
+    </item>
+    
+    <item>
+      <title>[未完成] C&#43;&#43; 面向对象</title>
+      <link>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
+      <pubDate>Sun, 25 Feb 2024 20:01:25 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
+      <description>类 访问权限 private 成员： private 私有成员，只能在定义该类的成员函数内部访问。对于类的外部不可见，外部对象无法直接访问，派生类也无法访问私有成员。 private 成员通</description>
+    </item>
+    
+    <item>
+      <title>[未完成] CPP_阅读记录</title>
+      <link>https://kali20177.github.io/draft/cpp/cpp-%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Wed, 20 Dec 2023 18:22:12 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/cpp/cpp-%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95/</guid>
+      <description>TODO: 本文内容拆分到其他主题 C++ 语言的设计和演化 C++ 之旅 TODO: 拆分到 &amp;ldquo;语法&amp;rdquo; chapter 15 指针和容器 多个指针可以指向同一个对象，拥有所有权</description>
+    </item>
+    
+    <item>
+      <title>C99 语法</title>
+      <link>https://kali20177.github.io/draft/cpp/c99-%E8%AF%AD%E6%B3%95/</link>
+      <pubDate>Tue, 05 Dec 2023 21:05:08 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/cpp/c99-%E8%AF%AD%E6%B3%95/</guid>
+      <description>1. 指示器语法 designed initialiazer 数组初始化时的指示器语法： 1 2 3 4 int a[10] = {0, 0, 29, 0, 0, 0, 0, 48, 0, 0}; // 等价于 int a[10] = {[2] = 29, [7] = 48}; 还可以： 1 int a[10] = { [1] = 1, [8 ... 9] = 10 }; 结</description>
+    </item>
+    
+    <item>
+      <title>Gdb 使用</title>
+      <link>https://kali20177.github.io/draft/cpp/gdb-%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 05 Dec 2023 19:53:40 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/cpp/gdb-%E4%BD%BF%E7%94%A8/</guid>
+      <description>Core dump Linux 下默认关闭该功能，开启命令： 1 ulimit -c unlimited 使用 GDB 进行调试时，可以通过两种方式来进行调试：一种是直接调试可执行文件，另一种是调试 core 文件。以下是</description>
+    </item>
+    
+    <item>
+      <title>Leetcode 刷题记录</title>
+      <link>https://kali20177.github.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/leetcode-%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Thu, 05 Oct 2023 22:44:53 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/leetcode-%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</guid>
+      <description>2023.09.17 [1768] 交替合并字符串 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 char * mergeAlternately(char * word1, char * word2) { int len1 = strlen(word1); int len2 = strlen(word2); char* res = malloc((strlen(word1) + strlen(word2) + 1) * sizeof(char)); memset(res, &amp;#39;\0&amp;#39;, (strlen(word1) + strlen(word2) + 1)); int</description>
+    </item>
+    
+    <item>
+      <title>[未完成] C&#43;&#43; 类型</title>
+      <link>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</link>
+      <pubDate>Tue, 12 Jul 2022 22:35:25 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</guid>
+      <description>TODO: 本文内容归到 &amp;ldquo;语法&amp;rdquo; 和 &amp;ldquo;模板&amp;rdquo; 转换规则 隐式 显式 常用类型转换 1.1 数组转换为 vector 方式一，定义 vector 时直</description>
+    </item>
+    
+    <item>
+      <title>[未完成] C&#43;&#43; 简单数据库系统</title>
+      <link>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Fri, 18 Mar 2022 18:59:39 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/</guid>
+      <description>1. 说明 本文是阅读知乎网友教程 如何用 C++ 实现一个简易数据库 的笔记。 Rspec 一种基于 Ruby 的测试框架，可以用来测试 C++ 程序输出是否符合预期。 1 2 3 4 5 describe XXX do it</description>
+    </item>
+    
+    <item>
+      <title>[未完成] C&#43;&#43; 简单 Log</title>
+      <link>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95-log/</link>
+      <pubDate>Mon, 14 Mar 2022 17:15:26 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95-log/</guid>
+      <description>1. 说明 学校课题组祖传代码缺乏日志系统，监控过程信息非常麻烦，想自己实现一个简易的 Log 模块实现基本 Log 功能，顺带学习单例模式。代码参考自网络公开的</description>
+    </item>
+    
+    <item>
+      <title>[未完成] Cjson 解析器的简单实现</title>
+      <link>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/cjson-%E8%A7%A3%E6%9E%90%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</link>
+      <pubDate>Sun, 13 Feb 2022 16:41:32 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/cjson-%E8%A7%A3%E6%9E%90%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</guid>
+      <description>1. json 格式 一种数据交换格式，源于 JavaScript，可用于任何编程语言。 json 是树状结构，包含六种类型： null; boolean number string array object 任务要求： 把 json 解析为一个树状</description>
+    </item>
+    
+    <item>
+      <title>[未完成] 基于跳表的 KV 存储</title>
+      <link>https://kali20177.github.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8/</link>
+      <pubDate>Mon, 07 Feb 2022 17:18:18 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8/</guid>
+      <description>1. 项目任务 学习跳表结构 使用跳表实现 KV 存储 实现接口： insert_element 插入数据 delete_element 删除数据 search_element 查询数据 update_element 更新数据 display_list 打印跳跃表 dump_file 数据落盘 load_file 加载数据 size 返回数据规模 clear 清</description>
+    </item>
+    
+    <item>
+      <title>Linux 下名称缩写和解释</title>
+      <link>https://kali20177.github.io/draft/%E7%99%BE%E7%A7%91/linux-%E4%B8%8B%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E7%BC%A9%E5%86%99%E5%92%8C%E8%A7%A3%E9%87%8A/</link>
+      <pubDate>Tue, 04 Jan 2022 19:05:28 +0800</pubDate>
+      <author>2862606190@qq.com (mufasa)</author>
+      <guid>https://kali20177.github.io/draft/%E7%99%BE%E7%A7%91/linux-%E4%B8%8B%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E7%BC%A9%E5%86%99%E5%92%8C%E8%A7%A3%E9%87%8A/</guid>
+      <description>1. tty TTY，teletype 的缩写。 早期终端是一种电传打字机，并且最早终端和控制台不是一种东西。 数控设备的控制设备一般叫控制台，终端是通过串</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>R - 标签 - mufasa 个人站</title>
+        <link>https://kali20177.github.io/tags/r/</link>
+        <description>R - 标签 - mufasa 个人站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Wed, 01 Jun 2022 20:14:18 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/tags/r/" rel="self" type="application/rss+xml" /><item>
+    <title>R 语言绘图</title>
+    <link>https://kali20177.github.io/r-%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE/</link>
+    <pubDate>Wed, 01 Jun 2022 20:14:18 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/r-%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE/</guid>
+    <description><![CDATA[需要安装的包 安装命令： 1 install.packages(&#39;ggplot2&#39;, repos = &#39;https://mirrors.tuna.tsinghua.edu.cn/CRAN&#39;) readxl gridExtra ggsci ggpubr 散点图绘制 如果需要绘制多组散点图，可以先把数据放在一个 excel 表中，整体导入数据框。每列数据名称最好不要使]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,24 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>项目 - 分类 - mufasa 个人站</title>
+        <link>https://kali20177.github.io/categories/%E9%A1%B9%E7%9B%AE/</link>
+        <description>项目 - 分类 - mufasa 个人站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Wed, 13 Apr 2022 17:45:59 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/categories/%E9%A1%B9%E7%9B%AE/" rel="self" type="application/rss+xml" /><item>
+    <title>批量提取行程码/健康码信息到表格</title>
+    <link>https://kali20177.github.io/%E6%89%B9%E9%87%8F%E6%8F%90%E5%8F%96%E8%A1%8C%E7%A8%8B%E7%A0%81%E4%BF%A1%E6%81%AF%E5%88%B0%E8%A1%A8%E6%A0%BC/</link>
+    <pubDate>Wed, 13 Apr 2022 17:45:59 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/%E6%89%B9%E9%87%8F%E6%8F%90%E5%8F%96%E8%A1%8C%E7%A8%8B%E7%A0%81%E4%BF%A1%E6%81%AF%E5%88%B0%E8%A1%A8%E6%A0%BC/</guid>
+    <description><![CDATA[1. 说明 学校老师希望能实现一个自动处理行程码、健康码信息的程序，本文记录一下实现过程。笔者非计算机专业人员，代码看看就好哈 😥。 2. 实现思路 程序执]]></description>
+</item>
+<item>
+    <title>[未完成] Cjson 解析器的简单实现</title>
+    <link>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/cjson-%E8%A7%A3%E6%9E%90%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</link>
+    <pubDate>Sun, 13 Feb 2022 16:41:32 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/cjson-%E8%A7%A3%E6%9E%90%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/</guid>
+    <description><![CDATA[1. json 格式 一种数据交换格式，源于 JavaScript，可用于任何编程语言。 json 是树状结构，包含六种类型： null; boolean number string array object 任务要求： 把 json 解析为一个树状]]></description>
+</item>
+</channel>
+</rss>

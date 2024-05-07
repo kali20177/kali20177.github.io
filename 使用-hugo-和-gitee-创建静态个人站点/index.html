@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>使用 hugo 和 gitee 创建静态个人站点 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="使用 hugo 和 gitee 创建静态个人站点" />
+<meta property="og:description" content="1. 安装 通过应用商店下载 WSL，使用包管理器安装 Hugo 即可。 2. 创建项目 1 hugo new site mysite #项目名称 mysite 进入 mysite 目录，结构和功能如下： 1 2 3 4 5 6 7 8 9 10 mysite ├─" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kali20177.github.io/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-gitee-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9/" /><meta property="og:image" content="https://kali20177.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-29T21:38:14+08:00" />
+<meta property="article:modified_time" content="2021-12-29T21:38:14+08:00" /><meta property="og:site_name" content="My cool site" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png"/>
+
+<meta name="twitter:title" content="使用 hugo 和 gitee 创建静态个人站点"/>
+<meta name="twitter:description" content="1. 安装 通过应用商店下载 WSL，使用包管理器安装 Hugo 即可。 2. 创建项目 1 hugo new site mysite #项目名称 mysite 进入 mysite 目录，结构和功能如下： 1 2 3 4 5 6 7 8 9 10 mysite ├─"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-gitee-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9/" /><link rel="prev" href="https://kali20177.github.io/%E4%BD%BF%E7%94%A8-ssh-%E8%BF%9E%E6%8E%A5%E8%99%9A%E6%8B%9F%E6%9C%BA/" /><link rel="next" href="https://kali20177.github.io/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "使用 hugo 和 gitee 创建静态个人站点",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/kali20177.github.io\/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-gitee-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9\/"
+        },"genre": "posts","wordcount":  942 ,
+        "url": "https:\/\/kali20177.github.io\/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-gitee-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9\/","datePublished": "2021-12-29T21:38:14+08:00","dateModified": "2021-12-29T21:38:14+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "mufasa"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="mufasa 个人站">Mufasa&#39;s blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">使用 hugo 和 gitee 创建静态个人站点</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%85%B6%E4%BB%96/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>其他</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-12-29">2021-12-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 942 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-安装">1. 安装</a></li>
+    <li><a href="#2-创建项目">2. 创建项目</a></li>
+    <li><a href="#3-挑选主题">3. 挑选主题</a></li>
+    <li><a href="#4-根据主题文档进行操作">4. 根据主题文档进行操作</a></li>
+    <li><a href="#5-编辑文章">5. 编辑文章</a></li>
+    <li><a href="#6-markdown-部分语法">6. markdown 部分语法</a>
+      <ul>
+        <li><a href="#61-表格">6.1 表格</a></li>
+        <li><a href="#62-强调格式">6.2 强调格式</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-启用-hugo-server-查看效果">7. 启用 hugo server 查看效果</a></li>
+    <li><a href="#8-图像">8. 图像</a></li>
+    <li><a href="#9-gitee-配置">9. gitee 配置</a></li>
+    <li><a href="#10-编译">10. 编译</a></li>
+    <li><a href="#11-将-public-推到-gitee-仓库">11. 将 public 推到 gitee 仓库</a></li>
+    <li><a href="#12-在-gitee-仓库服务中开启-gitee-pages-服务">12. 在 gitee 仓库服务中开启 gitee pages 服务</a></li>
+    <li><a href="#13-后续维护">13. 后续维护</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-安装">1. 安装</h2>
+<p>通过应用商店下载 WSL，使用包管理器安装 Hugo 即可。</p>
+<h2 id="2-创建项目">2. 创建项目</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new site mysite     <span class="c1">#项目名称 mysite</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>进入 <code>mysite</code> 目录，结构和功能如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  mysite
+</span></span><span class="line"><span class="cl">    ├── archetypes <span class="c1"># markdown文章的模版</span>
+</span></span><span class="line"><span class="cl">    ├── config.toml <span class="c1"># 配置文件</span>
+</span></span><span class="line"><span class="cl">    ├── content <span class="c1"># 网站内容，主要保存文章</span>
+</span></span><span class="line"><span class="cl">    ├── data <span class="c1"># 生成网站可用的数据文件，可用在模版中</span>
+</span></span><span class="line"><span class="cl">    ├── layouts <span class="c1"># 生成网站时可用的模版</span>
+</span></span><span class="line"><span class="cl">    ├── public <span class="c1"># 通过hugo命令生成的静态文件，主要发布这个</span>
+</span></span><span class="line"><span class="cl">    ├── resources <span class="c1"># 通过hugo命令一起生成的资源文件</span>
+</span></span><span class="line"><span class="cl">    ├── static <span class="c1"># 静态文件，比如文章中的图片/视频文件、缩略图等</span>
+</span></span><span class="line"><span class="cl">    └── themes <span class="c1"># 存放hugo主题</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="3-挑选主题">3. 挑选主题</h2>
+<p>搜索 Hugo 主题，在主题网站挑选合适主题后，git clone 主题项目到路径 <code>mysite/themes</code> 下。</p>
+<h2 id="4-根据主题文档进行操作">4. 根据主题文档进行操作</h2>
+<p>一般需要将主题提供的 config.toml 文件，按照作者提示编辑修改后，覆盖 hugo 初始默认的配置文件。</p>
+<h2 id="5-编辑文章">5. 编辑文章</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo new posts/first.md
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>文章会被创建到目录 <code>content/posts</code> 下，使用 markdown 语法编辑。</p>
+<h2 id="6-markdown-部分语法">6. markdown 部分语法</h2>
+<h3 id="61-表格">6.1 表格</h3>
+<p>设置表格对齐方式：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">左对齐</th>
+<th style="text-align:right">右对齐</th>
+<th style="text-align:center">居中对齐</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">单元格</td>
+<td style="text-align:right">单元格</td>
+<td style="text-align:center">单元格</td>
+</tr>
+<tr>
+<td style="text-align:left">单元格</td>
+<td style="text-align:right">单元格</td>
+<td style="text-align:center">单元格</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62-强调格式">6.2 强调格式</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方式</th>
+<th style="text-align:center">效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">*abc*</td>
+<td style="text-align:center"><em>abc</em></td>
+</tr>
+<tr>
+<td style="text-align:center">**abc**</td>
+<td style="text-align:center"><strong>abc</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">***abc***</td>
+<td style="text-align:center"><em><strong>abc</strong></em></td>
+</tr>
+<tr>
+<td style="text-align:center">~~abc~~</td>
+<td style="text-align:center"><del>abc</del></td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-启用-hugo-server-查看效果">7. 启用 hugo server 查看效果</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo server -D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/hugo_gitee/hugo_server.png"
+        data-srcset="/hugo_gitee/hugo_server.png, /hugo_gitee/hugo_server.png 1.5x, /hugo_gitee/hugo_server.png 2x"
+        data-sizes="auto"
+        alt="/hugo_gitee/hugo_server.png"
+        title="hugo server D" /></p>
+<p>点击链接能够在浏览器中查看效果。</p>
+<h2 id="8-图像">8. 图像</h2>
+<ul>
+<li>配置文件的图像放在主题文件夹的 <code>static</code> 中</li>
+<li>文章的图像放在根目录的 <code>static</code> 文件夹中，或者使用图床链接</li>
+</ul>
+<h2 id="9-gitee-配置">9. gitee 配置</h2>
+<p>由于 github 访问问题，建议部署到 gitee 确保站点能被正常访问。</p>
+<p>在 gitee 上新建一个仓库，仓库名称和 gitee  的用户名相同。生成的个人站点链接将会是<code>gitee用户名.gitee.io</code> 。</p>
+<h2 id="10-编译">10. 编译</h2>
+<p>执行以下命令编译站点：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo --theme<span class="o">=</span>theme_name --baseURL<span class="o">=</span><span class="s2">&#34;https://gitee用户名.gitee.io&#34;</span> -D
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>能够看到在项目文件夹中生成了 <code>public</code> 文件夹。</p>
+<h2 id="11-将-public-推到-gitee-仓库">11. 将 public 推到 gitee 仓库</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> public
+</span></span><span class="line"><span class="cl">git init
+</span></span><span class="line"><span class="cl">git add .
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;test&#34;</span>
+</span></span><span class="line"><span class="cl">git remote add origin <span class="s1">&#39;仓库地址&#39;</span>
+</span></span><span class="line"><span class="cl">git push -u origin master
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="12-在-gitee-仓库服务中开启-gitee-pages-服务">12. 在 gitee 仓库服务中开启 gitee pages 服务</h2>
+<p>点击服务 &ndash;&gt; Git pages，按照流程开通，点击部署。打开网页查看效果：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/hugo_gitee/hugo_res.png"
+        data-srcset="/hugo_gitee/hugo_res.png, /hugo_gitee/hugo_res.png 1.5x, /hugo_gitee/hugo_res.png 2x"
+        data-sizes="auto"
+        alt="/hugo_gitee/hugo_res.png"
+        title="hugo 效果" /></p>
+<h2 id="13-后续维护">13. 后续维护</h2>
+<p>存放源码的仓库被托管到 github 后，themes 文件夹下的项目由于有 .git 目录，会被设置成子模块。clone 仓库到本地后需要下载主题到 theme 文件夹。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/dillonzq/LoveIt.git themes/LoveIt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>或者从一开始下载时就一同下载子模块</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">​git clone --recursive https://github.com/xxx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>再或者直接删除主题项目的 .git 目录，直接 push 所有文件到仓库。</p>
+<h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://www.bilibili.com/video/BV1x64y117PX?spm_id_from=333.999.0.0" target="_blank" rel="noopener noreffer ">Hugo - 10 分钟搭建 &amp; 部署个人网站/博客，简历中的博客网站怎么建</a></li>
+<li><a href="https://blog.lrtfm.com/2020/05/2020-05-03-hugo-markdown-mathjax" target="_blank" rel="noopener noreffer ">Hugo + Markdown + MathJax</a></li>
+<li><a href="https://blog.csdn.net/lixiaoting94/article/details/103876601" target="_blank" rel="noopener noreffer ">Markdown 表格：对齐方式，表格内换行、加粗、斜体，合并单元格</a></li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-12-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-gitee-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali20177.github.io/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-gitee-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9/" data-title="使用 hugo 和 gitee 创建静态个人站点"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali20177.github.io/%E4%BD%BF%E7%94%A8-hugo-%E5%92%8C-gitee-%E5%88%9B%E5%BB%BA%E9%9D%99%E6%80%81%E4%B8%AA%E4%BA%BA%E7%AB%99%E7%82%B9/" data-title="使用 hugo 和 gitee 创建静态个人站点"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E4%BD%BF%E7%94%A8-ssh-%E8%BF%9E%E6%8E%A5%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="prev" rel="prev" title="SSH 连接虚拟机"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>SSH 连接虚拟机</a>
+            <a href="/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6/" class="next" rel="next" title="C&#43;&#43; 预编译头文件">C++ 预编译头文件<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mufasa</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

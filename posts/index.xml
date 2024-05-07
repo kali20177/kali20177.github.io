@@ -1,0 +1,88 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>所有文章 - mufasa 个人站</title>
+        <link>https://kali20177.github.io/posts/</link>
+        <description>所有文章 | mufasa 个人站</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Fri, 03 May 2024 00:34:10 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Llama.cpp 简单体验</title>
+    <link>https://kali20177.github.io/llama.cpp-%E7%AE%80%E5%8D%95%E4%BD%93%E9%AA%8C/</link>
+    <pubDate>Fri, 03 May 2024 00:34:10 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/llama.cpp-%E7%AE%80%E5%8D%95%E4%BD%93%E9%AA%8C/</guid>
+    <description><![CDATA[编译 建议在 WSL2 上操作，可以直接调用 N 卡加速，且无需复杂的配置依赖过程，首先安装 CUDA TOOLKIT 和 ccache： 1 2 sudo apt install nvidia-cuda-toolkit ccache nvcc --version 下载 llama.cpp 并编译： 1 2 3 4 git clone]]></description>
+</item>
+<item>
+    <title>Ubuntu 常用设置</title>
+    <link>https://kali20177.github.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/</link>
+    <pubDate>Mon, 29 Apr 2024 09:13:40 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/</guid>
+    <description><![CDATA[目录名称 gnome 桌面改回英文目录名： 1 2 3 export LANG=en_US xdg-user-dirs-gtk-update export LANG=zh_CN fonts Linux 上字体一般被存放在下面的文件夹（可通过 cat /etc/fonts/fonts.conf 查看）： /usr/share/fonts/ /usr/local/share/fonts/ ~/.fonts/ 用户 安装 TrueType 字体 1 sudo apt install ttf-mscorefonts-installer 显示当前安]]></description>
+</item>
+<item>
+    <title>Whisper 语音模型使用</title>
+    <link>https://kali20177.github.io/whisper-%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8/</link>
+    <pubDate>Sun, 07 Apr 2024 18:53:37 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/whisper-%E8%AF%AD%E9%9F%B3%E6%A8%A1%E5%9E%8B%E4%BD%BF%E7%94%A8/</guid>
+    <description><![CDATA[whisper 是 openai 开源的可离线使用的语音识别模型。目前的缺点是只能产生英文的字幕文件。 Windows Windows 上使用的优势是能调用 Nvidia 显卡加速。 下载： WhisperDesktop ggml 语音模型，可以通过国]]></description>
+</item>
+<item>
+    <title>Docker 基础</title>
+    <link>https://kali20177.github.io/docker-%E9%85%8D%E7%BD%AE/</link>
+    <pubDate>Sat, 09 Mar 2024 19:17:37 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/docker-%E9%85%8D%E7%BD%AE/</guid>
+    <description><![CDATA[安装 Windows 上 Docker 需要基于 Hyper-V 或者 WSL2。在“启用或关闭 Windows 功能”中勾选 &ldquo;Hyper-V&rdquo; 和“容器”，进而再安装 Docker Desktop。 安装 Docker Desktop 后可以 Settings &ndash;&gt; Resources &ndash;&gt; WSL Integration 选择 Enable integration with]]></description>
+</item>
+<item>
+    <title>VSCode 配置文件和文档生成</title>
+    <link>https://kali20177.github.io/vscode-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</link>
+    <pubDate>Sat, 23 Dec 2023 23:26:14 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/vscode-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
+    <description><![CDATA[1. Json 文件 JSON（JavaScript Object Notation）是一种轻量级的数据交换格式，最初由 Douglas Crockford 提出，作为 JavaScript 中对象字面量的一种表示方式，但已]]></description>
+</item>
+<item>
+    <title>各种 Shell 的配置文件</title>
+    <link>https://kali20177.github.io/%E5%90%84%E7%A7%8D-shell-%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</link>
+    <pubDate>Thu, 14 Dec 2023 21:54:29 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/%E5%90%84%E7%A7%8D-shell-%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</guid>
+    <description><![CDATA[1. PowerShell 7 微软的 powershell 更新到 7 之后的版本终于让终端比较流畅，并且支持自动补全历史命令记录。安装后使用一下命令产生配置文件： 1 echo $PROFILE 一般会生成在 C:\Users\{username}\Documents\PowerShell\Microsoft.PowerShell_profile.ps1 下，通]]></description>
+</item>
+<item>
+    <title>C/C&#43;&#43; 代码质量</title>
+    <link>https://kali20177.github.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/</link>
+    <pubDate>Wed, 13 Dec 2023 08:41:58 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/</guid>
+    <description><![CDATA[1. 复杂度 1.1 定义 圈复杂度 (Cyclomatic complexity，CC) 是一种衡量代码复杂度的标准。圈复杂度可以用来衡量一个模块判定结构的复杂程度，其数量上表现]]></description>
+</item>
+<item>
+    <title>Git 工作流</title>
+    <link>https://kali20177.github.io/git-%E5%B7%A5%E4%BD%9C%E6%B5%81/</link>
+    <pubDate>Wed, 06 Dec 2023 09:00:04 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/git-%E5%B7%A5%E4%BD%9C%E6%B5%81/</guid>
+    <description><![CDATA[Git flow Git 版本管理同样需要操作规范。荷兰程序员 Vincent 在 2010 年提出的方案被称为 git flow，如下图所示： 但大部分观点认为，以上流程只适用于作者所说的需要多]]></description>
+</item>
+<item>
+    <title>解毒 Setjmp &amp; Longjmp</title>
+    <link>https://kali20177.github.io/%E8%A7%A3%E6%AF%92-setjmp-longjmp/</link>
+    <pubDate>Tue, 05 Dec 2023 20:36:00 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/%E8%A7%A3%E6%AF%92-setjmp-longjmp/</guid>
+    <description><![CDATA[1. 简单案例 下面是用 setjmp 和 longjmp 实现的简单捕获除 0 异常的一段 C 代码： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 #include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;time.h&gt;#include &lt;setjmp.h&gt;]]></description>
+</item>
+<item>
+    <title>C&#43;&#43; 和 C 模块的相互调用</title>
+    <link>https://kali20177.github.io/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/</link>
+    <pubDate>Thu, 02 Nov 2023 14:41:27 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/</guid>
+    <description><![CDATA[CMake 默认 .c 文件使用 gcc 编译，.cpp 文件使用 g++ 编译。C++ 不兼容 C99 以后的特有语法，比如指示器语法的乱序初始化、复合字面量等。 C/C++ 混合编程大致应该遵]]></description>
+</item>
+</channel>
+</rss>
