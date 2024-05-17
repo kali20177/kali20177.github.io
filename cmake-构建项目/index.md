@@ -35,17 +35,17 @@ project(hello C)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_BUILD_TYPE Debug)
 
-# 不同模式编译选项
+# 不同模式下全局的编译选项
 SET(CMAKE_CXX_FLAGS_DEBUG "-Wall -g")
 SET(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
-# clangd 支持
+# clangd 支持，查看编译命令，生成一个 compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(${PROJECT_NAME} src/main.c)
 target_link_libraries(${PROJECT_NAME} PUBLIC m)  # 链接数学库
 
-# 开启 ctest 功能
+# 开启 ctest 功能，此选项需要在顶层 CMakeLists.txt 定义
 include(CTest)
 
 # 添加子项目
@@ -549,9 +549,29 @@ cmake --build --preset "gui app debug"
 
 如果使用 VSCode 插件则无需输入命令行，直接鼠标点选即可构建。
 
-## 14 rpath
+## 14. rpath
 
-## 15. Clang 静态分析器
+## 15. 编译选项控制
+
+target_compile_options 命令用于给特定构建目标添加编译选项。可以添加三个级别的可见性：INTERFACE、PUBLIC 和 PRIVATE。定义如下：
+
+* PRIVATE，编译选项会应用于给定的目标，不会传递给与目标相关的目标。
+* INTERFACE，给定的编译选项将只应用于指定目标，并传递给与目标相关的目标。
+* PUBLIC，编译选项将应用于指定目标和使用它的目标。
+
+例如：
+
+```c
+list(APPEND flags "-fno-exceptions" "-fno-rtti")
+add_library(xlib STATIC xxx.cpp)
+target_compile_options(xlib PRIVATE ${flags})
+```
+
+> 1. 检查对每个源文件的编译选项，除了设置 CMAKE_EXPORT_COMPILE_COMMANDS 外，还可以通过 `cmake --build . -- VERBOSE=1`
+>
+> 2. 选项 CMAKE_EXPORT_COMPILE_COMMANDS 仅当使用 Makefile 和 Ninja 生成器时有效。
+
+## 16. Clang 静态分析器
 
 安装 clang 和 llvm 套件，安装 clang static analyzer：
 
@@ -577,9 +597,9 @@ scan-build: Run 'scan-view /tmp/scan-build-2024-04-30-151415-5388-1' to examine 
 
 执行提示的 `scan-view xxx` 可以在浏览器上查看错误详情。
 
-## 16. CMake 行为准则
+## 17. CMake 行为准则
 
-### 16.1 CMake 应避免的行为
+### 17.1 CMake 应避免的行为
 
 - 不要使用具有全局作用域的函数：这包含 `link_directories`、 `include_libraries` 等相似的函数。
 - 不要添加非必要的 PUBLIC 要求：你应该避免把一些不必要的东西强加给用户（-Wall）。相比于 PUBLIC，更应该把他们声明为 PRIVATE。
@@ -587,7 +607,7 @@ scan-build: Run 'scan-view /tmp/scan-build-2024-04-30-151415-5388-1' to examine 
 - 将库直接链接到需要构建的目标上：如果可以的话，总是显式的将库链接到目标上。
 - 当链接库文件时，不要省略 PUBLIC 或 PRIVATE 关键字：这将会导致后续所有的链接都是默认的。
 
-### 16.2 CMake 应遵守的规范
+### 17.2 CMake 应遵守的规范
 
 - 把 CMake 程序视作代码：它是代码。它应该和其他的代码一样，是整洁并且可读的。
 - 建立目标的观念：你的目标应该代表一系列的概念。为任何需要保持一致的东西指定一个（导入型）INTERFACE 目标，然后每次都链接到该目标。

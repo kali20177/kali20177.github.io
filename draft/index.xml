@@ -64,7 +64,7 @@
       <link>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
       <pubDate>Sun, 25 Feb 2024 20:01:25 +0800</pubDate><author>2862606190@qq.com (mufasa)</author>
       <guid>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
-      <description>类 访问权限 private 成员： private 私有成员，只能在定义该类的成员函数内部访问。对于类的外部不可见，外部对象无法直接访问，派生类也无法访问私有成员。 private 成员通</description>
+      <description>封装/类 访问权限 private 成员： private 私有成员，只能在定义该类的成员函数内部访问。对于类的外部不可见，外部对象无法直接访问，派生类也无法访问私有成员。 private</description>
     </item>
     <item>
       <title>[未完成] CPP_阅读记录</title>

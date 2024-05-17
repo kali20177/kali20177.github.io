@@ -37,42 +37,102 @@ fc-list
 fc-cache -f -v
 ```
 
-## gcc 13
+## 编译工具链
 
-下载和解压 gcc13.2：
+### gcc 14
+
+下载和解压 gcc14.1：
 
 ```bash
-wget https://mirror.koddos.net/gcc/releases/gcc-13.2.0/gcc-13.2.0.tar.gz
-tar -xzvf gcc-13.2.0.tar.gz
-cd gcc-13.2.0
+wget https://mirrors.tuna.tsinghua.edu.cn/gnu/gcc/gcc-14.1.0/gcc-14.1.0.tar.gz
+tar -xzvf gcc-14.1.0.tar.gz
+cd gcc-14.1.0/
 ```
 
-编译：
+编译，官方 [文档](https://gcc.gnu.org/install/configure.html) 中解释了各 configure 参数：
 
 ```bash
+# 安装依赖
 sudo apt install libgmp-dev libmpc-dev libmpfr-dev libmpfrc++-dev libisl-dev
+# 如果执行了上一步依赖安装可以不用执行此脚本
 ./contrib/download_prerequisites
+
 mkdir build && cd build
 
-../configure --prefix=/opt/gcc-13.2.0 --with-pkgversion='glibc gcc V13.2.0' --enable-checking=release --enable-languages=c,c++ --disable-multilib --enable-bootstrap --enable-threads=posix --with-system-zlib 
+# --program-suffix 会给安装的 gcc 程序添加后缀
+../configure --prefix=/opt/gcc-14.1.0 --enable-checking=release --enable-languages=c,c++,go --disable-multilib --enable-bootstrap --enable-threads=posix --program-suffix=-14
 
 make -j$(nproc)
-make install
+sudo make install
 ```
 
 环境变量设置：
 
 ```bash
-# gcc-13.2 ENV
-export GCC13_HOME=/opt/gcc-13.2.0
-export PATH=$GCC13_HOME/bin:$PATH
-export LD_LIBRARY_PATH=$GCC13_HOME/lib64:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$GCC13_HOME/lib:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$GCC13_HOME/libexec:$LD_LIBRARY_PATH
-export CPATH=$GCC13_HOME/include:$CPATH
-export INCLUDE=$GCC13_HOME/include:$CPATH
-export CC=$GCC13_HOME/bin/gcc
-export CXX=$GCC13_HOME/bin/g++
+# gcc-14.1 ENV
+export GCC14_HOME=/opt/gcc-14.1.0
+export PATH=$GCC14_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$GCC14_HOME/lib64:$LD_LIBRARY_PATH
+```
+
+Gcc 14 优化了静态分析特性，可以通过编译选项 `-fanalyzer` 检查死代码，可视化 buffer overflow 等。例如对下面的代码：
+
+```c
+void test (void)
+{
+  char buf[10];
+  strcpy (buf, "hello");
+  strcat (buf, " world!");
+}
+```
+
+编译将输出：
+
+```bash
+<source>:7:3: note: write of 3 bytes to beyond the end of 'buf'
+    7 |   strcat (buf, " world!");
+      |   ^~~~~~~~~~~~~~~~~~~~~~~
+<source>:7:3: note: valid subscripts for 'buf' are '[0]' to '[9]'
+
+                             ┌────┬────┬────┬────┬────┐┌─────┬─────┬─────┐
+                             │[0] │[1] │[2] │[3] │[4] ││ [5] │ [6] │ [7] │
+                             ├────┼────┼────┼────┼────┤├─────┼─────┼─────┤
+                             │' ' │'w' │'o' │'r' │'l' ││ 'd' │ '!' │ NUL │
+                             ├────┴────┴────┴────┴────┴┴─────┴─────┴─────┤
+                             │     string literal (type: 'char[8]')      │
+                             └───────────────────────────────────────────┘
+                               │    │    │    │    │      │     │     │
+                               │    │    │    │    │      │     │     │
+                               v    v    v    v    v      v     v     v
+  ┌─────┬────────────────────┬────┬──────────────┬────┐┌─────────────────┐
+  │ [0] │        ...         │[5] │     ...      │[9] ││                 │
+  ├─────┼────┬────┬────┬────┬┼────┼──────────────┴────┘│                 │
+  │ 'h' │'e' │'l' │'l' │'o' ││NUL │                    │after valid range│
+  ├─────┴────┴────┴────┴────┴┴────┴───────────────────┐│                 │
+  │             'buf' (type: 'char[10]')              ││                 │
+  └───────────────────────────────────────────────────┘└─────────────────┘
+  ├─────────────────────────┬─────────────────────────┤├────────┬────────┤
+                            │                                   │
+                  ╭─────────┴────────╮              ╭───────────┴──────────╮
+                  │capacity: 10 bytes│              │⚠️  overflow of 3 bytes│
+                  ╰──────────────────╯              ╰──────────────────────╯
+...
+```
+
+### CMake
+
+没有 cmake 环境：
+
+```bash
+./bootstrap --qt-gui
+make && sudo make install
+```
+
+使用 CMake 构建：
+
+```bash
+cmake -D BUILD_QtDialog=ON ..
+make && sudo make install
 ```
 
 ## 优化设置
@@ -81,6 +141,19 @@ export CXX=$GCC13_HOME/bin/g++
 
 ```bash
 gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
+```
+
+关闭动效
+
+```bash
+gsettings set org.gnome.desktop.interface enable-animations false
+```
+
+隐藏桌面主目录和回收站图标：
+
+```bash
+gsettings set org.gnome.shell.extensions.ding show-home false
+gsettings set org.gnome.shell.extensions.ding show-trash false
 ```
 
 音视频编解码器：
@@ -95,7 +168,7 @@ sudo apt-get install ubuntu-restricted-extras
 sudo apt install pulseaudio pavucontrol
 ```
 
-gnome 桌面插件：
+gnome 插件和优化选项：
 
 ```bash
 sudo apt install gnome-tweaks
@@ -128,6 +201,45 @@ export XMODIFIERS=@im=fcitx
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 ```
+
+ubuntu 20.04 下 fcitx5 暂时不能图形化配置，安装命令：
+
+```bash
+sudo apt install fcitx5 fcitx5-chinese-addons fcitx5-frontend-gtk3 fcitx5-frontend-gtk2 fcitx5-frontend-qt5
+```
+
+同样在 im-config 中设置系统输入法框架为 fcitx5，添加到开机启动项。新建文件 `~/.config/fcitx5/profile`：
+
+```text
+[Groups/0]
+# Group Name
+Name=Default
+# Layout
+Default Layout=us
+# Default Input Method
+DefaultIM=pinyin
+
+[Groups/0/Items/0]
+# Name
+Name=keyboard-us
+# Layout
+Layout=
+
+[Groups/0/Items/1]
+# Name
+Name=pinyin
+# Layout
+Layout=
+
+[GroupOrder]
+0=Default
+```
+
+修改 fcitx5 的配置文件时注意：**先退出 fcitx5 再修改配置项，因为 fcitx5 进程退出后会覆写所有配置文件**。
+
+在文件 `~/.config/fcitx5/conf/pinyin.conf` 中通过修改 PageSize 值调整候选字个数。重启后即可正常使用。
+
+主题配置参见 github 项目 [Fcitx5-Material-Color](https://github.com/hosxy/Fcitx5-Material-Color)
 
 ## neovim
 
@@ -214,6 +326,11 @@ sudo usermod -aG vboxsf $(whoami)
 
 1. [How to install and manage fonts on Linux](https://linuxconfig.org/how-to-install-and-manage-fonts-on-linux)
 2. [GCC-13.2.0 编译安装](https://cuterwrite.top/p/gcc-13-source-install/)
-3. [在 Ubuntu 安装配置 Fcitx 5 中文输入法](https://muzing.top/posts/3fc249cf/)
-4. [The update-alternatives Command in Linux](https://www.baeldung.com/linux/update-alternatives-command)
-5. [VirtualBox: linux 没有权限访问共享文件夹的问题](https://www.cnblogs.com/yongdaimi/p/13424855.html)
+3. [Improvements to static analysis in the GCC 14 compiler](https://developers.redhat.com/articles/2024/04/03/improvements-static-analysis-gcc-14-compiler#solving_the_halting_problem_)
+4. [在 Ubuntu 安装配置 Fcitx 5 中文输入法](https://muzing.top/posts/3fc249cf/)
+5. [如何现在就在 Ubuntu 20.04 用上 Fcitx 5](https://plumz.me/archives/11740/)
+6. [在 Ubuntu Linux 上安装 Fcitx5 中文输入法](https://www.qinxu.net/linux/2021/0930636/)
+7. [我也！用上 fcitx5 了](https://iovxw.net/p/fcitx5/)
+8. [The update-alternatives Command in Linux](https://www.baeldung.com/linux/update-alternatives-command)
+9. [VirtualBox: linux 没有权限访问共享文件夹的问题](https://www.cnblogs.com/yongdaimi/p/13424855.html)
+

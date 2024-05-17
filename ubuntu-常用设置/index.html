@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE\/"
-        },"genre": "posts","keywords": "Linux","wordcount":  971 ,
+        },"genre": "posts","keywords": "Linux","wordcount":  2313 ,
         "url": "https:\/\/kali20177.github.io\/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE\/","datePublished": "2024-04-29T09:13:40+08:00","dateModified": "2024-04-29T09:13:40+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -102,8 +102,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Ubuntu 常用设置</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-29">2024-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 971 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-29">2024-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2313 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -113,7 +113,12 @@
   <ul>
     <li><a href="#目录名称">目录名称</a></li>
     <li><a href="#fonts">fonts</a></li>
-    <li><a href="#gcc-13">gcc 13</a></li>
+    <li><a href="#编译工具链">编译工具链</a>
+      <ul>
+        <li><a href="#gcc-14">gcc 14</a></li>
+        <li><a href="#cmake">CMake</a></li>
+      </ul>
+    </li>
     <li><a href="#优化设置">优化设置</a></li>
     <li><a href="#fcitx-5">fcitx 5</a></li>
     <li><a href="#neovim">neovim</a></li>
@@ -170,8 +175,9 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fc-cache -f -v
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="gcc-13">gcc 13</h2>
-<p>下载和解压 gcc13.2：</p>
+</div><h2 id="编译工具链">编译工具链</h2>
+<h3 id="gcc-14">gcc 14</h3>
+<p>下载和解压 gcc14.1：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -179,35 +185,12 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://mirror.koddos.net/gcc/releases/gcc-13.2.0/gcc-13.2.0.tar.gz
-</span></span><span class="line"><span class="cl">tar -xzvf gcc-13.2.0.tar.gz
-</span></span><span class="line"><span class="cl"><span class="nb">cd</span> gcc-13.2.0
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget https://mirrors.tuna.tsinghua.edu.cn/gnu/gcc/gcc-14.1.0/gcc-14.1.0.tar.gz
+</span></span><span class="line"><span class="cl">tar -xzvf gcc-14.1.0.tar.gz
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> gcc-14.1.0/
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>编译：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install libgmp-dev libmpc-dev libmpfr-dev libmpfrc++-dev libisl-dev
-</span></span><span class="line"><span class="cl">./contrib/download_prerequisites
-</span></span><span class="line"><span class="cl">mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">../configure --prefix<span class="o">=</span>/opt/gcc-13.2.0 --with-pkgversion<span class="o">=</span><span class="s1">&#39;glibc gcc V13.2.0&#39;</span> --enable-checking<span class="o">=</span>release --enable-languages<span class="o">=</span>c,c++ --disable-multilib --enable-bootstrap --enable-threads<span class="o">=</span>posix --with-system-zlib 
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">make -j<span class="k">$(</span>nproc<span class="k">)</span>
-</span></span><span class="line"><span class="cl">make install
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>环境变量设置：</p>
+</div><p>编译，官方 <a href="https://gcc.gnu.org/install/configure.html" target="_blank" rel="noopener noreffer ">文档</a> 中解释了各 configure 参数：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -220,18 +203,142 @@
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># gcc-13.2 ENV</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GCC13_HOME</span><span class="o">=</span>/opt/gcc-13.2.0
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/bin:<span class="nv">$PATH</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/lib64:<span class="nv">$LD_LIBRARY_PATH</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/lib:<span class="nv">$LD_LIBRARY_PATH</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/libexec:<span class="nv">$LD_LIBRARY_PATH</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CPATH</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/include:<span class="nv">$CPATH</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">INCLUDE</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/include:<span class="nv">$CPATH</span>
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/bin/gcc
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">CXX</span><span class="o">=</span><span class="nv">$GCC13_HOME</span>/bin/g++
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装依赖</span>
+</span></span><span class="line"><span class="cl">sudo apt install libgmp-dev libmpc-dev libmpfr-dev libmpfrc++-dev libisl-dev
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果执行了上一步依赖安装可以不用执行此脚本</span>
+</span></span><span class="line"><span class="cl">./contrib/download_prerequisites
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># --program-suffix 会给安装的 gcc 程序添加后缀</span>
+</span></span><span class="line"><span class="cl">../configure --prefix<span class="o">=</span>/opt/gcc-14.1.0 --enable-checking<span class="o">=</span>release --enable-languages<span class="o">=</span>c,c++,go --disable-multilib --enable-bootstrap --enable-threads<span class="o">=</span>posix --program-suffix<span class="o">=</span>-14
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">make -j<span class="k">$(</span>nproc<span class="k">)</span>
+</span></span><span class="line"><span class="cl">sudo make install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>环境变量设置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># gcc-14.1 ENV</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GCC14_HOME</span><span class="o">=</span>/opt/gcc-14.1.0
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$GCC14_HOME</span>/bin:<span class="nv">$PATH</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$GCC14_HOME</span>/lib64:<span class="nv">$LD_LIBRARY_PATH</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Gcc 14 优化了静态分析特性，可以通过编译选项 <code>-fanalyzer</code> 检查死代码，可视化 buffer overflow 等。例如对下面的代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">test</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">strcpy</span> <span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">strcat</span> <span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="s">&#34; world!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编译将输出：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&lt;source&gt;:7:3: note: write of <span class="m">3</span> bytes to beyond the end of <span class="s1">&#39;buf&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="m">7</span> <span class="p">|</span>   strcat <span class="o">(</span>buf, <span class="s2">&#34; world!&#34;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">|</span>   ^~~~~~~~~~~~~~~~~~~~~~~
+</span></span><span class="line"><span class="cl">&lt;source&gt;:7:3: note: valid subscripts <span class="k">for</span> <span class="s1">&#39;buf&#39;</span> are <span class="s1">&#39;[0]&#39;</span> to <span class="s1">&#39;[9]&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                             ┌────┬────┬────┬────┬────┐┌─────┬─────┬─────┐
+</span></span><span class="line"><span class="cl">                             │<span class="o">[</span>0<span class="o">]</span> │<span class="o">[</span>1<span class="o">]</span> │<span class="o">[</span>2<span class="o">]</span> │<span class="o">[</span>3<span class="o">]</span> │<span class="o">[</span>4<span class="o">]</span> ││ <span class="o">[</span>5<span class="o">]</span> │ <span class="o">[</span>6<span class="o">]</span> │ <span class="o">[</span>7<span class="o">]</span> │
+</span></span><span class="line"><span class="cl">                             ├────┼────┼────┼────┼────┤├─────┼─────┼─────┤
+</span></span><span class="line"><span class="cl">                             │<span class="s1">&#39; &#39;</span> │<span class="s1">&#39;w&#39;</span> │<span class="s1">&#39;o&#39;</span> │<span class="s1">&#39;r&#39;</span> │<span class="s1">&#39;l&#39;</span> ││ <span class="s1">&#39;d&#39;</span> │ <span class="s1">&#39;!&#39;</span> │ NUL │
+</span></span><span class="line"><span class="cl">                             ├────┴────┴────┴────┴────┴┴─────┴─────┴─────┤
+</span></span><span class="line"><span class="cl">                             │     string literal <span class="o">(</span>type: <span class="s1">&#39;char[8]&#39;</span><span class="o">)</span>      │
+</span></span><span class="line"><span class="cl">                             └───────────────────────────────────────────┘
+</span></span><span class="line"><span class="cl">                               │    │    │    │    │      │     │     │
+</span></span><span class="line"><span class="cl">                               │    │    │    │    │      │     │     │
+</span></span><span class="line"><span class="cl">                               v    v    v    v    v      v     v     v
+</span></span><span class="line"><span class="cl">  ┌─────┬────────────────────┬────┬──────────────┬────┐┌─────────────────┐
+</span></span><span class="line"><span class="cl">  │ <span class="o">[</span>0<span class="o">]</span> │        ...         │<span class="o">[</span>5<span class="o">]</span> │     ...      │<span class="o">[</span>9<span class="o">]</span> ││                 │
+</span></span><span class="line"><span class="cl">  ├─────┼────┬────┬────┬────┬┼────┼──────────────┴────┘│                 │
+</span></span><span class="line"><span class="cl">  │ <span class="s1">&#39;h&#39;</span> │<span class="s1">&#39;e&#39;</span> │<span class="s1">&#39;l&#39;</span> │<span class="s1">&#39;l&#39;</span> │<span class="s1">&#39;o&#39;</span> ││NUL │                    │after valid range│
+</span></span><span class="line"><span class="cl">  ├─────┴────┴────┴────┴────┴┴────┴───────────────────┐│                 │
+</span></span><span class="line"><span class="cl">  │             <span class="s1">&#39;buf&#39;</span> <span class="o">(</span>type: <span class="s1">&#39;char[10]&#39;</span><span class="o">)</span>              ││                 │
+</span></span><span class="line"><span class="cl">  └───────────────────────────────────────────────────┘└─────────────────┘
+</span></span><span class="line"><span class="cl">  ├─────────────────────────┬─────────────────────────┤├────────┬────────┤
+</span></span><span class="line"><span class="cl">                            │                                   │
+</span></span><span class="line"><span class="cl">                  ╭─────────┴────────╮              ╭───────────┴──────────╮
+</span></span><span class="line"><span class="cl">                  │capacity: <span class="m">10</span> bytes│              │⚠️  overflow of <span class="m">3</span> bytes│
+</span></span><span class="line"><span class="cl">                  ╰──────────────────╯              ╰──────────────────────╯
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="cmake">CMake</h3>
+<p>没有 cmake 环境：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./bootstrap --qt-gui
+</span></span><span class="line"><span class="cl">make <span class="o">&amp;&amp;</span> sudo make install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 CMake 构建：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cmake -D <span class="nv">BUILD_QtDialog</span><span class="o">=</span>ON ..
+</span></span><span class="line"><span class="cl">make <span class="o">&amp;&amp;</span> sudo make install
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="优化设置">优化设置</h2>
@@ -242,6 +349,26 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gsettings <span class="nb">set</span> org.gnome.shell.extensions.dash-to-dock click-action <span class="s1">&#39;minimize&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>关闭动效</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gsettings <span class="nb">set</span> org.gnome.desktop.interface enable-animations <span class="nb">false</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>隐藏桌面主目录和回收站图标：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gsettings <span class="nb">set</span> org.gnome.shell.extensions.ding show-home <span class="nb">false</span>
+</span></span><span class="line"><span class="cl">gsettings <span class="nb">set</span> org.gnome.shell.extensions.ding show-trash <span class="nb">false</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>音视频编解码器：</p>
@@ -262,7 +389,7 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install pulseaudio pavucontrol
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>gnome 桌面插件：</p>
+</div><p>gnome 插件和优化选项：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -312,7 +439,70 @@
 </span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">QT_IM_MODULE</span><span class="o">=</span>fcitx
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="neovim">neovim</h2>
+</div><p>ubuntu 20.04 下 fcitx5 暂时不能图形化配置，安装命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install fcitx5 fcitx5-chinese-addons fcitx5-frontend-gtk3 fcitx5-frontend-gtk2 fcitx5-frontend-qt5
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>同样在 im-config 中设置系统输入法框架为 fcitx5，添加到开机启动项。新建文件 <code>~/.config/fcitx5/profile</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[Groups/0]
+</span></span><span class="line"><span class="cl"># Group Name
+</span></span><span class="line"><span class="cl">Name=Default
+</span></span><span class="line"><span class="cl"># Layout
+</span></span><span class="line"><span class="cl">Default Layout=us
+</span></span><span class="line"><span class="cl"># Default Input Method
+</span></span><span class="line"><span class="cl">DefaultIM=pinyin
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[Groups/0/Items/0]
+</span></span><span class="line"><span class="cl"># Name
+</span></span><span class="line"><span class="cl">Name=keyboard-us
+</span></span><span class="line"><span class="cl"># Layout
+</span></span><span class="line"><span class="cl">Layout=
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[Groups/0/Items/1]
+</span></span><span class="line"><span class="cl"># Name
+</span></span><span class="line"><span class="cl">Name=pinyin
+</span></span><span class="line"><span class="cl"># Layout
+</span></span><span class="line"><span class="cl">Layout=
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[GroupOrder]
+</span></span><span class="line"><span class="cl">0=Default
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改 fcitx5 的配置文件时注意：<strong>先退出 fcitx5 再修改配置项，因为 fcitx5 进程退出后会覆写所有配置文件</strong>。</p>
+<p>在文件 <code>~/.config/fcitx5/conf/pinyin.conf</code> 中通过修改 PageSize 值调整候选字个数。重启后即可正常使用。</p>
+<p>主题配置参见 github 项目 <a href="https://github.com/hosxy/Fcitx5-Material-Color" target="_blank" rel="noopener noreffer ">Fcitx5-Material-Color</a></p>
+<h2 id="neovim">neovim</h2>
 <p>安装剪贴板依赖：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -433,7 +623,11 @@
 <ol>
 <li><a href="https://linuxconfig.org/how-to-install-and-manage-fonts-on-linux" target="_blank" rel="noopener noreffer ">How to install and manage fonts on Linux</a></li>
 <li><a href="https://cuterwrite.top/p/gcc-13-source-install/" target="_blank" rel="noopener noreffer ">GCC-13.2.0 编译安装</a></li>
+<li><a href="https://developers.redhat.com/articles/2024/04/03/improvements-static-analysis-gcc-14-compiler#solving_the_halting_problem_" target="_blank" rel="noopener noreffer ">Improvements to static analysis in the GCC 14 compiler</a></li>
 <li><a href="https://muzing.top/posts/3fc249cf/" target="_blank" rel="noopener noreffer ">在 Ubuntu 安装配置 Fcitx 5 中文输入法</a></li>
+<li><a href="https://plumz.me/archives/11740/" target="_blank" rel="noopener noreffer ">如何现在就在 Ubuntu 20.04 用上 Fcitx 5</a></li>
+<li><a href="https://www.qinxu.net/linux/2021/0930636/" target="_blank" rel="noopener noreffer ">在 Ubuntu Linux 上安装 Fcitx5 中文输入法</a></li>
+<li><a href="https://iovxw.net/p/fcitx5/" target="_blank" rel="noopener noreffer ">我也！用上 fcitx5 了</a></li>
 <li><a href="https://www.baeldung.com/linux/update-alternatives-command" target="_blank" rel="noopener noreffer ">The update-alternatives Command in Linux</a></li>
 <li><a href="https://www.cnblogs.com/yongdaimi/p/13424855.html" target="_blank" rel="noopener noreffer ">VirtualBox: linux 没有权限访问共享文件夹的问题</a></li>
 </ol>

@@ -12,8 +12,8 @@ Windows 上 Docker 需要基于 Hyper-V 或者 WSL2。在“启用或关闭 Wind
 Linux 上可以直接使用 apt 的源下载 Ubuntu 维护的社区版。
 
 ```bash
-sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release
-sudo apt-get install docker.io docker-compose docker-doc
+sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release usbutils
+sudo apt install docker.io docker-compose docker-doc
 ```
 
 安装完成后，docker 默认 root 用户才能访问，所以要添加当前用户名到 docker 组中。
@@ -86,7 +86,7 @@ cat >/etc/apt/sources.list
 安装 OpenSSH 服务，设置 root 密码
 
 ```bash
-apt-get install openssh-server
+apt install openssh-server
 passwd:
 # 修改密码
 ```
@@ -128,6 +128,15 @@ ssh root@127.0.0.1 -p 6789
 > 对于 Windows，系统变量下默认的 ssh 工具连接会存在问题，建议更换成 git 安装目录下 /usr/ssh.exe
 
 对于 VSCode，安装插件 Remote SSH 后，选择**将当前窗口连接到主机**，填写 `ssh root@127.0.0.1 -p 6789`，输入密码即可连接完成。
+
+使用 ssh 复制文件：
+
+```bash
+# 远程复制到本机，scp 命令已经不再推荐
+scp -p 22 username@ipaddress:/home/xxx/ .
+# 复制文件到远程
+rsync -p 22 filename username@ipaddress:/home/xxx/ 
+```
 
 ### alpine
 
@@ -249,7 +258,7 @@ Docker 推荐容器使用 host.docker.internal 来访问宿主机上的服务。
 Linux 同样通过 x11 服务显示，启动参数有所不同：
 
 ```bash
-sudo apt-get install x11-xserver-utils
+sudo apt install x11-xserver-utils
 sudo xhost +
 # access control disabled, clients can connect from any host
 docker run -it 
@@ -270,7 +279,7 @@ Windows 下 WSL 环境的容器，目前对宿主机设备的访问支持不完�
 J-Link 官方提供了在 Linux 宿主机上直接用设备映射访问调试器的文档，容器内需要安装 `lsusb` 支持。
 
 ```bash
-apt-get install usbutils
+apt install usbutils
 sudo docker run -t -i --privileged -v /dev/bus/usb/:/dev/bus/usb ubuntu bash
 ```
 
@@ -425,20 +434,21 @@ code-server 服务安装的位置和容器的用户名有关，例如对于微�
 3. [SSH 服务器](https://wangdoc.com/ssh/server)
 4. [Alpine Linux 常用命令](https://www.cnblogs.com/jackadam/p/9290366.html)
 5. [Setting up a SSH server](https://wiki.alpinelinux.org/wiki/Setting_up_a_SSH_server?ref=angelsanchez.me)
-6. [docker 搭建本地/局域网仓库](https://juejin.cn/post/7248827630866415674)
-7. [私有仓库](https://docker-practice.github.io/zh-cn/repository/registry.html)
-8. [about – x11 display server – display or login manager – window manager](https://dwaves.de/2017/06/14/about-x11-display-server-display-or-login-manager-window-manager/)
-9. [在 Docker for Windows 中运行 GUI 程序](https://www.cnblogs.com/larva-zhh/p/10531824.html)
-10. [Run GUI app in linux docker container on windows host](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde)
-11. ["error: XDG_RUNTIME_DIR not set in the environment." when attempting to run nautilus as root](https://askubuntu.com/questions/456689/error-xdg-runtime-dir-not-set-in-the-environment-when-attempting-to-run-naut)
-12. [Docker 容器图形界面显示（运行 GUI 软件）的配置方法](https://www.cnblogs.com/ruiyang-/p/10185840.html)
-13. [J-Link Docker Container](https://wiki.segger.com/J-Link_Docker_Container)
-14. [Win10 中的 Docker 使用 USB 设备](https://www.voidking.com/dev-win10-docker-usb/)
-15. [Using the gdbserver Program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Server.html)
-16. [Developing on the RP2040 / Pi Pico with Docker and JLink](https://johnmcnelly.com/developing-on-the-rp2040-pi-pico-with-docker-and-jlink/)
-17. [vscode + jlink + GDBServer 在线调试](https://blog.csdn.net/niu_88/article/details/127347197)
-18. [J-Link GDB Server](https://wiki.segger.com/J-Link_GDB_Server)
-19. [STM32 Development Env for Windows: VSCode + ARM GCC Toolchain + OpenOCD](https://mightydevices.com/index.php/2019/09/stm32-development-env-for-windows-vscode-arm-gcc-toolchain-openocd/)
-20. [WSL](https://wiki.segger.com/WSL)
-21. [Run the Installer Script](https://goharbor.io/docs/2.10.0/install-config/run-installer-script/)
-22. [VS Code Server 离线安装过程](https://zhuanlan.zhihu.com/p/294933020)
+6. [通过 SSH 在远程和本地系统之间传输文件的 4 种方法](https://zhuanlan.zhihu.com/p/507876254)
+7. [docker 搭建本地/局域网仓库](https://juejin.cn/post/7248827630866415674)
+8. [私有仓库](https://docker-practice.github.io/zh-cn/repository/registry.html)
+9. [about – x11 display server – display or login manager – window manager](https://dwaves.de/2017/06/14/about-x11-display-server-display-or-login-manager-window-manager/)
+10. [在 Docker for Windows 中运行 GUI 程序](https://www.cnblogs.com/larva-zhh/p/10531824.html)
+11. [Run GUI app in linux docker container on windows host](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde)
+12. ["error: XDG_RUNTIME_DIR not set in the environment." when attempting to run nautilus as root](https://askubuntu.com/questions/456689/error-xdg-runtime-dir-not-set-in-the-environment-when-attempting-to-run-naut)
+13. [Docker 容器图形界面显示（运行 GUI 软件）的配置方法](https://www.cnblogs.com/ruiyang-/p/10185840.html)
+14. [J-Link Docker Container](https://wiki.segger.com/J-Link_Docker_Container)
+15. [Win10 中的 Docker 使用 USB 设备](https://www.voidking.com/dev-win10-docker-usb/)
+16. [Using the gdbserver Program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Server.html)
+17. [Developing on the RP2040 / Pi Pico with Docker and JLink](https://johnmcnelly.com/developing-on-the-rp2040-pi-pico-with-docker-and-jlink/)
+18. [vscode + jlink + GDBServer 在线调试](https://blog.csdn.net/niu_88/article/details/127347197)
+19. [J-Link GDB Server](https://wiki.segger.com/J-Link_GDB_Server)
+20. [STM32 Development Env for Windows: VSCode + ARM GCC Toolchain + OpenOCD](https://mightydevices.com/index.php/2019/09/stm32-development-env-for-windows-vscode-arm-gcc-toolchain-openocd/)
+21. [WSL](https://wiki.segger.com/WSL)
+22. [Run the Installer Script](https://goharbor.io/docs/2.10.0/install-config/run-installer-script/)
+23. [VS Code Server 离线安装过程](https://zhuanlan.zhihu.com/p/294933020)

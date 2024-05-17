@@ -269,6 +269,12 @@ Windows Registry Editor Version 5.00
 @="\"E:\\VSCode\\Code.exe\" \"%V\""
 ```
 
+## 8. VSCode Profile
+
+VSCode Profile 功能允许用户创建自定义设置的集合，包括插件、快捷键、设置等，可以快速切换项目或语言环境并与他人共享。
+
+点击：管理（左下角齿轮）--> 配置文件 --> 创建配置文件，根据提示命名和选择需要导出的系列设置，可以保存为 xxx.code-profile 文件。
+
 ## 参考
 
 1. [VSCode Snippets：提升开发幸福感的小技巧](https://juejin.cn/post/7076609496046370847)
@@ -277,4 +283,5 @@ Windows Registry Editor Version 5.00
 4. [使用 Doxygen 构建文档](https://www.bookstack.cn/read/CMake-Cookbook/content-chapter12-12.1-chinese.md)
 5. [Doxygen 笔记](https://doxygen-note.readthedocs.io/zh-cn/latest/tutorial/intro.html)
 6. [Quick setup to use Doxygen with CMake](https://vicrucann.github.io/tutorials/quick-cmake-doxygen/)
+7. [Profiles in Visual Studio Code](https://code.visualstudio.com/docs/editor/profiles)
 

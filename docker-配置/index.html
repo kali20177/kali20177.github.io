@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/docker-%E9%85%8D%E7%BD%AE\/"
-        },"genre": "posts","wordcount":  3237 ,
+        },"genre": "posts","wordcount":  3310 ,
         "url": "https:\/\/kali20177.github.io\/docker-%E9%85%8D%E7%BD%AE\/","datePublished": "2024-03-09T19:17:37+08:00","dateModified": "2024-03-09T19:17:37+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -102,7 +102,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker 基础</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-09">2024-03-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3237 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-09">2024-03-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3310 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -159,8 +159,8 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release
-</span></span><span class="line"><span class="cl">sudo apt-get install docker.io docker-compose docker-doc
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release usbutils
+</span></span><span class="line"><span class="cl">sudo apt install docker.io docker-compose docker-doc
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>安装完成后，docker 默认 root 用户才能访问，所以要添加当前用户名到 docker 组中。</p>
@@ -261,7 +261,7 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt-get install openssh-server
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install openssh-server
 </span></span><span class="line"><span class="cl">passwd:
 </span></span><span class="line"><span class="cl"><span class="c1"># 修改密码</span>
 </span></span></code></pre></td></tr></table>
@@ -323,7 +323,22 @@
 <p>对于 Windows，系统变量下默认的 ssh 工具连接会存在问题，建议更换成 git 安装目录下 /usr/ssh.exe</p>
 </blockquote>
 <p>对于 VSCode，安装插件 Remote SSH 后，选择<strong>将当前窗口连接到主机</strong>，填写 <code>ssh root@127.0.0.1 -p 6789</code>，输入密码即可连接完成。</p>
-<h3 id="alpine">alpine</h3>
+<p>使用 ssh 复制文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 远程复制到本机，scp 命令已经不再推荐</span>
+</span></span><span class="line"><span class="cl">scp -p <span class="m">22</span> username@ipaddress:/home/xxx/ .
+</span></span><span class="line"><span class="cl"><span class="c1"># 复制文件到远程</span>
+</span></span><span class="line"><span class="cl">rsync -p <span class="m">22</span> filename username@ipaddress:/home/xxx/ 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="alpine">alpine</h3>
 <p>alpine 发行版更加轻量，并且不需要安装 ca-certificates 换源，比较容易写 Dockerfile。alpine 使用 apk 作为包管理工具，且没有 bash。基础编译工具通过 <code>apk add build-base</code> 安装。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -510,7 +525,7 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get install x11-xserver-utils
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install x11-xserver-utils
 </span></span><span class="line"><span class="cl">sudo xhost +
 </span></span><span class="line"><span class="cl"><span class="c1"># access control disabled, clients can connect from any host</span>
 </span></span><span class="line"><span class="cl">docker run -it 
@@ -532,7 +547,7 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt-get install usbutils
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install usbutils
 </span></span><span class="line"><span class="cl">sudo docker run -t -i --privileged -v /dev/bus/usb/:/dev/bus/usb ubuntu bash
 </span></span></code></pre></td></tr></table>
 </div>
@@ -779,6 +794,7 @@
 <li><a href="https://wangdoc.com/ssh/server" target="_blank" rel="noopener noreffer ">SSH 服务器</a></li>
 <li><a href="https://www.cnblogs.com/jackadam/p/9290366.html" target="_blank" rel="noopener noreffer ">Alpine Linux 常用命令</a></li>
 <li><a href="https://wiki.alpinelinux.org/wiki/Setting_up_a_SSH_server?ref=angelsanchez.me" target="_blank" rel="noopener noreffer ">Setting up a SSH server</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/507876254" target="_blank" rel="noopener noreffer ">通过 SSH 在远程和本地系统之间传输文件的 4 种方法</a></li>
 <li><a href="https://juejin.cn/post/7248827630866415674" target="_blank" rel="noopener noreffer ">docker 搭建本地/局域网仓库</a></li>
 <li><a href="https://docker-practice.github.io/zh-cn/repository/registry.html" target="_blank" rel="noopener noreffer ">私有仓库</a></li>
 <li><a href="https://dwaves.de/2017/06/14/about-x11-display-server-display-or-login-manager-window-manager/" target="_blank" rel="noopener noreffer ">about – x11 display server – display or login manager – window manager</a></li>

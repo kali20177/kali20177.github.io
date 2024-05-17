@@ -48,14 +48,28 @@ sizeof( 类型 )	(1)
 sizeof 表达式	(2)	
 ```
 
-1. sizeof 的结果始终非零，即使应用于空类。
-2. 当应用于某个表达式时，sizeof **不对表达式进行求值**，即便表达式代表多态对象，它的结果也是该表达式的静态类型的大小。
+1. sizeof a + b 会被解释成 sizeof(a) + b。
+2. 当应用于类类型时，结果是该类的完整对象所占据的字节数，**包括这种对象放入数组时所需的任何额外填充**。
+3. sizeof 的结果始终非零，即使应用于空类，一般是 1。
 
-```cpp
-int a = 1;
-std::size_t b = sizeof ++a;
-std::cout << a << " " << b << "\n";
-```
+    ```cpp
+    class A {};                      // sizeof(A) = 1;
+    class B : public A { int x; };   // sizeof(B) = 4;
+    class C {                        // sizeof(C) = 8;
+        A a;
+        B b;
+    };
+    ```
+
+    > 空基类优化：为保证同一类型的不同对象地址始终有别，要求任何对象或成员子对象的大小至少为 1，即使该类型是空的类类型。空类的派生类可以允许空的基类子对象大小为零。
+
+4. 当应用于某个表达式时，sizeof **不对表达式进行求值**，即便表达式代表多态对象，它的结果也是该表达式的静态类型的大小。
+
+    ```cpp
+    int a = 1;
+    std::size_t b = sizeof ++a;
+    std::cout << a << " " << b << "\n";
+    ```
 
 ## CV 限定符
 
@@ -229,6 +243,30 @@ void print(Status s) {
 ## 函数指针和 std::function
 
 TODO:
+
+普通函数指针：
+
+使用 typedef 作为声明标识符，为函数指针起别名，实现回调函数：
+
+```cpp
+// 函数指针类型，下面的语句定义的名字是 Button_Call，代表 void ()(void*) 类型的函数
+typedef void (*Button_Call)(void*);
+// 回调函数实现
+void myButtonPressed(void* data) {
+    printf("Button pressed data: %d\n", *((int*)data));
+}
+// 注册回调
+void registerButtonPressCallback(Button_Call func, void * data) {
+    func(data);
+}
+
+int main(int argc, char *argv[])
+{
+   int somedata = 42;
+   registerButtonPressCallback(myButtonPressed, &somedata);
+   return 0;
+}
+```
 
 > 技巧：using + decltype 完成函数指针获取
 
@@ -533,11 +571,12 @@ int main()
 5. [Pass by address](https://www.learncpp.com/cpp-tutorial/pass-by-address-part-2/)
 6. [复制初始化](https://zh.cppreference.com/w/cpp/language/copy_initialization)
 7. [Member functions returning references to data members](https://www.learncpp.com/cpp-tutorial/member-functions-returning-references-to-data-members/)
-8. [使用 constexpr 时遇到的小坑](https://www.cnblogs.com/apocelipes/p/14769971.html)
-9. [C++11 lambda 表达式与仿函数](https://www.cnblogs.com/zyk1113/p/13217312.html)
-10. [仿函数](https://cui-jiacai.gitbook.io/c++-stl-tutorial/fang-han-shu-functor#pian-han-shu)
-11. [new expression](https://en.cppreference.com/w/cpp/language/new)
-12. [表达式](https://zh.cppreference.com/w/cpp/language/expressions)
-13. [字面量](https://zhxilin.github.io/post/tech_stack/1_programming_language/modern_cpp/cpp11/user_defined_literal/#%E5%AD%97%E9%9D%A2%E9%87%8F)
-14. [C++14 更多新特性](https://zhxilin.github.io/post/tech_stack/1_programming_language/modern_cpp/cpp14/more_cpp14/)
-15. [std::initializer_list in C++ 1/2 - Internals and Use Cases](https://www.cppstories.com/2023/initializer_list_basics/#intro-to-the-stdinitializer_list)
+8. [克服边界：在 C++ 中兼容 C 语言风格的函数指针回调的方式](https://zhuanlan.zhihu.com/p/689415121)
+9. [使用 constexpr 时遇到的小坑](https://www.cnblogs.com/apocelipes/p/14769971.html)
+10. [C++11 lambda 表达式与仿函数](https://www.cnblogs.com/zyk1113/p/13217312.html)
+11. [仿函数](https://cui-jiacai.gitbook.io/c++-stl-tutorial/fang-han-shu-functor#pian-han-shu)
+12. [new expression](https://en.cppreference.com/w/cpp/language/new)
+13. [表达式](https://zh.cppreference.com/w/cpp/language/expressions)
+14. [字面量](https://zhxilin.github.io/post/tech_stack/1_programming_language/modern_cpp/cpp11/user_defined_literal/#%E5%AD%97%E9%9D%A2%E9%87%8F)
+15. [C++14 更多新特性](https://zhxilin.github.io/post/tech_stack/1_programming_language/modern_cpp/cpp14/more_cpp14/)
+16. [std::initializer_list in C++ 1/2 - Internals and Use Cases](https://www.cppstories.com/2023/initializer_list_basics/#intro-to-the-stdinitializer_list)

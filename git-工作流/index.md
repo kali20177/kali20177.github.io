@@ -44,17 +44,20 @@ Git 版本管理同样需要操作规范。荷兰程序员 Vincent 在 2010 年�
 
 ## git 配置文件
 
-git 的配置文件 Linux 下在 `~/.gitconfig`，Windows 下一般在 `C:\Users\username\.gitconfig`。命令行执行的有关用户名和邮箱的信息也被保存在这个位置。另外最常用的操作是设置代理，方便 clone 和 pull github 上的项目源码。通过在终端运行下面的命令完成：
+git 的配置文件 Linux 下在 `~/.gitconfig`，Windows 下一般在 `C:\Users\username\.gitconfig`，可使用 `git config --list` 查看。
 
-```shell
-git config --global url."https://github.moeyy.xyz/https://github.com".insteadOf "https://github.com"
+全局用户名和邮箱：
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "youremail@yourdomain.com"
 ```
 
-url 后面的是代理地址。或者直接修改 `.gitconfig` 文件中的对应位置。
+可以为每个项目设置单独的 git 用户名和邮箱：
 
-```text
-[url "https://mirror.ghproxy.com/https://github.com"]
-	insteadOf = https://github.com
+```bash
+git config user.name "Your Name"
+git config user.email "youremail@yourdomain.com"
 ```
 
 ## github

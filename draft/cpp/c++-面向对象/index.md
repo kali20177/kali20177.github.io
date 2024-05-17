@@ -1,7 +1,7 @@
 # [未完成] C++ 面向对象
 
 
-## 类
+## 封装/类
 
 ### 访问权限 
 
@@ -12,6 +12,8 @@ private 成员：
 protected 成员：
 - protected 也是类的私有成员，具有更宽松的访问权限。可以被该类的成员函数和派生类的成员函数访问。外部对象无法直接访问。
 - protected 成员通常用于实现**继承和派生类的访问控制**。
+
+> 保护是编译时的机制提供的，目标是防止意外事件，而不是防止欺骗或者有意入侵。 ———— 《C++ 语言的设计与演化》
 
 **可使用 using 改变 protected 成员在派生类中的访问权限**，例如：
 
@@ -155,11 +157,101 @@ void Log::setStr(std::string&& message) {
 
 friend 声明在类体内，授予一个函数或类完整的访问权限。
 
-> 构造函数与析构函数也可以是友元，友元关系不能传递，不能继承。
+> 构造函数与析构函数也可以是友元，**友元关系不能传递，不能继承**。
 
 #### 友元函数
 
 某类的友元函数不是该类的成员函数
+
+#### 友元类
+
+#### Attorney-Client Idioms
+
+友元一定程度会破坏类的封装，增加耦合性，因为继承得到的类可能由不同人员或者组织开发，友元关系如果被继承会引入破坏性变更。
+
+可以使用“律师 - 委托人”习语，实现友元的“继承”，通过增加一个间接级别来工作。一个客户端类想要控制对其内部细节的访问，它指定了一个代理人并使其成为 friend。Attorney 用作 Client 的代理。
+
+下面的例子修改自 [wiki](https://en.wikibooks.org/wiki/More_C++_Idioms/Friendship_and_the_Attorney-Client) 上的案例代码。
+
+1. 将 Attorney 类中的 callFunc 方法设为公有
+
+```cpp
+#include <iostream>
+
+class Base {
+private:
+    virtual void Func(int x) = 0;
+    friend class Attorney;
+public:
+    virtual ~Base() {}
+};
+
+class Derived : public Base {
+private:
+    virtual void Func(int x) {
+        std::cout << "Derived::Func called with x = " << x << std::endl;
+    }
+public:
+    ~Derived() {}
+};
+
+class Attorney {
+public: // 将 callFunc 方法设为公有
+    static void callFunc(Base& b, int x) {
+        return b.Func(x);
+    }
+};
+
+int main() {
+    Derived d;
+    Attorney::callFunc(d, 10);
+    return 0;
+}
+```
+
+2. 引入一个新的 Proxy 类，该类公开一个静态方法 callFunc，该方法内部调用 Attorney::callFunc。
+
+```cpp
+#include <iostream>
+
+class Base {
+private:
+    virtual void Func(int x) = 0;
+    friend class Attorney;
+public:
+    virtual ~Base() {}
+};
+
+class Derived : public Base {
+private:
+    virtual void Func(int x) {
+        std::cout << "Derived::Func called with x = " << x << std::endl;
+    }
+public:
+    ~Derived() {}
+};
+
+class Attorney {
+private:
+    static void callFunc(Base& b, int x) {
+        return b.Func(x);
+    }
+    friend class Proxy;
+};
+
+class Proxy {
+public:
+    static void callFunc(Base& b, int x) {
+        Attorney::callFunc(b, x);
+    }
+};
+
+int main() {
+    Derived d;
+    Proxy::callFunc(d, 10);
+    return 0;
+}
+```
 
 ### 构造函数
 
@@ -357,14 +449,33 @@ setMonth( &myDate, 3 );
 
 ## 继承
 
-继承时也存在 private, protected 和 public 三种继承，前两种很少用到。且默认是 private 继承。
+### 布局
+
+```cpp
+class A {
+public:
+    int x;
+protected:
+    int y;
+private:
+    int z;
+};
+
+class B : public A {};
+```
+
+**B 将得到 A 的全部元素**，只是访问权限不同。
+
+### 继承类型
+
+继承时也存在 private, protected 和 public 三种继承，前两种很少用到，默认是 private 继承。
 
 ```cpp
 class A {};
 class B : public A {};
 class C : private B {};
 class D : protected C {};
-class E : D {};
+class E : D {};    // private
 ```
 
 ### 虚函数
@@ -678,9 +789,80 @@ int main() {
 }
 ```
 
-可以使用基类的引用，在不使用 new 的情况下实例化派生类对象，并且能够实现多态性。
+可以使用基类的引用实现多态性。
 
 ## 运算符重载
+
+运算符可以被重载为成员函数和友元函数。
+
+以下面的简单 String 为例子说明，[运行](https://godbolt.org/z/Y7aaP5h53)：
+
+```cpp
+class String {
+private:
+    char * data_;
+    size_t len_;
+public:
+    String()
+        : data_(new char[1]), len_(0)
+    {
+        *data_ = '\0';
+    }
+    String(const char* str) 
+        : data_(new char[strlen(str) + 1]), len_(strlen(str))
+    {
+        strcpy(data_, str);   
+    }
+    String (const String& rhs)
+        : data_(new char[rhs.len_ + 1]), len_(rhs.len_)
+    {
+        strcpy(data_, rhs.c_str());
+    }
+    ~String() {  delete[] data_;  }
+
+    const char* c_str() const {
+        return data_;
+    }
+    void swap(String& rhs) {
+        std::swap(data_, rhs.data_);
+    }
+    size_t size() const {
+        return len_;
+    }
+
+    String& operator=(String rhs) {
+        swap(rhs);
+        return *this;
+    }
+    const char operator[](const size_t index) const {
+        return *(data_ + index);
+    }
+    bool operator==(const String& rhs) const {
+        return !strcmp(data_, rhs.data_);
+    }
+    bool operator!=(const String& rhs) const {
+        return !(*this == rhs);
+    }
+    bool operator<(const String& rhs) const {
+        if (strcmp(data_, rhs.data_) < 0) return true;
+        else return false;
+    }
+    bool operator>(const String& rhs) const {
+        return (rhs < *this);
+    }
+    bool operator<=(const String& rhs) const {
+        return !(*this > rhs);
+    }
+    bool operator>=(const String& rhs) const {
+        return !(*this < rhs);
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const String& rhs) {
+        os << rhs.c_str();
+        return os;
+    }
+};
+```
 
 ### 限制
 1. 不能重载 `::`（作用域解析）、`.`（成员访问）、`.*`（通过成员指针的成员访问 `a.*b`）及 `?:`（三目条件）运算符。
@@ -693,9 +875,9 @@ int main() {
 
 一些资料中也提到了不能重载 `sizeof`。 
 
-> **不是所有运算符都可以重载为友元函数**
+> **不是所有运算符都可以重载为友元函数**：
 > 赋值 `=` 、下标 `[]` 、函数调用 `()` 和成员选择 `->`运算符必须重载为成员函数 (历史原因)。
-> **不是所有运算符都可以重载为成员函数**
+> **不是所有运算符都可以重载为成员函数**：
 > 通常，如果左操作数不是类（例如 int），或者是不能修改的类（例如 std：：ostream），无法使用成员重载。
 
 经验法则：
@@ -706,13 +888,48 @@ int main() {
 4. 对修改左操作数的二元操作符，但你不能向左操作数的类定义添加成员（例如 operator<<，左操作数 ostream），作为普通函数（首选）或友元函数重载。
 5. 对修改左操作数的二元运算符（例如 operator+=），并且可以修改左操作数的定义，作为一个成员函数重载。
 
-### opeartor=
+### opeartor= 自我赋值问题
 
 > 条款 10 : 令 operator= 返回一个 reference to *this  
 > rule 10 : Have assignment operators return a reference to *this.    —— Effective C++
 
 > 条款 11 : 在 operator= 中处理“自我赋值”
 > rule 11 : Handle assignment to self in operator=.    —— Effective C++
+
+## C++20 <=> 运算符
+
+对于比较运算符的重载，一般只需要想明白 `operator==` 和 `operator<`，其他情况可以由此推导出。
+
+1. `operator==` 取反即为 `operator!=`。`operator<` 取反即为 `operator>=`。
+2. 实现了 `operator<` 后，交换 *this 和 rhs 便可实现 `operator>`。
+3. 注意 6 个重载需要 const，常见的错误是：`error: passing ‘const xxx’ as ‘this’ argument discards qualifiers [-fpermissive]`。
+
+```cpp
+bool operator==(const String& rhs) const {
+    return !strcmp(data_, rhs.data_);
+}
+bool operator!=(const String& rhs) const {
+    return !(*this == rhs);
+}
+bool operator<(const String& rhs) const {
+    if (strcmp(data_, rhs.data_) < 0) return true;
+    else return false;
+}
+bool operator>(const String& rhs) const {
+    return (rhs < *this);
+}
+bool operator<=(const String& rhs) const {
+    return !(*this > rhs);
+}
+bool operator>=(const String& rhs) const {
+    return !(*this < rhs);
+}
+```
+
+为了简化比较运算符，C++20 引入了 `operator<=>` 运算符。
+
+> copy-and-swap idiom 
+> TODO:
 
 ## 相关设计模式
 
@@ -815,30 +1032,34 @@ int main(int argc, char* argv<::>) {
 
 CRTP 能避免虚函数开销，实现编译时的静态多态性。但是编译后的二进制文件可能变大。采用 hands on design patterns with c++ 第八章代码进行性能测试，参见[测压结果](https://quick-bench.com/q/vORXUiFA_978rVueP-BuZH-AwwM)，**CRTP 的性能需要打开优化后体现**。
 
+## Mixin 继承
+
 ## 参考
 
 1. [Member functions](https://www.learncpp.com/cpp-tutorial/member-functions/)
 2. [Const class objects and const member functions](https://www.learncpp.com/cpp-tutorial/const-class-objects-and-const-member-functions/)
 3. [定义与 ODR（单一定义规则）](https://zh.cppreference.com/w/cpp/language/definition)
 4. [友元声明](https://zh.cppreference.com/w/cpp/language/friend)
-5. [引用初始化](https://zh.cppreference.com/w/cpp/language/reference_initialization)
-6. [编译期对象构造优化 .bss 为 .rodata](https://microcai.org/2024/01/22/constexpr-constructor.html)
-7. [转换构造函数](https://zh.cppreference.com/w/cpp/language/converting_constructor)
-8. [委托构造函数](https://learn.microsoft.com/zh-cn/cpp/cpp/delegating-constructors?view=msvc-170)
-9. [C++11 新语法之委托构造函数](https://blog.csdn.net/KingOfMyHeart/article/details/107732764)
-10. [深入探索 C++ 多态 - 虚析构](https://zhuanlan.zhihu.com/p/654786933)
-11. [成员列表的作用](https://www.bilibili.com/video/BV1Zi4y1F7o1/?spm_id_from=333.788&vd_source=d669a99eaef48bca1935ad7a52416701)
-11. [C++ 面向对象拓展](https://ustccoder.github.io/2020/07/28/C++_oop_4/)
-12. [`this` 指针](https://learn.microsoft.com/zh-cn/cpp/cpp/this-pointer?view=msvc-170)
-13. [15.1 — The hidden “this” pointer and member function chaining](https://www.learncpp.com/cpp-tutorial/the-hidden-this-pointer-and-member-function-chaining/)
-14. [Virtual functions and polymorphism](https://www.learncpp.com/cpp-tutorial/virtual-functions/)
-15. [Is the return type part of the function signature?](https://stackoverflow.com/questions/290038/is-the-return-type-part-of-the-function-signature)
-16. [第 18 篇：C++ 静态绑定和动态绑定](https://zhuanlan.zhihu.com/p/192178632)
-17. [object slicing](https://www.learncpp.com/cpp-tutorial/object-slicing/)
-18. [Pure virtual functions, abstract base classes, and interface classes](https://www.learncpp.com/cpp-tutorial/pure-virtual-functions-abstract-base-classes-and-interface-classes/)
-19. [C++ RTTI](https://www.zhihu.com/question/524268001/answer/2410267306)
-20. [dynamic_cast 转换](https://zh.cppreference.com/w/cpp/language/dynamic_cast)
-21. [Itanium C++ ABI new](https://news.ycombinator.com/item?id=30399707)
-22. [运算符重载](https://zh.cppreference.com/w/cpp/language/operators)
-23. [Overloading operators using member functions](https://www.learncpp.com/cpp-tutorial/overloading-operators-using-member-functions/)
-24. [Design Patterns With C++（八）CRTP（上）](https://zhuanlan.zhihu.com/p/142407249)
+5. [Why does C++ not allow inherited friendship?](https://stackoverflow.com/questions/3561648/why-does-c-not-allow-inherited-friendship)
+6. [引用初始化](https://zh.cppreference.com/w/cpp/language/reference_initialization)
+7. [编译期对象构造优化 .bss 为 .rodata](https://microcai.org/2024/01/22/constexpr-constructor.html)
+8. [转换构造函数](https://zh.cppreference.com/w/cpp/language/converting_constructor)
+9.  [委托构造函数](https://learn.microsoft.com/zh-cn/cpp/cpp/delegating-constructors?view=msvc-170)
+10. [C++11 新语法之委托构造函数](https://blog.csdn.net/KingOfMyHeart/article/details/107732764)
+11. [深入探索 C++ 多态 - 虚析构](https://zhuanlan.zhihu.com/p/654786933)
+12. [成员列表的作用](https://www.bilibili.com/video/BV1Zi4y1F7o1/?spm_id_from=333.788&vd_source=d669a99eaef48bca1935ad7a52416701)
+13. [C++ 面向对象拓展](https://ustccoder.github.io/2020/07/28/C++_oop_4/)
+14. [`this` 指针](https://learn.microsoft.com/zh-cn/cpp/cpp/this-pointer?view=msvc-170)
+15. [15.1 — The hidden “this” pointer and member function chaining](https://www.learncpp.com/cpp-tutorial/the-hidden-this-pointer-and-member-function-chaining/)
+16. [Virtual functions and polymorphism](https://www.learncpp.com/cpp-tutorial/virtual-functions/)
+17. [Is the return type part of the function signature?](https://stackoverflow.com/questions/290038/is-the-return-type-part-of-the-function-signature)
+18. [第 18 篇：C++ 静态绑定和动态绑定](https://zhuanlan.zhihu.com/p/192178632)
+19. [object slicing](https://www.learncpp.com/cpp-tutorial/object-slicing/)
+20. [Pure virtual functions, abstract base classes, and interface classes](https://www.learncpp.com/cpp-tutorial/pure-virtual-functions-abstract-base-classes-and-interface-classes/)
+21. [C++ RTTI](https://www.zhihu.com/question/524268001/answer/2410267306)
+22. [dynamic_cast 转换](https://zh.cppreference.com/w/cpp/language/dynamic_cast)
+23. [Itanium C++ ABI new](https://news.ycombinator.com/item?id=30399707)
+24. [C++ 面试中 STRING 类的一种正确写法](https://coolshell.cn/articles/10478.html)
+25. [运算符重载](https://zh.cppreference.com/w/cpp/language/operators)
+26. [Overloading operators using member functions](https://www.learncpp.com/cpp-tutorial/overloading-operators-using-member-functions/)
+27. [Design Patterns With C++（八）CRTP（上）](https://zhuanlan.zhihu.com/p/142407249)

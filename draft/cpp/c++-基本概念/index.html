@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/draft\/cpp\/c\u002b\u002b-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5\/"
-        },"genre": "draft","wordcount":  3512 ,
+        },"genre": "draft","wordcount":  3860 ,
         "url": "https:\/\/kali20177.github.io\/draft\/cpp\/c\u002b\u002b-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5\/","datePublished": "2024-02-25T20:12:56+08:00","dateModified": "2024-02-25T20:12:56+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -158,9 +158,38 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><ol>
-<li>sizeof 的结果始终非零，即使应用于空类。</li>
-<li>当应用于某个表达式时，sizeof <strong>不对表达式进行求值</strong>，即便表达式代表多态对象，它的结果也是该表达式的静态类型的大小。</li>
-</ol>
+<li>
+<p>sizeof a + b 会被解释成 sizeof(a) + b。</p>
+</li>
+<li>
+<p>当应用于类类型时，结果是该类的完整对象所占据的字节数，<strong>包括这种对象放入数组时所需的任何额外填充</strong>。</p>
+</li>
+<li>
+<p>sizeof 的结果始终非零，即使应用于空类，一般是 1。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">A</span> <span class="p">{};</span>                      <span class="c1">// sizeof(A) = 1;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">B</span> <span class="o">:</span> <span class="k">public</span> <span class="n">A</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">x</span><span class="p">;</span> <span class="p">};</span>   <span class="c1">// sizeof(B) = 4;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">C</span> <span class="p">{</span>                        <span class="c1">// sizeof(C) = 8;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">A</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">B</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>空基类优化：为保证同一类型的不同对象地址始终有别，要求任何对象或成员子对象的大小至少为 1，即使该类型是空的类类型。空类的派生类可以允许空的基类子对象大小为零。</p>
+</blockquote>
+</li>
+<li>
+<p>当应用于某个表达式时，sizeof <strong>不对表达式进行求值</strong>，即便表达式代表多态对象，它的结果也是该表达式的静态类型的大小。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -173,7 +202,9 @@
 </span></span><span class="line"><span class="cl"><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">a</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">b</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="cv-限定符">CV 限定符</h2>
+</div></li>
+</ol>
+<h2 id="cv-限定符">CV 限定符</h2>
 <ul>
 <li>const —— 定义类型为常量类型，reade only。</li>
 <li>volatile —— 定义类型为易变类型。</li>
@@ -438,7 +469,49 @@
 </div>
 </div><h2 id="函数指针和-stdfunction">函数指针和 std::function</h2>
 <p>TODO:</p>
-<blockquote>
+<p>普通函数指针：</p>
+<p>使用 typedef 作为声明标识符，为函数指针起别名，实现回调函数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// 函数指针类型，下面的语句定义的名字是 Button_Call，代表 void ()(void*) 类型的函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">typedef</span> <span class="nf">void</span> <span class="p">(</span><span class="o">*</span><span class="n">Button_Call</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 回调函数实现
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">myButtonPressed</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Button pressed data: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">*</span><span class="p">((</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 注册回调
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">registerButtonPressCallback</span><span class="p">(</span><span class="n">Button_Call</span> <span class="n">func</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span> <span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">func</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">somedata</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   <span class="n">registerButtonPressCallback</span><span class="p">(</span><span class="n">myButtonPressed</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">somedata</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
 <p>技巧：using + decltype 完成函数指针获取</p>
 </blockquote>
 <div class="highlight"><div class="chroma">
@@ -905,6 +978,7 @@
 <li><a href="https://www.learncpp.com/cpp-tutorial/pass-by-address-part-2/" target="_blank" rel="noopener noreffer ">Pass by address</a></li>
 <li><a href="https://zh.cppreference.com/w/cpp/language/copy_initialization" target="_blank" rel="noopener noreffer ">复制初始化</a></li>
 <li><a href="https://www.learncpp.com/cpp-tutorial/member-functions-returning-references-to-data-members/" target="_blank" rel="noopener noreffer ">Member functions returning references to data members</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/689415121" target="_blank" rel="noopener noreffer ">克服边界：在 C++ 中兼容 C 语言风格的函数指针回调的方式</a></li>
 <li><a href="https://www.cnblogs.com/apocelipes/p/14769971.html" target="_blank" rel="noopener noreffer ">使用 constexpr 时遇到的小坑</a></li>
 <li><a href="https://www.cnblogs.com/zyk1113/p/13217312.html" target="_blank" rel="noopener noreffer ">C++11 lambda 表达式与仿函数</a></li>
 <li><a href="https://cui-jiacai.gitbook.io/c&#43;&#43;-stl-tutorial/fang-han-shu-functor#pian-han-shu" target="_blank" rel="noopener noreffer ">仿函数</a></li>

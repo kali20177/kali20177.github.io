@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE\/"
-        },"genre": "posts","keywords": "C\u002b\u002b, CMake","wordcount":  5484 ,
+        },"genre": "posts","keywords": "C\u002b\u002b, CMake","wordcount":  5749 ,
         "url": "https:\/\/kali20177.github.io\/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE\/","datePublished": "2023-08-09T14:41:27+08:00","dateModified": "2023-08-09T14:41:27+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -102,8 +102,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CMake 构建项目</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/cmake/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CMake</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-09">2023-08-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5484 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 11 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-09">2023-08-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5749 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -130,12 +130,13 @@
     <li><a href="#11-arm-项目和-x86-项目构建上的区别">11. Arm 项目和 x86 项目构建上的区别</a></li>
     <li><a href="#12-vscode-集成-vcpkg-包管理">12. VSCode 集成 Vcpkg 包管理</a></li>
     <li><a href="#13-cmake-presets">13. CMake Presets</a></li>
-    <li><a href="#14-rpath">14 rpath</a></li>
-    <li><a href="#15-clang-静态分析器">15. Clang 静态分析器</a></li>
-    <li><a href="#16-cmake-行为准则">16. CMake 行为准则</a>
+    <li><a href="#14-rpath">14. rpath</a></li>
+    <li><a href="#15-编译选项控制">15. 编译选项控制</a></li>
+    <li><a href="#16-clang-静态分析器">16. Clang 静态分析器</a></li>
+    <li><a href="#17-cmake-行为准则">17. CMake 行为准则</a>
       <ul>
-        <li><a href="#161-cmake-应避免的行为">16.1 CMake 应避免的行为</a></li>
-        <li><a href="#162-cmake-应遵守的规范">16.2 CMake 应遵守的规范</a></li>
+        <li><a href="#171-cmake-应避免的行为">17.1 CMake 应避免的行为</a></li>
+        <li><a href="#172-cmake-应遵守的规范">17.2 CMake 应遵守的规范</a></li>
       </ul>
     </li>
     <li><a href="#参考">参考</a></li>
@@ -221,17 +222,17 @@
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_C_STANDARD</span> <span class="mi">99</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_BUILD_TYPE</span> <span class="n">Debug</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># 不同模式编译选项
+</span></span><span class="line"><span class="cl"><span class="cp"># 不同模式下全局的编译选项
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">SET</span><span class="p">(</span><span class="n">CMAKE_CXX_FLAGS_DEBUG</span> <span class="s">&#34;-Wall -g&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nf">SET</span><span class="p">(</span><span class="n">CMAKE_CXX_FLAGS_RELEASE</span> <span class="s">&#34;-O3&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># clangd 支持
+</span></span><span class="line"><span class="cl"><span class="cp"># clangd 支持，查看编译命令，生成一个 compile_commands.json
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_EXPORT_COMPILE_COMMANDS</span> <span class="n">ON</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">add_executable</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nf">target_link_libraries</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">PUBLIC</span> <span class="n">m</span><span class="p">)</span>  <span class="err">#</span> <span class="err">链接数学库</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># 开启 ctest 功能
+</span></span><span class="line"><span class="cl"><span class="cp"># 开启 ctest 功能，此选项需要在顶层 CMakeLists.txt 定义
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">include</span><span class="p">(</span><span class="n">CTest</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp"># 添加子项目
@@ -1048,8 +1049,38 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果使用 VSCode 插件则无需输入命令行，直接鼠标点选即可构建。</p>
-<h2 id="14-rpath">14 rpath</h2>
-<h2 id="15-clang-静态分析器">15. Clang 静态分析器</h2>
+<h2 id="14-rpath">14. rpath</h2>
+<h2 id="15-编译选项控制">15. 编译选项控制</h2>
+<p>target_compile_options 命令用于给特定构建目标添加编译选项。可以添加三个级别的可见性：INTERFACE、PUBLIC 和 PRIVATE。定义如下：</p>
+<ul>
+<li>PRIVATE，编译选项会应用于给定的目标，不会传递给与目标相关的目标。</li>
+<li>INTERFACE，给定的编译选项将只应用于指定目标，并传递给与目标相关的目标。</li>
+<li>PUBLIC，编译选项将应用于指定目标和使用它的目标。</li>
+</ul>
+<p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">list</span><span class="p">(</span><span class="n">APPEND</span> <span class="n">flags</span> <span class="s">&#34;-fno-exceptions&#34;</span> <span class="s">&#34;-fno-rtti&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">add_library</span><span class="p">(</span><span class="n">xlib</span> <span class="n">STATIC</span> <span class="n">xxx</span><span class="p">.</span><span class="n">cpp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">target_compile_options</span><span class="p">(</span><span class="n">xlib</span> <span class="n">PRIVATE</span> <span class="err">$</span><span class="p">{</span><span class="n">flags</span><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<ol>
+<li>
+<p>检查对每个源文件的编译选项，除了设置 CMAKE_EXPORT_COMPILE_COMMANDS 外，还可以通过 <code>cmake --build . -- VERBOSE=1</code></p>
+</li>
+<li>
+<p>选项 CMAKE_EXPORT_COMPILE_COMMANDS 仅当使用 Makefile 和 Ninja 生成器时有效。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="16-clang-静态分析器">16. Clang 静态分析器</h2>
 <p>安装 clang 和 llvm 套件，安装 clang static analyzer：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1086,8 +1117,8 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行提示的 <code>scan-view xxx</code> 可以在浏览器上查看错误详情。</p>
-<h2 id="16-cmake-行为准则">16. CMake 行为准则</h2>
-<h3 id="161-cmake-应避免的行为">16.1 CMake 应避免的行为</h3>
+<h2 id="17-cmake-行为准则">17. CMake 行为准则</h2>
+<h3 id="171-cmake-应避免的行为">17.1 CMake 应避免的行为</h3>
 <ul>
 <li>不要使用具有全局作用域的函数：这包含 <code>link_directories</code>、 <code>include_libraries</code> 等相似的函数。</li>
 <li>不要添加非必要的 PUBLIC 要求：你应该避免把一些不必要的东西强加给用户（-Wall）。相比于 PUBLIC，更应该把他们声明为 PRIVATE。</li>
@@ -1095,7 +1126,7 @@
 <li>将库直接链接到需要构建的目标上：如果可以的话，总是显式的将库链接到目标上。</li>
 <li>当链接库文件时，不要省略 PUBLIC 或 PRIVATE 关键字：这将会导致后续所有的链接都是默认的。</li>
 </ul>
-<h3 id="162-cmake-应遵守的规范">16.2 CMake 应遵守的规范</h3>
+<h3 id="172-cmake-应遵守的规范">17.2 CMake 应遵守的规范</h3>
 <ul>
 <li>把 CMake 程序视作代码：它是代码。它应该和其他的代码一样，是整洁并且可读的。</li>
 <li>建立目标的观念：你的目标应该代表一系列的概念。为任何需要保持一致的东西指定一个（导入型）INTERFACE 目标，然后每次都链接到该目标。</li>
