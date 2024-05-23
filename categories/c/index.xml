@@ -1,39 +1,39 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>C - 分类 - mufasa 个人站</title>
-        <link>https://kali20177.github.io/categories/c/</link>
+        <link>https://kali_mufasa.gitee.io/categories/c/</link>
         <description>C - 分类 - mufasa 个人站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
-            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Wed, 13 Dec 2023 08:41:58 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/categories/c/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Wed, 13 Dec 2023 08:41:58 &#43;0800</lastBuildDate><atom:link href="https://kali_mufasa.gitee.io/categories/c/" rel="self" type="application/rss+xml" /><item>
     <title>C/C&#43;&#43; 代码质量</title>
-    <link>https://kali20177.github.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/</link>
+    <link>https://kali_mufasa.gitee.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/</link>
     <pubDate>Wed, 13 Dec 2023 08:41:58 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali20177.github.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/</guid>
+    <guid>https://kali_mufasa.gitee.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/</guid>
     <description><![CDATA[1. 复杂度 1.1 定义 圈复杂度 (Cyclomatic complexity，CC) 是一种衡量代码复杂度的标准。圈复杂度可以用来衡量一个模块判定结构的复杂程度，其数量上表现]]></description>
 </item>
 <item>
     <title>C99 语法</title>
-    <link>https://kali20177.github.io/draft/cpp/c99-%E8%AF%AD%E6%B3%95/</link>
+    <link>https://kali_mufasa.gitee.io/draft/cpp/c99-%E8%AF%AD%E6%B3%95/</link>
     <pubDate>Tue, 05 Dec 2023 21:05:08 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali20177.github.io/draft/cpp/c99-%E8%AF%AD%E6%B3%95/</guid>
+    <guid>https://kali_mufasa.gitee.io/draft/cpp/c99-%E8%AF%AD%E6%B3%95/</guid>
     <description><![CDATA[1. 指示器语法 designed initialiazer 数组初始化时的指示器语法： 1 2 3 4 int a[10] = {0, 0, 29, 0, 0, 0, 0, 48, 0, 0}; // 等价于 int a[10] = {[2] = 29, [7] = 48}; 还可以： 1 int a[10] = { [1] = 1, [8 ... 9] = 10 }; 结]]></description>
 </item>
 <item>
     <title>解毒 Setjmp &amp; Longjmp</title>
-    <link>https://kali20177.github.io/%E8%A7%A3%E6%AF%92-setjmp-longjmp/</link>
+    <link>https://kali_mufasa.gitee.io/%E8%A7%A3%E6%AF%92-setjmp-longjmp/</link>
     <pubDate>Tue, 05 Dec 2023 20:36:00 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali20177.github.io/%E8%A7%A3%E6%AF%92-setjmp-longjmp/</guid>
+    <guid>https://kali_mufasa.gitee.io/%E8%A7%A3%E6%AF%92-setjmp-longjmp/</guid>
     <description><![CDATA[1. 简单案例 下面是用 setjmp 和 longjmp 实现的简单捕获除 0 异常的一段 C 代码： 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 #include &lt;stdio.h&gt; #include &lt;stdlib.h&gt; #include]]></description>
 </item>
 <item>
     <title>Gdb 使用</title>
-    <link>https://kali20177.github.io/draft/cpp/gdb-%E4%BD%BF%E7%94%A8/</link>
+    <link>https://kali_mufasa.gitee.io/draft/cpp/gdb-%E4%BD%BF%E7%94%A8/</link>
     <pubDate>Tue, 05 Dec 2023 19:53:40 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali20177.github.io/draft/cpp/gdb-%E4%BD%BF%E7%94%A8/</guid>
+    <guid>https://kali_mufasa.gitee.io/draft/cpp/gdb-%E4%BD%BF%E7%94%A8/</guid>
     <description><![CDATA[Core dump Linux 下默认关闭该功能，开启命令： 1 ulimit -c unlimited 使用 GDB 进行调试时，可以通过两种方式来进行调试：一种是直接调试可执行文件，另一种是调试 core 文件。以下是]]></description>
 </item>
 </channel>

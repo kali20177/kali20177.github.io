@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>图像处理 - 标签 - mufasa 个人站</title>
-        <link>https://kali20177.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</link>
+        <link>https://kali_mufasa.gitee.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</link>
         <description>图像处理 - 标签 - mufasa 个人站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
-            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Fri, 08 Apr 2022 16:30:54 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Fri, 08 Apr 2022 16:30:54 &#43;0800</lastBuildDate><atom:link href="https://kali_mufasa.gitee.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="self" type="application/rss+xml" /><item>
     <title>Matplotlib Cpp C&#43;&#43; 中使用 Python 绘图模块的方法</title>
-    <link>https://kali20177.github.io/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+    <link>https://kali_mufasa.gitee.io/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/</link>
     <pubDate>Fri, 08 Apr 2022 16:30:54 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali20177.github.io/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+    <guid>https://kali_mufasa.gitee.io/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
     <description><![CDATA[1. 说明 笔者项目中使用 halcon 图像处理软件导出的 C++ 代码组织工程。为测试 halcon 部分算法的效果，需要对图像序列进行处理，且需要查看数据的形状。在 C++ 中不依赖图]]></description>
 </item>
 </channel>

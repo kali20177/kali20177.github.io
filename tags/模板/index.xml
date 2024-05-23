@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>模板 - 标签 - mufasa 个人站</title>
-        <link>https://kali20177.github.io/tags/%E6%A8%A1%E6%9D%BF/</link>
+        <link>https://kali_mufasa.gitee.io/tags/%E6%A8%A1%E6%9D%BF/</link>
         <description>模板 - 标签 - mufasa 个人站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
-            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Mon, 07 Feb 2022 17:18:18 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/tags/%E6%A8%A1%E6%9D%BF/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Mon, 07 Feb 2022 17:18:18 &#43;0800</lastBuildDate><atom:link href="https://kali_mufasa.gitee.io/tags/%E6%A8%A1%E6%9D%BF/" rel="self" type="application/rss+xml" /><item>
     <title>[未完成] 基于跳表的 KV 存储</title>
-    <link>https://kali20177.github.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8/</link>
+    <link>https://kali_mufasa.gitee.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8/</link>
     <pubDate>Mon, 07 Feb 2022 17:18:18 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali20177.github.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8/</guid>
+    <guid>https://kali_mufasa.gitee.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8/</guid>
     <description><![CDATA[1. 项目任务 学习跳表结构 使用跳表实现 KV 存储 实现接口： insert_element 插入数据 delete_element 删除数据 search_element 查询数据 update_element 更新数据 display_list 打印跳跃表 dump_file 数据落盘 load_file 加载数据 size 返回数据规模 clear 清]]></description>
 </item>
 </channel>
