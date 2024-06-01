@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>CMake - 分类 - mufasa 个人站</title>
-        <link>https://kali_mufasa.gitee.io/categories/cmake/</link>
+        <link>https://kali20177.github.io/categories/cmake/</link>
         <description>CMake - 分类 - mufasa 个人站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
-            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Wed, 09 Aug 2023 14:41:27 &#43;0800</lastBuildDate><atom:link href="https://kali_mufasa.gitee.io/categories/cmake/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Wed, 09 Aug 2023 14:41:27 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/categories/cmake/" rel="self" type="application/rss+xml" /><item>
     <title>CMake 构建项目</title>
-    <link>https://kali_mufasa.gitee.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/</link>
+    <link>https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/</link>
     <pubDate>Wed, 09 Aug 2023 14:41:27 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/</guid>
+    <guid>https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/</guid>
     <description><![CDATA[1. CMake 构建过程 以下面结构的简单项目为例，子项目 test 中需要依赖一个测试框架 Unity, 一个只有头文件和源码的 log 库和一个由多个源文件和头文件组成的哈希表库 ut]]></description>
 </item>
 </channel>

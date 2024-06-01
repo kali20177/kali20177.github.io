@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>单例模式 - 标签 - mufasa 个人站</title>
-        <link>https://kali_mufasa.gitee.io/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
+        <link>https://kali20177.github.io/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
         <description>单例模式 - 标签 - mufasa 个人站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
-            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Mon, 14 Mar 2022 17:15:26 &#43;0800</lastBuildDate><atom:link href="https://kali_mufasa.gitee.io/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Mon, 14 Mar 2022 17:15:26 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="self" type="application/rss+xml" /><item>
     <title>[未完成] C&#43;&#43; 简单 Log</title>
-    <link>https://kali_mufasa.gitee.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95-log/</link>
+    <link>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95-log/</link>
     <pubDate>Mon, 14 Mar 2022 17:15:26 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95-log/</guid>
+    <guid>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95-log/</guid>
     <description><![CDATA[1. 说明 学校课题组祖传代码缺乏日志系统，监控过程信息非常麻烦，想自己实现一个简易的 Log 模块实现基本 Log 功能，顺带学习单例模式。代码参考自网络公开的]]></description>
 </item>
 </channel>

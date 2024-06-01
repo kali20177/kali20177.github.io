@@ -1,87 +1,87 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Categories - 分类 - mufasa 个人站</title>
-        <link>https://kali_mufasa.gitee.io/categories/</link>
+        <link>https://kali20177.github.io/categories/</link>
         <description>Categories - 分类 - mufasa 个人站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
-            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Mon, 29 Apr 2024 09:13:40 &#43;0800</lastBuildDate><atom:link href="https://kali_mufasa.gitee.io/categories/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Mon, 29 Apr 2024 09:13:40 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/categories/" rel="self" type="application/rss+xml" /><item>
     <title>Linux</title>
-    <link>https://kali_mufasa.gitee.io/categories/linux/</link>
+    <link>https://kali20177.github.io/categories/linux/</link>
     <pubDate>Mon, 29 Apr 2024 09:13:40 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/categories/linux/</guid>
+    <guid>https://kali20177.github.io/categories/linux/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>C&#43;&#43;</title>
-    <link>https://kali_mufasa.gitee.io/categories/c&#43;&#43;/</link>
+    <link>https://kali20177.github.io/categories/c&#43;&#43;/</link>
     <pubDate>Sun, 25 Feb 2024 20:01:25 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/categories/c&#43;&#43;/</guid>
+    <guid>https://kali20177.github.io/categories/c&#43;&#43;/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>VScode</title>
-    <link>https://kali_mufasa.gitee.io/categories/vscode/</link>
+    <link>https://kali20177.github.io/categories/vscode/</link>
     <pubDate>Sat, 23 Dec 2023 23:26:14 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/categories/vscode/</guid>
+    <guid>https://kali20177.github.io/categories/vscode/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>其他</title>
-    <link>https://kali_mufasa.gitee.io/categories/%E5%85%B6%E4%BB%96/</link>
+    <link>https://kali20177.github.io/categories/%E5%85%B6%E4%BB%96/</link>
     <pubDate>Thu, 14 Dec 2023 21:54:29 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/categories/%E5%85%B6%E4%BB%96/</guid>
+    <guid>https://kali20177.github.io/categories/%E5%85%B6%E4%BB%96/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>C</title>
-    <link>https://kali_mufasa.gitee.io/categories/c/</link>
+    <link>https://kali20177.github.io/categories/c/</link>
     <pubDate>Wed, 13 Dec 2023 08:41:58 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/categories/c/</guid>
+    <guid>https://kali20177.github.io/categories/c/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>git</title>
-    <link>https://kali_mufasa.gitee.io/categories/git/</link>
+    <link>https://kali20177.github.io/categories/git/</link>
     <pubDate>Wed, 06 Dec 2023 09:00:04 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/categories/git/</guid>
+    <guid>https://kali20177.github.io/categories/git/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>数据结构</title>
-    <link>https://kali_mufasa.gitee.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+    <link>https://kali20177.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
     <pubDate>Thu, 05 Oct 2023 22:44:53 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+    <guid>https://kali20177.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>CMake</title>
-    <link>https://kali_mufasa.gitee.io/categories/cmake/</link>
+    <link>https://kali20177.github.io/categories/cmake/</link>
     <pubDate>Wed, 09 Aug 2023 14:41:27 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/categories/cmake/</guid>
+    <guid>https://kali20177.github.io/categories/cmake/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Unit Testing</title>
-    <link>https://kali_mufasa.gitee.io/categories/unit-testing/</link>
+    <link>https://kali20177.github.io/categories/unit-testing/</link>
     <pubDate>Sun, 06 Aug 2023 23:12:52 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/categories/unit-testing/</guid>
+    <guid>https://kali20177.github.io/categories/unit-testing/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>项目</title>
-    <link>https://kali_mufasa.gitee.io/categories/%E9%A1%B9%E7%9B%AE/</link>
+    <link>https://kali20177.github.io/categories/%E9%A1%B9%E7%9B%AE/</link>
     <pubDate>Wed, 13 Apr 2022 17:45:59 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/categories/%E9%A1%B9%E7%9B%AE/</guid>
+    <guid>https://kali20177.github.io/categories/%E9%A1%B9%E7%9B%AE/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

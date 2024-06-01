@@ -1,31 +1,31 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Linux - 标签 - mufasa 个人站</title>
-        <link>https://kali_mufasa.gitee.io/tags/linux/</link>
+        <link>https://kali20177.github.io/tags/linux/</link>
         <description>Linux - 标签 - mufasa 个人站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
-            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Mon, 29 Apr 2024 09:13:40 &#43;0800</lastBuildDate><atom:link href="https://kali_mufasa.gitee.io/tags/linux/" rel="self" type="application/rss+xml" /><item>
-    <title>Ubuntu 常用设置</title>
-    <link>https://kali_mufasa.gitee.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/</link>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Mon, 29 Apr 2024 09:13:40 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/tags/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>Ubuntu 相关常用问题</title>
+    <link>https://kali20177.github.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/</link>
     <pubDate>Mon, 29 Apr 2024 09:13:40 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/</guid>
+    <guid>https://kali20177.github.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/</guid>
     <description><![CDATA[目录名称 gnome 桌面改回英文目录名： 1 2 3 export LANG=en_US xdg-user-dirs-gtk-update export LANG=zh_CN fonts Linux 上字体一般被存放在下面的文件夹（可通过 cat /etc/fonts/fonts.conf 查看）： /usr/share/fonts/ /usr/local/share/fonts/ ~/.fonts/ 用户 安装 TrueType 字体 1 sudo apt install ttf-mscorefonts-installer 显示当前安]]></description>
 </item>
 <item>
     <title>Licheepi Zero 镜像制作流程</title>
-    <link>https://kali_mufasa.gitee.io/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/</link>
+    <link>https://kali20177.github.io/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/</link>
     <pubDate>Sat, 12 Feb 2022 17:11:59 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/</guid>
+    <guid>https://kali20177.github.io/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/</guid>
     <description><![CDATA[licheepi-zero 采用全志 V3s 芯片，是一款小型的 Linux 开发板。官方提供了镜像可以直接使用 Win32DiskImager 烧录，也可以根据需要自己制作。和大多嵌入式 Linux 系统一样主要分为 uboot 系统引导，]]></description>
 </item>
 <item>
     <title>Linux 下名称缩写和解释</title>
-    <link>https://kali_mufasa.gitee.io/draft/%E7%99%BE%E7%A7%91/linux-%E4%B8%8B%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E7%BC%A9%E5%86%99%E5%92%8C%E8%A7%A3%E9%87%8A/</link>
+    <link>https://kali20177.github.io/draft/%E7%99%BE%E7%A7%91/linux-%E4%B8%8B%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E7%BC%A9%E5%86%99%E5%92%8C%E8%A7%A3%E9%87%8A/</link>
     <pubDate>Tue, 04 Jan 2022 19:05:28 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/draft/%E7%99%BE%E7%A7%91/linux-%E4%B8%8B%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E7%BC%A9%E5%86%99%E5%92%8C%E8%A7%A3%E9%87%8A/</guid>
+    <guid>https://kali20177.github.io/draft/%E7%99%BE%E7%A7%91/linux-%E4%B8%8B%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E7%BC%A9%E5%86%99%E5%92%8C%E8%A7%A3%E9%87%8A/</guid>
     <description><![CDATA[1. tty TTY，teletype 的缩写。 早期终端是一种电传打字机，并且最早终端和控制台不是一种东西。 数控设备的控制设备一般叫控制台，终端是通过串]]></description>
 </item>
 </channel>

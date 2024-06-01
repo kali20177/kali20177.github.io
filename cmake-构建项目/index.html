@@ -7,17 +7,17 @@
         <title>CMake 构建项目 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="CMake 构建项目" />
 <meta property="og:description" content="1. CMake 构建过程 以下面结构的简单项目为例，子项目 test 中需要依赖一个测试框架 Unity, 一个只有头文件和源码的 log 库和一个由多个源文件和头文件组成的哈希表库 ut" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://kali_mufasa.gitee.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" /><meta property="og:image" content="https://kali_mufasa.gitee.io/logo.png" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" /><meta property="og:image" content="https://kali20177.github.io/logo.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-08-09T14:41:27+08:00" />
 <meta property="article:modified_time" content="2023-08-09T14:41:27+08:00" /><meta property="og:site_name" content="My cool site" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://kali_mufasa.gitee.io/logo.png" /><meta name="twitter:title" content="CMake 构建项目"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png" /><meta name="twitter:title" content="CMake 构建项目"/>
 <meta name="twitter:description" content="1. CMake 构建过程 以下面结构的简单项目为例，子项目 test 中需要依赖一个测试框架 Unity, 一个只有头文件和源码的 log 库和一个由多个源文件和头文件组成的哈希表库 ut"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali_mufasa.gitee.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" /><link rel="prev" href="https://kali_mufasa.gitee.io/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" /><link rel="next" href="https://kali_mufasa.gitee.io/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" /><link rel="prev" href="https://kali20177.github.io/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/" /><link rel="next" href="https://kali20177.github.io/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -27,9 +27,9 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/kali_mufasa.gitee.io\/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE\/"
-        },"genre": "posts","keywords": "C\u002b\u002b, CMake","wordcount":  5749 ,
-        "url": "https:\/\/kali_mufasa.gitee.io\/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE\/","datePublished": "2023-08-09T14:41:27+08:00","dateModified": "2023-08-09T14:41:27+08:00","publisher": {
+            "@id": "https:\/\/kali20177.github.io\/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE\/"
+        },"genre": "posts","keywords": "C\u002b\u002b, CMake","wordcount":  6136 ,
+        "url": "https:\/\/kali20177.github.io\/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE\/","datePublished": "2023-08-09T14:41:27+08:00","dateModified": "2023-08-09T14:41:27+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -102,8 +102,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CMake 构建项目</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/cmake/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CMake</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-09">2023-08-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5749 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-09">2023-08-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6136 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -1050,6 +1050,58 @@
 </div>
 </div><p>如果使用 VSCode 插件则无需输入命令行，直接鼠标点选即可构建。</p>
 <h2 id="14-rpath">14. rpath</h2>
+<p>全名 Run-time Search Path，运行时链接器搜索路径。这个值硬编码在可执行文件或者动态库的 ELF 结构的 .dynamic 节中。动态库搜索路径的顺序：</p>
+<ul>
+<li>rpath</li>
+<li>LD_LIBRARY_PATH</li>
+<li>RUNPATH</li>
+<li>ldconfig</li>
+<li>内置路径 /lib、/usr/lib</li>
+</ul>
+<p>使用 gcc 编译程序时，<code>-L</code> 指定编译时搜索动态库的位置，选项 <code>-Wl,-rpath</code> 指定程序运行时搜索动态库的路径。</p>
+<p>在 CMake 中主要由下面几个变量控制：</p>
+<ul>
+<li>CMAKE_INSTALL_RPATH 程序安装后，搜索 dynamic library 路径</li>
+<li>CMAKE_BUILD_WITH_INSTALL_RPATH 设为 True 时默认使用 CMAKE_INSTALL_RPATH</li>
+<li>CMAKE_BUILD_RPATH_USE_ORIGIN 使用 $origin 相对路径</li>
+</ul>
+<p>在 CMake 构建完成程序会带有 rpath，但如果程序需要考虑安装问题时需要设置此项。</p>
+<p>另一种使用场景是使用自己编译的工具链版本构建程序时，添加链接路径，假设 gcc-13 被安装在了路径 <code>/opt/gcc-13.2.0/</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">3.20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">project</span><span class="p">(</span><span class="n">MyProject</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="cp"># 检查编译器版本是否是 gcc-13
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">if</span> <span class="p">(</span><span class="n">CMAKE_CXX_COMPILER_ID</span> <span class="n">STREQUAL</span> <span class="s">&#34;&#34;</span> <span class="n">AND</span> <span class="n">CMAKE_CXX_COMPILER_VERSION</span> <span class="n">VERSION_EQUAL</span> <span class="s">&#34;13.2.0&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">message</span><span class="p">(</span><span class="n">STATUS</span> <span class="s">&#34;Detected GCC 13 compiler&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_INSTALL_RPATH</span> <span class="s">&#34;/opt/gcc-13.2.0/lib64&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_BUILD_WITH_INSTALL_RPATH</span> <span class="nb">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">endif</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 添加源文件和可执行文件
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">add_executable</span><span class="p">(</span><span class="n">MyExecutable</span> <span class="n">main</span><span class="p">.</span><span class="n">cpp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp"># 安装目标
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">install</span><span class="p">(</span><span class="n">TARGETS</span> <span class="n">MyExecutable</span> <span class="n">DESTINATION</span> <span class="n">bin</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这样程序运行时就不会出现各种 <code>'GLIBC_2.xx' not found</code> 的问题。</p>
 <h2 id="15-编译选项控制">15. 编译选项控制</h2>
 <p>target_compile_options 命令用于给特定构建目标添加编译选项。可以添加三个级别的可见性：INTERFACE、PUBLIC 和 PRIVATE。定义如下：</p>
 <ul>
@@ -1151,6 +1203,10 @@
 <li><a href="https://hedzr.com/c&#43;&#43;/algorithm/using-cmake-presets/" target="_blank" rel="noopener noreffer ">使用 CMake Presets</a></li>
 <li><a href="https://blog.feabhas.com/2023/08/cmake-presets/" target="_blank" rel="noopener noreffer ">CMake Presets</a></li>
 <li><a href="https://dominikberner.ch/cmake-presets-best-practices/" target="_blank" rel="noopener noreffer ">Organizing CMake presets</a></li>
+<li><a href="https://duerrenberger.dev/blog/2021/08/04/understanding-rpath-with-cmake/" target="_blank" rel="noopener noreffer ">Understanding RPATH (With CMake)</a></li>
+<li><a href="https://bewaremypower.github.io/2020/07/14/%E9%93%BE%E6%8E%A5%E9%80%89%E9%A1%B9-rpath-%E7%9A%84%E5%BA%94%E7%94%A8%E5%92%8C%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener noreffer ">链接选项 rpath 的应用和原理</a></li>
+<li><a href="https://blog.xizhibei.me/2021/02/12/a-brief-intro-of-rpath/" target="_blank" rel="noopener noreffer ">RPATH 简介以及 CMake 中的处理</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/661388872" target="_blank" rel="noopener noreffer ">rpath 使用说明</a></li>
 <li><a href="https://www.cnblogs.com/RioTian/p/17869507.html" target="_blank" rel="noopener noreffer ">【ToolChains】| CMake 技巧</a></li>
 <li><a href="https://csstormq.github.io/blog/LLVM%20%E4%B9%8B%20Clang%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8%E7%AF%87%EF%BC%881%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20Clang%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8" target="_blank" rel="noopener noreffer ">LLVM 之 Clang 静态分析器篇（1）：如何使用 Clang 静态分析器</a></li>
 <li><a href="https://modern-cmake-cn.github.io/Modern-CMake-zh_CN/chapters/intro/dodonot.html" target="_blank" rel="noopener noreffer ">CMake 行为准则 (Do&rsquo;s and Don&rsquo;ts)</a></li>
@@ -1166,7 +1222,7 @@
                             <a class="link-to-markdown" href="/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali_mufasa.gitee.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" data-title="CMake 构建项目"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali_mufasa.gitee.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" data-title="CMake 构建项目"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" data-title="CMake 构建项目"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" data-title="CMake 构建项目"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>

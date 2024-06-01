@@ -1,87 +1,87 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>C&#43;&#43; - 标签 - mufasa 个人站</title>
-        <link>https://kali_mufasa.gitee.io/tags/c&#43;&#43;/</link>
+        <link>https://kali20177.github.io/tags/c&#43;&#43;/</link>
         <description>C&#43;&#43; - 标签 - mufasa 个人站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
-            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Sun, 25 Feb 2024 20:01:25 &#43;0800</lastBuildDate><atom:link href="https://kali_mufasa.gitee.io/tags/c&#43;&#43;/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Sun, 25 Feb 2024 20:01:25 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/tags/c&#43;&#43;/" rel="self" type="application/rss+xml" /><item>
     <title>[未完成] C&#43;&#43; 面向对象</title>
-    <link>https://kali_mufasa.gitee.io/draft/cpp/c&#43;&#43;-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
+    <link>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
     <pubDate>Sun, 25 Feb 2024 20:01:25 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/draft/cpp/c&#43;&#43;-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
+    <guid>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
     <description><![CDATA[封装/类 访问权限 private 成员： private 私有成员，只能在定义该类的成员函数内部访问。对于类的外部不可见，外部对象无法直接访问，派生类也无法访问私有成员。 private]]></description>
 </item>
 <item>
     <title>[未完成] CPP_阅读记录</title>
-    <link>https://kali_mufasa.gitee.io/draft/cpp/cpp-%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95/</link>
+    <link>https://kali20177.github.io/draft/cpp/cpp-%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95/</link>
     <pubDate>Wed, 20 Dec 2023 18:22:12 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/draft/cpp/cpp-%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95/</guid>
+    <guid>https://kali20177.github.io/draft/cpp/cpp-%E9%98%85%E8%AF%BB%E8%AE%B0%E5%BD%95/</guid>
     <description><![CDATA[TODO: 本文内容拆分到其他主题 C++ 语言的设计和演化 C++ 之旅 TODO: 拆分到 &ldquo;语法&rdquo; chapter 15 指针和容器 多个指针可以指向同一个对象，拥有所有权]]></description>
 </item>
 <item>
     <title>C/C&#43;&#43; 代码质量</title>
-    <link>https://kali_mufasa.gitee.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/</link>
+    <link>https://kali20177.github.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/</link>
     <pubDate>Wed, 13 Dec 2023 08:41:58 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/</guid>
+    <guid>https://kali20177.github.io/c_cpp-%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/</guid>
     <description><![CDATA[1. 复杂度 1.1 定义 圈复杂度 (Cyclomatic complexity，CC) 是一种衡量代码复杂度的标准。圈复杂度可以用来衡量一个模块判定结构的复杂程度，其数量上表现]]></description>
 </item>
 <item>
     <title>C&#43;&#43; 和 C 模块的相互调用</title>
-    <link>https://kali_mufasa.gitee.io/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/</link>
+    <link>https://kali20177.github.io/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/</link>
     <pubDate>Thu, 02 Nov 2023 14:41:27 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/</guid>
+    <guid>https://kali20177.github.io/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/</guid>
     <description><![CDATA[CMake 默认 .c 文件使用 gcc 编译，.cpp 文件使用 g++ 编译。C++ 不兼容 C99 以后的特有语法，比如指示器语法的乱序初始化、复合字面量等。 C/C++ 混合编程大致应该遵]]></description>
 </item>
 <item>
     <title>CMake 构建项目</title>
-    <link>https://kali_mufasa.gitee.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/</link>
+    <link>https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/</link>
     <pubDate>Wed, 09 Aug 2023 14:41:27 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/</guid>
+    <guid>https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/</guid>
     <description><![CDATA[1. CMake 构建过程 以下面结构的简单项目为例，子项目 test 中需要依赖一个测试框架 Unity, 一个只有头文件和源码的 log 库和一个由多个源文件和头文件组成的哈希表库 ut]]></description>
 </item>
 <item>
     <title>[未完成] C&#43;&#43; 类型</title>
-    <link>https://kali_mufasa.gitee.io/draft/cpp/c&#43;&#43;-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</link>
+    <link>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</link>
     <pubDate>Tue, 12 Jul 2022 22:35:25 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/draft/cpp/c&#43;&#43;-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</guid>
+    <guid>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</guid>
     <description><![CDATA[TODO: 本文内容归到 &ldquo;语法&rdquo; 和 &ldquo;模板&rdquo; 转换规则 隐式 显式 常用类型转换 1.1 数组转换为 vector 方式一，定义 vector 时直]]></description>
 </item>
 <item>
     <title>Matplotlib Cpp C&#43;&#43; 中使用 Python 绘图模块的方法</title>
-    <link>https://kali_mufasa.gitee.io/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+    <link>https://kali20177.github.io/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/</link>
     <pubDate>Fri, 08 Apr 2022 16:30:54 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+    <guid>https://kali20177.github.io/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
     <description><![CDATA[1. 说明 笔者项目中使用 halcon 图像处理软件导出的 C++ 代码组织工程。为测试 halcon 部分算法的效果，需要对图像序列进行处理，且需要查看数据的形状。在 C++ 中不依赖图]]></description>
 </item>
 <item>
     <title>Opencv Cuda 版本编译流程</title>
-    <link>https://kali_mufasa.gitee.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/</link>
+    <link>https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/</link>
     <pubDate>Thu, 07 Apr 2022 14:50:32 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/</guid>
+    <guid>https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/</guid>
     <description><![CDATA[1. 说明 项目需要对比 opencv 和 halcon 在某些算法执行上的速度。记录一下编译 opencv cuda 版本的流程。 2. 工具 opencv cuda 版本的编译需要各种工具版本相互配合。以下组合是在我在 windows]]></description>
 </item>
 <item>
     <title>[未完成] C&#43;&#43; 简单数据库系统</title>
-    <link>https://kali_mufasa.gitee.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/</link>
+    <link>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/</link>
     <pubDate>Fri, 18 Mar 2022 18:59:39 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/</guid>
+    <guid>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/</guid>
     <description><![CDATA[1. 说明 本文是阅读知乎网友教程 如何用 C++ 实现一个简易数据库 的笔记。 Rspec 一种基于 Ruby 的测试框架，可以用来测试 C++ 程序输出是否符合预期。 1 2 3 4 5 describe XXX do it]]></description>
 </item>
 <item>
     <title>[未完成] C&#43;&#43; 简单 Log</title>
-    <link>https://kali_mufasa.gitee.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95-log/</link>
+    <link>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95-log/</link>
     <pubDate>Mon, 14 Mar 2022 17:15:26 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95-log/</guid>
+    <guid>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95-log/</guid>
     <description><![CDATA[1. 说明 学校课题组祖传代码缺乏日志系统，监控过程信息非常麻烦，想自己实现一个简易的 Log 模块实现基本 Log 功能，顺带学习单例模式。代码参考自网络公开的]]></description>
 </item>
 </channel>

@@ -551,6 +551,45 @@ cmake --build --preset "gui app debug"
 
 ## 14. rpath
 
+全名 Run-time Search Path，运行时链接器搜索路径。这个值硬编码在可执行文件或者动态库的 ELF 结构的 .dynamic 节中。动态库搜索路径的顺序：
+
+- rpath
+- LD_LIBRARY_PATH
+- RUNPATH
+- ldconfig
+- 内置路径 /lib、/usr/lib
+
+使用 gcc 编译程序时，`-L` 指定编译时搜索动态库的位置，选项 `-Wl,-rpath` 指定程序运行时搜索动态库的路径。
+
+在 CMake 中主要由下面几个变量控制：
+
+- CMAKE_INSTALL_RPATH 程序安装后，搜索 dynamic library 路径
+- CMAKE_BUILD_WITH_INSTALL_RPATH 设为 True 时默认使用 CMAKE_INSTALL_RPATH
+- CMAKE_BUILD_RPATH_USE_ORIGIN 使用 $origin 相对路径
+
+在 CMake 构建完成程序会带有 rpath，但如果程序需要考虑安装问题时需要设置此项。
+
+另一种使用场景是使用自己编译的工具链版本构建程序时，添加链接路径，假设 gcc-13 被安装在了路径 `/opt/gcc-13.2.0/`：
+
+```c
+cmake_minimum_required(VERSION 3.20)
+project(MyProject)
+# 检查编译器版本是否是 gcc-13
+if (CMAKE_CXX_COMPILER_ID STREQUAL "" AND CMAKE_CXX_COMPILER_VERSION VERSION_EQUAL "13.2.0")
+    message(STATUS "Detected GCC 13 compiler")
+    set(CMAKE_INSTALL_RPATH "/opt/gcc-13.2.0/lib64")
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH true)
+endif()
+
+# 添加源文件和可执行文件
+add_executable(MyExecutable main.cpp)
+
+# 安装目标
+install(TARGETS MyExecutable DESTINATION bin)
+```
+
+这样程序运行时就不会出现各种 `'GLIBC_2.xx' not found` 的问题。
+
 ## 15. 编译选项控制
 
 target_compile_options 命令用于给特定构建目标添加编译选项。可以添加三个级别的可见性：INTERFACE、PUBLIC 和 PRIVATE。定义如下：
@@ -632,7 +671,11 @@ scan-build: Run 'scan-view /tmp/scan-build-2024-04-30-151415-5388-1' to examine 
 10. [使用 CMake Presets](https://hedzr.com/c++/algorithm/using-cmake-presets/)
 11. [CMake Presets](https://blog.feabhas.com/2023/08/cmake-presets/)
 12. [Organizing CMake presets](https://dominikberner.ch/cmake-presets-best-practices/)
-13. [【ToolChains】| CMake 技巧](https://www.cnblogs.com/RioTian/p/17869507.html)
-14. [LLVM 之 Clang 静态分析器篇（1）：如何使用 Clang 静态分析器](https://csstormq.github.io/blog/LLVM%20%E4%B9%8B%20Clang%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8%E7%AF%87%EF%BC%881%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20Clang%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8)
-15. [CMake 行为准则 (Do's and Don'ts)](https://modern-cmake-cn.github.io/Modern-CMake-zh_CN/chapters/intro/dodonot.html)
+13. [Understanding RPATH (With CMake)](https://duerrenberger.dev/blog/2021/08/04/understanding-rpath-with-cmake/)
+14. [链接选项 rpath 的应用和原理](https://bewaremypower.github.io/2020/07/14/%E9%93%BE%E6%8E%A5%E9%80%89%E9%A1%B9-rpath-%E7%9A%84%E5%BA%94%E7%94%A8%E5%92%8C%E5%8E%9F%E7%90%86/)
+15. [RPATH 简介以及 CMake 中的处理](https://blog.xizhibei.me/2021/02/12/a-brief-intro-of-rpath/)
+16. [rpath 使用说明](https://zhuanlan.zhihu.com/p/661388872)
+17. [【ToolChains】| CMake 技巧](https://www.cnblogs.com/RioTian/p/17869507.html)
+18. [LLVM 之 Clang 静态分析器篇（1）：如何使用 Clang 静态分析器](https://csstormq.github.io/blog/LLVM%20%E4%B9%8B%20Clang%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8%E7%AF%87%EF%BC%881%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20Clang%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8)
+19. [CMake 行为准则 (Do's and Don'ts)](https://modern-cmake-cn.github.io/Modern-CMake-zh_CN/chapters/intro/dodonot.html)
 

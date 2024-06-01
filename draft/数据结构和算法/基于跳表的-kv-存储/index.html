@@ -7,17 +7,17 @@
         <title>[未完成] 基于跳表的 KV 存储 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="[未完成] 基于跳表的 KV 存储" />
 <meta property="og:description" content="1. 项目任务 学习跳表结构 使用跳表实现 KV 存储 实现接口： insert_element 插入数据 delete_element 删除数据 search_element 查询数据 update_element 更新数据 display_list 打印跳跃表 dump_file 数据落盘 load_file 加载数据 size 返回数据规模 clear 清" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://kali_mufasa.gitee.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8/" /><meta property="og:image" content="https://kali_mufasa.gitee.io/logo.png" /><meta property="article:section" content="draft" />
+<meta property="og:url" content="https://kali20177.github.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8/" /><meta property="og:image" content="https://kali20177.github.io/logo.png" /><meta property="article:section" content="draft" />
 <meta property="article:published_time" content="2022-02-07T17:18:18+08:00" />
 <meta property="article:modified_time" content="2022-02-07T17:18:18+08:00" /><meta property="og:site_name" content="My cool site" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://kali_mufasa.gitee.io/logo.png" /><meta name="twitter:title" content="[未完成] 基于跳表的 KV 存储"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png" /><meta name="twitter:title" content="[未完成] 基于跳表的 KV 存储"/>
 <meta name="twitter:description" content="1. 项目任务 学习跳表结构 使用跳表实现 KV 存储 实现接口： insert_element 插入数据 delete_element 删除数据 search_element 查询数据 update_element 更新数据 display_list 打印跳跃表 dump_file 数据落盘 load_file 加载数据 size 返回数据规模 clear 清"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali_mufasa.gitee.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8/" /><link rel="prev" href="https://kali_mufasa.gitee.io/draft/%E7%99%BE%E7%A7%91/linux-%E4%B8%8B%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E7%BC%A9%E5%86%99%E5%92%8C%E8%A7%A3%E9%87%8A/" /><link rel="next" href="https://kali_mufasa.gitee.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/cjson-%E8%A7%A3%E6%9E%90%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8/" /><link rel="prev" href="https://kali20177.github.io/draft/%E7%99%BE%E7%A7%91/linux-%E4%B8%8B%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%E7%BC%A9%E5%86%99%E5%92%8C%E8%A7%A3%E9%87%8A/" /><link rel="next" href="https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/cjson-%E8%A7%A3%E6%9E%90%E5%99%A8%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -27,9 +27,9 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/kali_mufasa.gitee.io\/draft\/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95\/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8\/"
+            "@id": "https:\/\/kali20177.github.io\/draft\/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95\/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8\/"
         },"genre": "draft","keywords": "C\u002b\u002b, 模板","wordcount":  393 ,
-        "url": "https:\/\/kali_mufasa.gitee.io\/draft\/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95\/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8\/","datePublished": "2022-02-07T17:18:18+08:00","dateModified": "2022-02-07T17:18:18+08:00","publisher": {
+        "url": "https:\/\/kali20177.github.io\/draft\/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95\/%E5%9F%BA%E4%BA%8E%E8%B7%B3%E8%A1%A8%E7%9A%84-kv-%E5%AD%98%E5%82%A8\/","datePublished": "2022-02-07T17:18:18+08:00","dateModified": "2022-02-07T17:18:18+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",

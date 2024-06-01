@@ -7,17 +7,17 @@
         <title>Opencv Cuda 版本编译流程 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="Opencv Cuda 版本编译流程" />
 <meta property="og:description" content="1. 说明 项目需要对比 opencv 和 halcon 在某些算法执行上的速度。记录一下编译 opencv cuda 版本的流程。 2. 工具 opencv cuda 版本的编译需要各种工具版本相互配合。以下组合是在我在 windows" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://kali_mufasa.gitee.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" /><meta property="og:image" content="https://kali_mufasa.gitee.io/logo.png" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" /><meta property="og:image" content="https://kali20177.github.io/logo.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-04-07T14:50:32+08:00" />
 <meta property="article:modified_time" content="2022-04-07T14:50:32+08:00" /><meta property="og:site_name" content="My cool site" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://kali_mufasa.gitee.io/logo.png" /><meta name="twitter:title" content="Opencv Cuda 版本编译流程"/>
+<meta name="twitter:image" content="https://kali20177.github.io/logo.png" /><meta name="twitter:title" content="Opencv Cuda 版本编译流程"/>
 <meta name="twitter:description" content="1. 说明 项目需要对比 opencv 和 halcon 在某些算法执行上的速度。记录一下编译 opencv cuda 版本的流程。 2. 工具 opencv cuda 版本的编译需要各种工具版本相互配合。以下组合是在我在 windows"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali_mufasa.gitee.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" /><link rel="prev" href="https://kali_mufasa.gitee.io/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/" /><link rel="next" href="https://kali_mufasa.gitee.io/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" /><link rel="prev" href="https://kali20177.github.io/licheepi-zero-%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C%E6%B5%81%E7%A8%8B/" /><link rel="next" href="https://kali20177.github.io/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -27,9 +27,9 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/kali_mufasa.gitee.io\/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B\/"
+            "@id": "https:\/\/kali20177.github.io\/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B\/"
         },"genre": "posts","keywords": "opencv, cuda, C\u002b\u002b","wordcount":  778 ,
-        "url": "https:\/\/kali_mufasa.gitee.io\/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B\/","datePublished": "2022-04-07T14:50:32+08:00","dateModified": "2022-04-07T14:50:32+08:00","publisher": {
+        "url": "https:\/\/kali20177.github.io\/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B\/","datePublished": "2022-04-07T14:50:32+08:00","dateModified": "2022-04-07T14:50:32+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -281,7 +281,7 @@
                             <a class="link-to-markdown" href="/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali_mufasa.gitee.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" data-title="Opencv Cuda 版本编译流程"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali_mufasa.gitee.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" data-title="Opencv Cuda 版本编译流程"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" data-title="Opencv Cuda 版本编译流程"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/" data-title="Opencv Cuda 版本编译流程"><i class="fab fa-evernote fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>

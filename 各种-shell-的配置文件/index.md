@@ -25,7 +25,14 @@ function q {exit}
 
 Linux 终端的 shell 主流是 bash 和 zsh，二者配置文件编辑方式基本相同。推荐使用 zsh 和 oh-my-zsh。
 
-安装 zsh 和 oh-my-zsh 后，配置 `~/.zshrc`配置命令。需要安装命令行[语法高亮](https://github.com/zsh-users/zsh-syntax-highlighting)、[补全](https://github.com/zsh-users/zsh-autosuggestions)和跳转工具 (autojump)
+安装 zsh 和 oh-my-zsh 后，配置 `~/.zshrc`配置命令。需要安装命令行[语法高亮](https://github.com/zdharma-continuum/fast-syntax-highlighting)、[补全](https://github.com/zsh-users/zsh-autosuggestions)和跳转工具 (autojump)
+
+```bash
+git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git \
+  ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting
+
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
 
 ```shell
 ...
@@ -33,7 +40,7 @@ plugins=(git
 	history
     history-substring-search
 	zsh-autosuggestions
-	zsh-syntax-highlighting
+	fast-syntax-highlighting
 	autojump
 )
 ...

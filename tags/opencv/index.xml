@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>opencv - 标签 - mufasa 个人站</title>
-        <link>https://kali_mufasa.gitee.io/tags/opencv/</link>
+        <link>https://kali20177.github.io/tags/opencv/</link>
         <description>opencv - 标签 - mufasa 个人站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
-            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Thu, 07 Apr 2022 14:50:32 &#43;0800</lastBuildDate><atom:link href="https://kali_mufasa.gitee.io/tags/opencv/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Thu, 07 Apr 2022 14:50:32 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/tags/opencv/" rel="self" type="application/rss+xml" /><item>
     <title>Opencv Cuda 版本编译流程</title>
-    <link>https://kali_mufasa.gitee.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/</link>
+    <link>https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/</link>
     <pubDate>Thu, 07 Apr 2022 14:50:32 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/</guid>
+    <guid>https://kali20177.github.io/opencv-cuda-%E7%89%88%E6%9C%AC%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B/</guid>
     <description><![CDATA[1. 说明 项目需要对比 opencv 和 halcon 在某些算法执行上的速度。记录一下编译 opencv cuda 版本的流程。 2. 工具 opencv cuda 版本的编译需要各种工具版本相互配合。以下组合是在我在 windows]]></description>
 </item>
 </channel>

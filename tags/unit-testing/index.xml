@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Unit Testing - 标签 - mufasa 个人站</title>
-        <link>https://kali_mufasa.gitee.io/tags/unit-testing/</link>
+        <link>https://kali20177.github.io/tags/unit-testing/</link>
         <description>Unit Testing - 标签 - mufasa 个人站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
-            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Sun, 06 Aug 2023 23:12:52 &#43;0800</lastBuildDate><atom:link href="https://kali_mufasa.gitee.io/tags/unit-testing/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Sun, 06 Aug 2023 23:12:52 &#43;0800</lastBuildDate><atom:link href="https://kali20177.github.io/tags/unit-testing/" rel="self" type="application/rss+xml" /><item>
     <title>单元测试框架</title>
-    <link>https://kali_mufasa.gitee.io/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</link>
+    <link>https://kali20177.github.io/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</link>
     <pubDate>Sun, 06 Aug 2023 23:12:52 &#43;0800</pubDate>
     <author>mufasa</author>
-    <guid>https://kali_mufasa.gitee.io/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</guid>
+    <guid>https://kali20177.github.io/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</guid>
     <description><![CDATA[1. 基本概念 单元测试是针对软件设计的最小单位进行测试，这里的最小单位可以是函数、模块或者类。目的是检查每个程序单元能否正确实现详细设计说明中的]]></description>
 </item>
 </channel>
