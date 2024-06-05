@@ -685,7 +685,7 @@ class D: public B, public C  {   };
 
 ## 多态
 
-通过基类指针操作对象，可以降低重复，提高代码可维护性。还可以将接口和实现分离，实现解耦。
+C++ 的虚函数是实现多态性的一种方法，也可以使用模板、函数指针等方法实现。
 
 ### 绑定的概念
 
@@ -821,6 +821,48 @@ int main() {
 
 可以使用基类的引用实现多态性。
 
+### C 数组多态问题
+
+> 条款 3 : 绝对不要以多态方式处理数组  —— More Effective C++
+
+```cpp
+struct BST {  char c;  };
+struct balancedBST : public BST {  int x;  };
+void printBSTArray(const BST array[], int numElements)
+{
+    for(int i = 0; i < numElements; i++)
+        std::cout << array[i].c << " ";
+    std::cout << "\n";
+}
+```
+
+array[i] 其实是 `*(array + i)` 的简写，每次移动距离为 i * sizeof(obj)，由于基类和派生类内存布局不同，因此行为异常。
+
+同时，通过基类指针删除一个派生类构成的数组，行为未定义。
+
+```cpp
+Base* pBase = new Derived[10];
+delete[] pBase;
+```
+
+### 模板多态
+
+使用模板实现编译期多态：
+
+```cpp
+struct Foo() {
+    void print() const { std::cout << __PRETTY_FUNCTION__ << "\n"; }
+};
+struct Bar() {
+    void print() const { std::cout << __PRETTY_FUNCTION__ << "\n"; }
+};
+
+typename <typename T>
+auto print(const T & obj) {
+    return obj.print();
+}
+```
+
 ## 运算符重载
 
 运算符可以被重载为成员函数和友元函数。
@@ -895,6 +937,7 @@ public:
 ```
 
 ### 限制
+
 1. 不能重载 `::`（作用域解析）、`.`（成员访问）、`.*`（通过成员指针的成员访问 `a.*b`）及 `?:`（三目条件）运算符。
 2. 不能创建新运算符，例如 `**`、`<>` 或 `&|`。
 3. 无法改变运算符的优先级、结合方向或操作数的数量。
@@ -902,6 +945,8 @@ public:
 5. 运算符 `&&` 与 `||` 的重载会失去短路求值。
 
 > `&&`、`||` 和 `,`（逗号）在被重载时失去它们特殊的定序性质，并且即使不使用函数调用记法，也表现为与常规的函数调用相似。
+>
+> 条款 7：千万不要重载 `&&`、`||` 和 `,` 操作符  —— More Effective C++
 
 一些资料中也提到了不能重载 `sizeof`。 
 
@@ -1095,8 +1140,10 @@ CRTP 能避免虚函数开销，实现编译时的静态多态性。但是编译
 22. [dynamic_cast 转换](https://zh.cppreference.com/w/cpp/language/dynamic_cast)
 23. [Itanium C++ ABI new](https://news.ycombinator.com/item?id=30399707)
 24. [C++ 面试中 STRING 类的一种正确写法](https://coolshell.cn/articles/10478.html)
-25. [运算符重载](https://zh.cppreference.com/w/cpp/language/operators)
-26. [Overloading operators using member functions](https://www.learncpp.com/cpp-tutorial/overloading-operators-using-member-functions/)
-27. [Dynamic polymorphism: the non-virtual interface design pattern](https://robinmoussu.gitlab.io/blog/post/2019-05-07_nvi/)
-28. [Design Patterns VS Design Principles: Template Method](https://www.fluentcpp.com/2021/11/17/design-patterns-vs-design-principles-template-method/)
-29. [Design Patterns With C++（八）CRTP（上）](https://zhuanlan.zhihu.com/p/142407249)
+25. [“C++ 的数组不支持多态”？](https://coolshell.cn/articles/9543.html)
+26. [Why is it undefined behavior to delete[] an array of derived objects via a base pointer?](https://stackoverflow.com/questions/6171814/why-is-it-undefined-behavior-to-delete-an-array-of-derived-objects-via-a-base)
+27. [运算符重载](https://zh.cppreference.com/w/cpp/language/operators)
+28. [Overloading operators using member functions](https://www.learncpp.com/cpp-tutorial/overloading-operators-using-member-functions/)
+29. [Dynamic polymorphism: the non-virtual interface design pattern](https://robinmoussu.gitlab.io/blog/post/2019-05-07_nvi/)
+30. [Design Patterns VS Design Principles: Template Method](https://www.fluentcpp.com/2021/11/17/design-patterns-vs-design-principles-template-method/)
+31. [Design Patterns With C++（八）CRTP（上）](https://zhuanlan.zhihu.com/p/142407249)

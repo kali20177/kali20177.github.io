@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6\/"
-        },"genre": "posts","keywords": "Unit Testing, C","wordcount":  6762 ,
+        },"genre": "posts","keywords": "Unit Testing, C","wordcount":  6541 ,
         "url": "https:\/\/kali20177.github.io\/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6\/","datePublished": "2023-08-06T23:12:52+08:00","dateModified": "2023-08-06T23:12:52+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -102,7 +102,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">单元测试框架</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/unit-testing/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Unit Testing</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-06">2023-08-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6762 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-06">2023-08-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6541 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 14 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -121,8 +121,8 @@
     </li>
     <li><a href="#2-需求预估">2. 需求预估</a></li>
     <li><a href="#3-通用工具">3. 通用工具</a></li>
-    <li><a href="#4-框架对比">4. 框架对比</a></li>
-    <li><a href="#5-框架模板">5. 框架模板</a>
+    <li><a href="#4-c-框架对比">4. C 框架对比</a></li>
+    <li><a href="#5-c-框架简单例子">5. C 框架简单例子</a>
       <ul>
         <li><a href="#51-cpputest">5.1 CppUTest</a></li>
         <li><a href="#52-unity">5.2 Unity</a></li>
@@ -155,7 +155,6 @@
         <li><a href="#74-参考">7.4 参考</a></li>
       </ul>
     </li>
-    <li><a href="#todo">todo</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p><img
@@ -167,8 +166,7 @@
         alt="/UnitTesting/unit-integration-testing.png"
         title="unit integration testing" /></p>
 <h2 id="1-基本概念">1. 基本概念</h2>
-<p>单元测试是针对软件设计的最小单位进行测试，这里的最小单位可以是函数、模块或者类。目的是检查每个程序单元能否正确实现详细设计说明中的模块功能、性能、接口和设计约束等要求，发现各模块内部可能存在的各种错误。</p>
-<p>主要采用<strong>白盒测试</strong>保证单元的最大覆盖率，发现编码和设计中的错误。单元测试一般在<strong>宿主机</strong>中运行[4]。</p>
+<p>单元测试是针对软件设计的最小单位进行测试，这里的最小单位可以是函数、模块或者类。目的是检查每个程序单元能否正确实现详细设计说明中的模块功能、性能、接口和设计约束等要求，发现各模块内部可能存在的各种错误。单元测试一般在<strong>宿主机</strong>中运行[4]。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -202,6 +200,7 @@
 <p>什么是 &ldquo;公共 API &ldquo;并不总是很清楚，这个问题实际上涉及到单元测试中的 &ldquo;单元&quot;的核心。单元可以小到一个单独的函数，也可以大到由几个相关的包/模块组成的集合。当我们在这里说 &ldquo;公共 API&quot;时，我们实际上是在谈论该单元暴露给拥有该代码的团队之外的第三方的 API。</p>
 <p>对代码实现细节进行调用的测试是脆弱的，几乎任何对被测系统的重构（例如重命名其方法、将其分解为辅助类或更改序列化格式）都会导致测试中断，即使此类更改对类的实际用户是不可见的。</p>
 </blockquote>
+<p>因此不要进行粒度过小的“白盒测试”，可能写出的是重复已有代码逻辑的无效测试。通过 Public 接口以及通过功能或场景测试，测试代码可维护性更高。</p>
 <h3 id="11-单元测试名词">1.1 单元测试名词</h3>
 <ul>
 <li>
@@ -257,7 +256,7 @@
 <li>宿主机（首要）</li>
 </ul>
 <p>目标机上的测试会花费更长的时间和成本，基于宿主机的测试代价较小，先在软件代码层面排除所有问题。避免同时修改硬件和软件 bug，防止硬件部和软件部相互扯皮。并且能更容易移植到其他平台[1]。</p>
-<p>定时问题有关的白盒测试、中断测试、硬件接口测试只能在目标机运行，在开发周期中处于靠后位置[4]。</p>
+<p>定时问题有关的中断测试、硬件接口测试只能在目标机运行，在开发周期中处于靠后位置[4]。</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -349,6 +348,9 @@
         data-sizes="auto"
         alt="/UnitTesting/lcov.png"
         title="lcov" /></p>
+<blockquote>
+<p>不建议将覆盖率作为衡量代码质量的指标，如果使用 TDD 方式或者少写断言，自然能获得高覆盖。建议使用类似 <strong>[bug 数量]/千行</strong> 的指标衡量代码质量。</p>
+</blockquote>
 </li>
 <li>
 <p>代码复杂度分析 (圈复杂度)</p>
@@ -402,7 +404,7 @@
 <p><a href="https://github.com/bredlej/init-cmake-project/blob/main/init-cmake-project" target="_blank" rel="noopener noreffer ">脚本生成 CMake + Unity 项目</a></p>
 </li>
 </ul>
-<h2 id="4-框架对比">4. 框架对比</h2>
+<h2 id="4-c-框架对比">4. C 框架对比</h2>
 <table>
 <thead>
 <tr>
@@ -573,8 +575,8 @@
 <p>☑️ 表示能运行在性能较强的嵌入式平台 (包含操作系统)； ✅ 表示能运行在性能较差的嵌入式平台</p>
 </blockquote>
 <p><a href="https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks#C" target="_blank" rel="noopener noreffer ">完整列表在此处</a> 已经删除一些过于小众的测试框架。</p>
-<h2 id="5-框架模板">5. 框架模板</h2>
-<p>使用 cmake 方式，给表上靠前的框架构建单元测试模板，统一做 CRC 校验测试。</p>
+<h2 id="5-c-框架简单例子">5. C 框架简单例子</h2>
+<p>使用 cmake 方式，使用不同框架，统一做一个 CRC 函数的校验测试。</p>
 <h3 id="51-cpputest">5.1 CppUTest</h3>
 <p><a href="https://cpputest.github.io/" target="_blank" rel="noopener noreffer ">CppUTest 官方</a></p>
 <p>CppUTest 是一个基于 C/C++ 的单元 xUnit 测试框架，用于单元测试和代码测试驱动。它是用 C++ 编写的，但在 C 和 C++ 项目中使用，在嵌入式测试中经常使用，但它适用于任何 C/C++ 项目。</p>
@@ -639,7 +641,7 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cmake_cpputest
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cmake_proj
 </span></span><span class="line"><span class="cl">   ├── CMakeLists.txt
 </span></span><span class="line"><span class="cl">   ├── src
 </span></span><span class="line"><span class="cl">   │    ├── CMakeLists.txt
@@ -761,153 +763,6 @@
 </span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;hello world!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="nf">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>顶层 cmake 模板：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">3.7</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">project</span><span class="p">(</span><span class="n">cmakeCppUTestDemo</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># 使能测试功能
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">enable_testing</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># 设置语言标准
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_CXX_STANDARD</span> <span class="mi">11</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_C_STANDARD</span> <span class="mi">99</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># 禁止在源码目录修改和编译
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_DISABLE_IN_SOURCE_BUILD</span> <span class="n">ON</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_DISABLE_SOURCE_CHANGES</span> <span class="n">ON</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">#-Wall: 编译后显示所有警告⚠️
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">add_compile_options</span><span class="p">(</span><span class="o">-</span><span class="n">Wall</span> <span class="o">-</span><span class="n">Werror</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">set</span><span class="p">(</span><span class="n">PROJECT</span> <span class="n">fooApp</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">set</span><span class="p">(</span><span class="n">APP_LIB_NAME</span> <span class="n">fooAppLib</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># 子项目
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">add_subdirectory</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># 测试构建选项,源外构建 cmake -D COMPILE_TESTS ..
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">option</span><span class="p">(</span><span class="n">COMPILE_TESTS</span> <span class="s">&#34;Compile the tests&#34;</span> <span class="n">ON</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">COMPILE_TESTS</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">add_subdirectory</span><span class="p">(</span><span class="n">tests</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">endif</span><span class="p">(</span><span class="n">COMPILE_TESTS</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>src/cmakelist:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">set</span><span class="p">(</span><span class="n">APP_LIB_SOURCE</span> <span class="n">code</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="cp"># 添加库文件
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">add_library</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">APP_LIB_NAME</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">APP_LIB_SOURCE</span><span class="p">})</span>
-</span></span><span class="line"><span class="cl"><span class="cp"># 添加可执行文件
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">add_execiteable</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT</span><span class="p">}</span> <span class="n">main</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="cp"># 链接库
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">target_link_libraries</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">APP_LIB_SOURCE</span><span class="p">})</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>tests/cmakelist:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp"># 寻找安装的CppUTest
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">if</span><span class="p">(</span><span class="n">DEFINED</span> <span class="n">ENV</span><span class="p">{</span><span class="n">CPPUTEST_HOME</span><span class="p">})</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">message</span><span class="p">(</span><span class="n">STATUS</span> <span class="s">&#34;Using CppUTest home: $ENV{CPPUTEST_HOME}&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">set</span><span class="p">(</span><span class="n">CPPUTEST_INCLUDE_DIRS</span> <span class="err">$</span><span class="n">ENV</span><span class="p">{</span><span class="n">CPPUTEST_HOME</span><span class="p">}</span><span class="o">/</span><span class="n">include</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">set</span><span class="p">(</span><span class="n">CPPUTEST_LIBRARIES</span> <span class="err">$</span><span class="n">ENV</span><span class="p">{</span><span class="n">CPPUTEST_HOME</span><span class="p">}</span><span class="o">/</span><span class="n">lib</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">set</span><span class="p">(</span><span class="n">CPPUTEST_LDFLAGS</span> <span class="n">CppUTest</span> <span class="n">CppUTestExt</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">find_package</span><span class="p">(</span><span class="n">PkgConfig</span> <span class="n">REQUIRED</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">pkg_search_module</span><span class="p">(</span><span class="n">CPPUTEST</span> <span class="n">REQUIRED</span> <span class="n">cpputest</span><span class="o">&gt;=</span><span class="mf">3.8</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">message</span><span class="p">(</span><span class="n">STATUS</span> <span class="s">&#34;Found CppUTest version ${CPPUTEST_VERSION}&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">endif</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># 单元测试相关变量
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">set</span><span class="p">(</span><span class="n">TEST_PROJECT</span> <span class="err">$</span><span class="p">{</span><span class="n">PROJECT</span><span class="p">}</span><span class="n">_tests</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">set</span><span class="p">(</span><span class="n">TEST_SOURCES</span> <span class="n">codeTest</span><span class="p">.</span><span class="n">cpp</span> <span class="n">main</span><span class="p">.</span><span class="n">cpp</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># 外部目录
-</span></span></span><span class="line"><span class="cl"><span class="cp"># cpputest and current src
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">include_directories</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">CPPUTEST_INCLUDE_DIRS</span><span class="p">}</span> <span class="p">..</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="cp"># link
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">link_directories</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">CPPUTEST_LIBRARIES</span><span class="p">})</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp">#
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">add_executable</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">TEST_PROJECT</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">TEST_SOURCES</span><span class="p">})</span>
-</span></span><span class="line"><span class="cl"><span class="nf">target_link_libraries</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">TEST_PROJECT</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">APP_LIB_NAME</span><span class="p">}</span> <span class="err">$</span><span class="p">{</span><span class="n">CPPUTEST_LDFLAGS</span><span class="p">})</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># run test once build is done
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">add_custom_command</span><span class="p">(</span><span class="n">TARGET</span> <span class="err">$</span><span class="p">{</span><span class="n">TEST_APP_NAME</span><span class="p">}</span> <span class="n">COMMAND</span> <span class="p">.</span><span class="o">/</span><span class="err">$</span><span class="p">{</span><span class="n">TEST_APP_NAME</span><span class="p">}</span> <span class="n">POST_BUILD</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>新增 polyfit.c polyfit.h，在 codeTest.cpp 中加入：</p>
@@ -1226,55 +1081,7 @@
 </span></span><span class="line"><span class="cl">        └── Unity        <span class="c1"># Unity 源码</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>其中 <code>unity</code> 包含在 <code>tests</code> 目录的 <code>lib</code> 中，以第三方库的形式集成在项目中。</p>
-<p>tests/CMakeLists.txt:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp"># Set project name
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">project</span><span class="p">(</span><span class="n">Test</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># Add unity cmakes
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">add_subdirectory</span><span class="p">(</span><span class="n">lib</span><span class="o">/</span><span class="n">Unity</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># Add their include files 要使用完整的 Unity 功能，需要引入这三个目录
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">include_directories</span><span class="p">(</span><span class="n">lib</span><span class="o">/</span><span class="n">Unity</span><span class="o">/</span><span class="n">src</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">include_directories</span><span class="p">(</span><span class="n">lib</span><span class="o">/</span><span class="n">Unity</span><span class="o">/</span><span class="n">extras</span><span class="o">/</span><span class="n">fixture</span><span class="o">/</span><span class="n">src</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">include_directories</span><span class="p">(</span><span class="n">lib</span><span class="o">/</span><span class="n">Unity</span><span class="o">/</span><span class="n">extras</span><span class="o">/</span><span class="n">memory</span><span class="o">/</span><span class="n">src</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># Set the source of the tests
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">set</span><span class="p">(</span><span class="n">Sources</span> <span class="n">example</span><span class="o">/</span><span class="n">crc_test</span><span class="p">.</span><span class="n">c</span> <span class="n">example</span><span class="o">/</span><span class="n">main_test</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># Set the target executable
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">add_executable</span><span class="p">(</span><span class="n">Test_run</span> <span class="err">$</span><span class="p">{</span><span class="n">Sources</span><span class="p">})</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># Add teh target link libraries
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">target_link_libraries</span><span class="p">(</span><span class="n">Test_run</span> <span class="n">unity</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">target_link_libraries</span><span class="p">(</span><span class="n">Test_run</span> <span class="n">Example_lib</span><span class="p">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>被测试模块 <code>Example_lib</code> 编译成库给测试模块使用。</p>
+</div><p>其中 <code>unity</code> 包含在 <code>tests</code> 目录的 <code>lib</code> 中，以第三方库的形式集成在项目中。被测试模块 <code>Example_lib</code> 编译成库给测试模块使用。</p>
 <blockquote>
 <p>使用 Unity 的 fixture 和 memory 功能时，要打开 Unity 目录下 CMakeLists.txt 文件的两个选项。</p>
 <div class="highlight"><div class="chroma">
@@ -1977,6 +1784,9 @@
 </li>
 </ol>
 <h2 id="6-测试用例设计">6. 测试用例设计</h2>
+<blockquote>
+<p>不要追求 100% 的用例覆盖，或者指望 UT 能查出所有 bug，应该把 UT 作为一种控制代码质量手段，通过 bug 完善用例。</p>
+</blockquote>
 <h3 id="61-测试数据">6.1 测试数据</h3>
 <ol>
 <li>
@@ -2004,9 +1814,6 @@
 </li>
 <li>
 <p>基于状态的测试</p>
-</li>
-<li>
-<p>用户文档测试</p>
 </li>
 </ol>
 <h3 id="62-测试用例表">6.2 测试用例表</h3>
@@ -2113,10 +1920,6 @@
 <li><a href="https://interrupt.memfault.com/blog/unit-test-mocking" target="_blank" rel="noopener noreffer ">unit test mocking</a></li>
 <li><a href="https://cloud.tencent.com/developer/article/1900402" target="_blank" rel="noopener noreffer ">详解圈复杂度</a></li>
 </ol>
-<h2 id="todo">todo</h2>
-<ul>
-<li><i class="far fa-square fa-fw" aria-hidden="true"></i> mock 部分</li>
-</ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">

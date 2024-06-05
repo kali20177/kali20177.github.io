@@ -86,9 +86,9 @@ int a = 10;
 ## 变量模板（C++14）
 
 
-## 概念（C++20）
+## Concepts（C++20）
 
-给模板参数添加约束，例如：
+给模板参数添加约束或者概念，例如定义一个模板函数，只有某个类及其派生类使用：
 
 ```cpp
 #include <concepts>
@@ -120,3 +120,41 @@ int main() {
     return 0;
 }
 ```
+
+## 相关技巧
+
+### trait 
+
+一种仿 rust traits 的多态：
+
+```cpp
+struct Foo() {
+    void print() const { std::cout << __PRETTY_FUNCTION__ << "\n"; }
+};
+struct Bar() {
+    void print() const { std::cout << __PRETTY_FUNCTION__ << "\n"; }
+};
+
+template <typename T>
+struct print_traits
+{
+    using print_return_t = decltype(std::declval<T>().print());
+};
+
+template <typename T, typename traits = print_traits<T>>
+auto print(const T &obj) noexcept -> typename traits::print_return_t
+{
+    return obj.print();
+}
+```
+
+print_traits 是一个模板结构体，它接受一个类型 T，内部定义一个类型别名 print_return_t，使用 decltype 来推导 T 类型的 print 成员函数的返回类型。
+
+- std::declval<T>() 返回一个类的右值引用，不需要实际创建对象，且对于无默认构造函数的类有效
+- `-> typename traits::print_return_t`，表示函数的返回类型是 traits 中的 print_return_t 类型
+
+## 参考
+
+1. [现代 C++ 编程（一）：多态](https://toby-shi-cloud.github.io/posts/cpppolymorphism.html)
+2. [理解 std::declval](https://stdrc.cc/post/2020/09/12/std-declval/)
+3. [理解 std::declval 和 decltype](https://juejin.cn/post/7021306822350864414)

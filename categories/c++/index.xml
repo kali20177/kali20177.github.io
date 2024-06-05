@@ -26,7 +26,7 @@
     <pubDate>Thu, 02 Nov 2023 14:41:27 &#43;0800</pubDate>
     <author>mufasa</author>
     <guid>https://kali20177.github.io/c-%E5%92%8C-c-%E6%A8%A1%E5%9D%97%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8/</guid>
-    <description><![CDATA[CMake 默认 .c 文件使用 gcc 编译，.cpp 文件使用 g++ 编译。C++ 不兼容 C99 以后的特有语法，比如指示器语法的乱序初始化、复合字面量等。 C/C++ 混合编程大致应该遵]]></description>
+    <description><![CDATA[在使用 CMake 构建项目的情况下，默认 .c 文件使用 gcc 编译，.cpp 文件使用 g++ 编译。 可以通过导出编译选项 set(CMAKE_EXPORT_COMPILE_COMMANDS ON) 验证。 C++ 不完全兼容 C99 以后的特有语法，比如指示]]></description>
 </item>
 <item>
     <title>[未完成] C&#43;&#43; 类型</title>

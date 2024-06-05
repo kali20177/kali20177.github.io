@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE\/"
-        },"genre": "posts","keywords": "Linux","wordcount":  2602 ,
+        },"genre": "posts","keywords": "Linux","wordcount":  2643 ,
         "url": "https:\/\/kali20177.github.io\/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE\/","datePublished": "2024-04-29T09:13:40+08:00","dateModified": "2024-04-29T09:13:40+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -102,7 +102,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Ubuntu 相关常用问题</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-29">2024-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2602 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-29">2024-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2643 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -117,6 +117,7 @@
       <ul>
         <li><a href="#gcc-14">gcc 14</a></li>
         <li><a href="#cmake">CMake</a></li>
+        <li><a href="#gdb-142">gdb 14.2</a></li>
       </ul>
     </li>
     <li><a href="#优化设置">优化设置</a></li>
@@ -206,16 +207,14 @@
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 安装依赖</span>
-</span></span><span class="line"><span class="cl">sudo apt install libgmp-dev libmpc-dev libmpfr-dev libmpfrc++-dev libisl-dev
+</span></span><span class="line"><span class="cl">sudo apt install libgmp-dev libmpc-dev libmpfr-dev libmpfrc++-dev libisl-dev texinfo
 </span></span><span class="line"><span class="cl"><span class="c1"># 如果执行了上一步依赖安装可以不用执行此脚本</span>
 </span></span><span class="line"><span class="cl">./contrib/download_prerequisites
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># --program-suffix 会给安装的 gcc 程序添加后缀</span>
 </span></span><span class="line"><span class="cl">../configure --prefix<span class="o">=</span>/opt/gcc-14.1.0 --enable-checking<span class="o">=</span>release --enable-languages<span class="o">=</span>c,c++,go --disable-multilib --enable-bootstrap --enable-threads<span class="o">=</span>posix --program-suffix<span class="o">=</span>-14
 </span></span><span class="line"><span class="cl">
@@ -341,6 +340,22 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cmake -D <span class="nv">BUILD_QtDialog</span><span class="o">=</span>ON ..
 </span></span><span class="line"><span class="cl">make <span class="o">&amp;&amp;</span> sudo make install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="gdb-142">gdb 14.2</h3>
+<p>注意：目前不能使用 gcc-14 编译。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install libreadline-dev libncurses*
+</span></span><span class="line"><span class="cl">mkdir build <span class="o">&amp;&amp;</span> <span class="nb">cd</span> build
+</span></span><span class="line"><span class="cl">../configure --prefix<span class="o">=</span>/opt/gdb-14.2 --enable-targets<span class="o">=</span>all --with-python --enable-lto --enable-vtable-verify
+</span></span><span class="line"><span class="cl">make -j6 <span class="o">&amp;&amp;</span> sudo make install
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="优化设置">优化设置</h2>

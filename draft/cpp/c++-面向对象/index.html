@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/draft\/cpp\/c\u002b\u002b-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1\/"
-        },"genre": "draft","keywords": "C\u002b\u002b","wordcount":  8586 ,
+        },"genre": "draft","keywords": "C\u002b\u002b","wordcount":  8875 ,
         "url": "https:\/\/kali20177.github.io\/draft\/cpp\/c\u002b\u002b-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1\/","datePublished": "2024-02-25T20:01:25+08:00","dateModified": "2024-02-25T20:01:25+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -1197,7 +1197,7 @@ rule 7 : Declare destructors virtual in polymorphic base classes.    —— Effe
 <p>此时，&ldquo;最派生&quot;的类负责构造虚基类 A</p>
 </blockquote>
 <h2 id="多态">多态</h2>
-<p>通过基类指针操作对象，可以降低重复，提高代码可维护性。还可以将接口和实现分离，实现解耦。</p>
+<p>C++ 的虚函数是实现多态性的一种方法，也可以使用模板、函数指针等方法实现。</p>
 <h3 id="绑定的概念">绑定的概念</h3>
 <p><strong>绑定</strong>指将标识符 (如变量和函数名) 转换为地址的过程。分为静态绑定和动态绑定。</p>
 <ul>
@@ -1409,7 +1409,75 @@ rule 7 : Declare destructors virtual in polymorphic base classes.    —— Effe
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>可以使用基类的引用实现多态性。</p>
-<h2 id="运算符重载">运算符重载</h2>
+<h3 id="c-数组多态问题">C 数组多态问题</h3>
+<blockquote>
+<p>条款 3 : 绝对不要以多态方式处理数组  —— More Effective C++</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">BST</span> <span class="p">{</span>  <span class="kt">char</span> <span class="n">c</span><span class="p">;</span>  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">balancedBST</span> <span class="o">:</span> <span class="k">public</span> <span class="n">BST</span> <span class="p">{</span>  <span class="kt">int</span> <span class="n">x</span><span class="p">;</span>  <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">printBSTArray</span><span class="p">(</span><span class="k">const</span> <span class="n">BST</span> <span class="n">array</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">numElements</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numElements</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">c</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>array[i] 其实是 <code>*(array + i)</code> 的简写，每次移动距离为 i * sizeof(obj)，由于基类和派生类内存布局不同，因此行为异常。</p>
+<p>同时，通过基类指针删除一个派生类构成的数组，行为未定义。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">Base</span><span class="o">*</span> <span class="n">pBase</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Derived</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="k">delete</span><span class="p">[]</span> <span class="n">pBase</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="模板多态">模板多态</h3>
+<p>使用模板实现编译期多态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">Foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">print</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__PRETTY_FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">Bar</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">print</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__PRETTY_FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">typename</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">print</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span> <span class="n">obj</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">obj</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="运算符重载">运算符重载</h2>
 <p>运算符可以被重载为成员函数和友元函数。</p>
 <p>以下面的简单 String 为例子说明，<a href="https://godbolt.org/z/Y7aaP5h53" target="_blank" rel="noopener noreffer ">运行</a>：</p>
 <div class="highlight"><div class="chroma">
@@ -1556,6 +1624,7 @@ rule 7 : Declare destructors virtual in polymorphic base classes.    —— Effe
 </ol>
 <blockquote>
 <p><code>&amp;&amp;</code>、<code>||</code> 和 <code>,</code>（逗号）在被重载时失去它们特殊的定序性质，并且即使不使用函数调用记法，也表现为与常规的函数调用相似。</p>
+<p>条款 7：千万不要重载 <code>&amp;&amp;</code>、<code>||</code> 和 <code>,</code> 操作符  —— More Effective C++</p>
 </blockquote>
 <p>一些资料中也提到了不能重载 <code>sizeof</code>。</p>
 <blockquote>
@@ -1844,6 +1913,8 @@ TODO:</p>
 <li><a href="https://zh.cppreference.com/w/cpp/language/dynamic_cast" target="_blank" rel="noopener noreffer ">dynamic_cast 转换</a></li>
 <li><a href="https://news.ycombinator.com/item?id=30399707" target="_blank" rel="noopener noreffer ">Itanium C++ ABI new</a></li>
 <li><a href="https://coolshell.cn/articles/10478.html" target="_blank" rel="noopener noreffer ">C++ 面试中 STRING 类的一种正确写法</a></li>
+<li><a href="https://coolshell.cn/articles/9543.html" target="_blank" rel="noopener noreffer ">“C++ 的数组不支持多态”？</a></li>
+<li><a href="https://stackoverflow.com/questions/6171814/why-is-it-undefined-behavior-to-delete-an-array-of-derived-objects-via-a-base" target="_blank" rel="noopener noreffer ">Why is it undefined behavior to delete[] an array of derived objects via a base pointer?</a></li>
 <li><a href="https://zh.cppreference.com/w/cpp/language/operators" target="_blank" rel="noopener noreffer ">运算符重载</a></li>
 <li><a href="https://www.learncpp.com/cpp-tutorial/overloading-operators-using-member-functions/" target="_blank" rel="noopener noreffer ">Overloading operators using member functions</a></li>
 <li><a href="https://robinmoussu.gitlab.io/blog/post/2019-05-07_nvi/" target="_blank" rel="noopener noreffer ">Dynamic polymorphism: the non-virtual interface design pattern</a></li>

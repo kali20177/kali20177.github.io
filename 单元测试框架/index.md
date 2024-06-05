@@ -5,9 +5,7 @@
 
 ## 1. 基本概念
 
-单元测试是针对软件设计的最小单位进行测试，这里的最小单位可以是函数、模块或者类。目的是检查每个程序单元能否正确实现详细设计说明中的模块功能、性能、接口和设计约束等要求，发现各模块内部可能存在的各种错误。
-
-主要采用**白盒测试**保证单元的最大覆盖率，发现编码和设计中的错误。单元测试一般在**宿主机**中运行[4]。
+单元测试是针对软件设计的最小单位进行测试，这里的最小单位可以是函数、模块或者类。目的是检查每个程序单元能否正确实现详细设计说明中的模块功能、性能、接口和设计约束等要求，发现各模块内部可能存在的各种错误。单元测试一般在**宿主机**中运行[4]。
 
 ![img](/UnitTesting/whitebox.png)
 
@@ -28,6 +26,8 @@
 > 什么是 "公共 API "并不总是很清楚，这个问题实际上涉及到单元测试中的 "单元"的核心。单元可以小到一个单独的函数，也可以大到由几个相关的包/模块组成的集合。当我们在这里说 "公共 API"时，我们实际上是在谈论该单元暴露给拥有该代码的团队之外的第三方的 API。
 >
 > 对代码实现细节进行调用的测试是脆弱的，几乎任何对被测系统的重构（例如重命名其方法、将其分解为辅助类或更改序列化格式）都会导致测试中断，即使此类更改对类的实际用户是不可见的。
+
+因此不要进行粒度过小的“白盒测试”，可能写出的是重复已有代码逻辑的无效测试。通过 Public 接口以及通过功能或场景测试，测试代码可维护性更高。
 
 ### 1.1 单元测试名词
 
@@ -67,7 +67,7 @@
 
 目标机上的测试会花费更长的时间和成本，基于宿主机的测试代价较小，先在软件代码层面排除所有问题。避免同时修改硬件和软件 bug，防止硬件部和软件部相互扯皮。并且能更容易移植到其他平台[1]。
 
-定时问题有关的白盒测试、中断测试、硬件接口测试只能在目标机运行，在开发周期中处于靠后位置[4]。
+定时问题有关的中断测试、硬件接口测试只能在目标机运行，在开发周期中处于靠后位置[4]。
 
 ![img](/UnitTesting/最终测试.jpg)
 
@@ -127,6 +127,8 @@ Mock 是为了解决不同的单元之间由于耦合而难于开发、测试的
 
   ![lcov](/UnitTesting/lcov.png)
 
+  > 不建议将覆盖率作为衡量代码质量的指标，如果使用 TDD 方式或者少写断言，自然能获得高覆盖。建议使用类似 **[bug 数量]/千行** 的指标衡量代码质量。
+
 - 代码复杂度分析 (圈复杂度)
 
   - [lizard](https://github.com/terryyin/lizard)
@@ -158,7 +160,7 @@ Mock 是为了解决不同的单元之间由于耦合而难于开发、测试的
 
   [脚本生成 CMake + Unity 项目](https://github.com/bredlej/init-cmake-project/blob/main/init-cmake-project)
   
-## 4. 框架对比
+## 4. C 框架对比
 
 |        名称        | on mcu | 参考 & 使用 | 维护 |   行业    | mock | 易用性 |  结果 |
 |:------------------:|:------:|:--------:|:----:|:---------:|:----:|:----:|:----:|
@@ -182,9 +184,9 @@ Mock 是为了解决不同的单元之间由于耦合而难于开发、测试的
 
 [完整列表在此处](https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks#C) 已经删除一些过于小众的测试框架。
 
-## 5. 框架模板
+## 5. C 框架简单例子
 
-使用 cmake 方式，给表上靠前的框架构建单元测试模板，统一做 CRC 校验测试。
+使用 cmake 方式，使用不同框架，统一做一个 CRC 函数的校验测试。
 
 ### 5.1 CppUTest
 
@@ -220,7 +222,7 @@ C++ 支持 C/C++ 测试，只使用有限的 C++ 语言特性。
 项目结构，用于测试嵌入式项目时，`src`作为源码目录存放`.c`文件，`tests`中存放测试框架的`.cpp`文件，基本所有测试框架都可以按照这个方式组织。
 
 ```bash
-cmake_cpputest
+cmake_proj
    ├── CMakeLists.txt
    ├── src
    │    ├── CMakeLists.txt
@@ -296,84 +298,6 @@ int main(void)
   printf("hello world!\n");
   exit(0);
 }
-```
-
-顶层 cmake 模板：
-
-```c
-cmake_minimum_required(VERSION 3.7)
-project(cmakeCppUTestDemo)
-
-# 使能测试功能
-enable_testing()
-
-# 设置语言标准
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_C_STANDARD 99)
-
-# 禁止在源码目录修改和编译
-set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
-set(CMAKE_DISABLE_SOURCE_CHANGES ON)
-
-#-Wall: 编译后显示所有警告⚠️
-add_compile_options(-Wall -Werror)
-
-set(PROJECT fooApp)
-set(APP_LIB_NAME fooAppLib)
-
-# 子项目
-add_subdirectory(src)
-
-# 测试构建选项,源外构建 cmake -D COMPILE_TESTS ..
-option(COMPILE_TESTS "Compile the tests" ON)
-if(COMPILE_TESTS)
-  add_subdirectory(tests)
-endif(COMPILE_TESTS)
-```
-
-src/cmakelist:
-
-```c
-set(APP_LIB_SOURCE code.c)
-# 添加库文件
-add_library(${APP_LIB_NAME} ${APP_LIB_SOURCE})
-# 添加可执行文件
-add_execiteable(${PROJECT} main.c)
-# 链接库
-target_link_libraries(${PROJECT} ${APP_LIB_SOURCE})
-```
-
-tests/cmakelist:
-
-```c
-# 寻找安装的CppUTest
-if(DEFINED ENV{CPPUTEST_HOME})
-  message(STATUS "Using CppUTest home: $ENV{CPPUTEST_HOME}")
-  set(CPPUTEST_INCLUDE_DIRS $ENV{CPPUTEST_HOME}/include)
-  set(CPPUTEST_LIBRARIES $ENV{CPPUTEST_HOME}/lib)
-  set(CPPUTEST_LDFLAGS CppUTest CppUTestExt)
-else()
-  find_package(PkgConfig REQUIRED)
-  pkg_search_module(CPPUTEST REQUIRED cpputest>=3.8)
-  message(STATUS "Found CppUTest version ${CPPUTEST_VERSION}")
-endif()
-
-# 单元测试相关变量
-set(TEST_PROJECT ${PROJECT}_tests)
-set(TEST_SOURCES codeTest.cpp main.cpp)
-
-# 外部目录
-# cpputest and current src
-include_directories(${CPPUTEST_INCLUDE_DIRS} ../src/)
-# link
-link_directories(${CPPUTEST_LIBRARIES})
-
-#
-add_executable(${TEST_PROJECT} ${TEST_SOURCES})
-target_link_libraries(${TEST_PROJECT} ${APP_LIB_NAME} ${CPPUTEST_LDFLAGS})
-
-# run test once build is done
-add_custom_command(TARGET ${TEST_APP_NAME} COMMAND ./${TEST_APP_NAME} POST_BUILD)
 ```
 
 新增 polyfit.c polyfit.h，在 codeTest.cpp 中加入：
@@ -538,34 +462,7 @@ Unity 是一个用 C 语言构建的单元测试框架，专注于嵌入式领�
         └── Unity        # Unity 源码
 ```
 
-其中 `unity` 包含在 `tests` 目录的 `lib` 中，以第三方库的形式集成在项目中。
-
-tests/CMakeLists.txt:
-
-```c
-# Set project name
-project(Test)
-
-# Add unity cmakes
-add_subdirectory(lib/Unity)
-
-# Add their include files 要使用完整的 Unity 功能，需要引入这三个目录
-include_directories(lib/Unity/src)
-include_directories(lib/Unity/extras/fixture/src)
-include_directories(lib/Unity/extras/memory/src)
-
-# Set the source of the tests
-set(Sources example/crc_test.c example/main_test.c)
-
-# Set the target executable
-add_executable(Test_run ${Sources})
-
-# Add teh target link libraries
-target_link_libraries(Test_run unity)
-target_link_libraries(Test_run Example_lib)
-```
-
-被测试模块 `Example_lib` 编译成库给测试模块使用。
+其中 `unity` 包含在 `tests` 目录的 `lib` 中，以第三方库的形式集成在项目中。被测试模块 `Example_lib` 编译成库给测试模块使用。
 
 > 使用 Unity 的 fixture 和 memory 功能时，要打开 Unity 目录下 CMakeLists.txt 文件的两个选项。
 >
@@ -959,6 +856,8 @@ cmocka 相关资料很少
 
 ## 6. 测试用例设计
 
+> 不要追求 100% 的用例覆盖，或者指望 UT 能查出所有 bug，应该把 UT 作为一种控制代码质量手段，通过 bug 完善用例。
+
 ### 6.1 测试数据
 
 1. 基于需求的测试
@@ -970,7 +869,6 @@ cmocka 相关资料很少
 4. 决策表
 5. 等效类划分
 6. 基于状态的测试
-7. 用户文档测试
 
 ### 6.2 测试用例表
 
@@ -1053,8 +951,4 @@ cmocka 相关资料很少
 1. [从零搭建一个 c/c++ 工程 - 将 gtest 引入到项目中](https://www.bilibili.com/video/BV1AX4y1J7dh/?spm_id_from=333.999.0.0&vd_source=d669a99eaef48bca1935ad7a52416701)
 2. [unit test mocking](https://interrupt.memfault.com/blog/unit-test-mocking)
 3. [详解圈复杂度](https://cloud.tencent.com/developer/article/1900402)
-
-## todo
-
-- [ ] mock 部分
 

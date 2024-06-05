@@ -53,12 +53,11 @@ cd gcc-14.1.0/
 
 ```bash
 # 安装依赖
-sudo apt install libgmp-dev libmpc-dev libmpfr-dev libmpfrc++-dev libisl-dev
+sudo apt install libgmp-dev libmpc-dev libmpfr-dev libmpfrc++-dev libisl-dev texinfo
 # 如果执行了上一步依赖安装可以不用执行此脚本
 ./contrib/download_prerequisites
 
 mkdir build && cd build
-
 # --program-suffix 会给安装的 gcc 程序添加后缀
 ../configure --prefix=/opt/gcc-14.1.0 --enable-checking=release --enable-languages=c,c++,go --disable-multilib --enable-bootstrap --enable-threads=posix --program-suffix=-14
 
@@ -133,6 +132,17 @@ make && sudo make install
 ```bash
 cmake -D BUILD_QtDialog=ON ..
 make && sudo make install
+```
+
+### gdb 14.2
+
+注意：目前不能使用 gcc-14 编译。
+
+```bash
+sudo apt install libreadline-dev libncurses*
+mkdir build && cd build
+../configure --prefix=/opt/gdb-14.2 --enable-targets=all --with-python --enable-lto --enable-vtable-verify
+make -j6 && sudo make install
 ```
 
 ## 优化设置

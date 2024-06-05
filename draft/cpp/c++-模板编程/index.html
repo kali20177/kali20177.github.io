@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/draft\/cpp\/c\u002b\u002b-%E6%A8%A1%E6%9D%BF%E7%BC%96%E7%A8%8B\/"
-        },"genre": "draft","wordcount":  691 ,
+        },"genre": "draft","wordcount":  975 ,
         "url": "https:\/\/kali20177.github.io\/draft\/cpp\/c\u002b\u002b-%E6%A8%A1%E6%9D%BF%E7%BC%96%E7%A8%8B\/","datePublished": "2024-02-25T20:02:00+08:00","dateModified": "2024-02-25T20:02:00+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -214,8 +214,8 @@ C++14 返回值推导中，auto 只是占位符。</p>
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="变量模板c14">变量模板（C++14）</h2>
-<h2 id="概念c20">概念（C++20）</h2>
-<p>给模板参数添加约束，例如：</p>
+<h2 id="conceptsc20">Concepts（C++20）</h2>
+<p>给模板参数添加约束或者概念，例如定义一个模板函数，只有某个类及其派生类使用：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -278,7 +278,63 @@ C++14 返回值推导中，auto 只是占位符。</p>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div></div></div></div>
+</div><h2 id="相关技巧">相关技巧</h2>
+<h3 id="trait">trait</h3>
+<p>一种仿 rust traits 的多态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">Foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">print</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__PRETTY_FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nf">Bar</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">print</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__PRETTY_FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">print_traits</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">using</span> <span class="n">print_return_t</span> <span class="o">=</span> <span class="k">decltype</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">declval</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">().</span><span class="n">print</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">traits</span> <span class="o">=</span> <span class="n">print_traits</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="k">auto</span> <span class="n">print</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">obj</span><span class="p">)</span> <span class="k">noexcept</span> <span class="o">-&gt;</span> <span class="k">typename</span> <span class="n">traits</span><span class="o">::</span><span class="n">print_return_t</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">obj</span><span class="p">.</span><span class="n">print</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>print_traits 是一个模板结构体，它接受一个类型 T，内部定义一个类型别名 print_return_t，使用 decltype 来推导 T 类型的 print 成员函数的返回类型。</p>
+<ul>
+<li>std::declval<T>() 返回一个类的右值引用，不需要实际创建对象，且对于无默认构造函数的类有效</li>
+<li><code>-&gt; typename traits::print_return_t</code>，表示函数的返回类型是 traits 中的 print_return_t 类型</li>
+</ul>
+<h2 id="参考">参考</h2>
+<ol>
+<li><a href="https://toby-shi-cloud.github.io/posts/cpppolymorphism.html" target="_blank" rel="noopener noreffer ">现代 C++ 编程（一）：多态</a></li>
+<li><a href="https://stdrc.cc/post/2020/09/12/std-declval/" target="_blank" rel="noopener noreffer ">理解 std::declval</a></li>
+<li><a href="https://juejin.cn/post/7021306822350864414" target="_blank" rel="noopener noreffer ">理解 std::declval 和 decltype</a></li>
+</ol>
+</div></div></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2021 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">mufasa</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
