@@ -1,7 +1,7 @@
 # CMake 构建项目
 
 
-## 1. CMake 构建过程
+## 1. CMake 基本构建
 
 ![img](/CMake/cmakeflow.png)
 
@@ -91,19 +91,16 @@ target_link_libraries(${PROJECT_NAME} unity)
     ```
 - 如果想直接添加额外某几个源文件参与构建，使用 `target_sources` 添加文件路径（CMake 3.13 起）。 
 
-## 2. 工作路径
+## 2. 相对路径定义
 
-当 C/C++ 工程需要读写项目路径下的配置文件或者数据文件时，不能直接填写绝对路径或者相对路径，因为 cmake 构建后，数据文件不会进入到 build 文件夹，程序无法根据相对路径找到要读写的文件，使用绝对路径则丧失了可移植性。这时可以在 cmake 中定义工作路径宏解决。
+一般 CMake 工程将可执行文件产生在 build 路径，当 C/C++ 工程需要读写工程目录下的文件或者产生数据时，如果通过绝对路径寻找文件则丧失了可移植性。
+
+这时可以在 cmake 中定义工作路径宏或者使用 configure_file 功能解决。
+
+### 2.1 add_definitions
 
 ```c
-cmake_minimum_required(VERSION 3.20)
-project(MyProject)
-
-# 定义 PROJECT_ROOT 宏
 add_definitions(-DPROJECT_ROOT="${CMAKE_CURRENT_SOURCE_DIR}")
-
-# 添加 C 项目
-add_executable(my_project main.c)
 ```
 
 在 C++ 程序中，执行下面的语句就能获取这个路径。
@@ -126,11 +123,27 @@ int main() {
 }
 ```
 
-STR_HELPER 宏定义：`#define STR_HELPER(x) #x`
-这个宏定义使用了一个特殊的字符串化操作符 #（井号）。在宏定义中，# 将宏参数 x 转换为一个字符串字面量。例如，如果我们使用 STR_HELPER(PROJECT_ROOT)，那么 #x 将会将 PROJECT_ROOT 转换为字符串 "PROJECT_ROOT"。这个宏定义实际上是一个辅助宏，将宏参数转换为字符串。
+在 `STR_HELPER(x)` 中，# 将宏参数 x 转换为一个字符串字面量。
 
-STR 宏定义：`#define STR(x) STR_HELPER(x)`
-这个宏定义是对 STR_HELPER 宏的包装。它接受一个宏参数 x，并将其传递给 STR_HELPER 宏。这样做的目的是为了在 printf 语句中使用宏参数作为字符串值。因为 printf 函数需要一个字符串作为格式化参数，所以我们需要将宏参数转换为字符串。例如，如果我们使用 STR(PROJECT_ROOT)，那么 STR(PROJECT_ROOT) 将会被展开为 STR_HELPER(PROJECT_ROOT)，然后 STR_HELPER(PROJECT_ROOT) 将会将 PROJECT_ROOT 转换为字符串 "PROJECT_ROOT"。在 printf 语句中，我们可以使用 %s 格式化指示符来打印字符串值。`printf("Project root: %s\n", STR(PROJECT_ROOT));`
+### 2.2 configure_file
+
+此命令的功能是在构建时，将文件（一般是 .in 结尾）复制到另一个位置并修改 CMake 变量，一般用于在构建过程中动态生成头文件、配置文件、脚本文件。例如现在需要把 log 文件产生在工程目录的 test/log 文件夹。
+
+```c
+set(LOG_DIR "${CMAKE_SOURCE_DIR}/test/log")
+configure_file(${CMAKE_SOURCE_DIR}/test/config.h.in ${CMAKE_SOURCE_DIR}/include/config.h @ONLY)
+```
+
+`config.h.in` 的内容
+
+```cpp
+#pragma once
+#define LOG_DIR "@LOG_DIR@"
+```
+
+构建项目时，将在 include 目录中生成文件 config.h 并带有正确路径。
+
+> 当打开 CMAKE_DISABLE_SOURCE_CHANGES 时，将无法使用 configure_file 功能。
 
 ## 3. 代码覆盖率
 
@@ -227,7 +240,9 @@ gcovr -r ../ . --html-details -o report.html
 
 进一步可以产生 xml 格式报告[集成到 Jenkins](https://blog.csdn.net/sinat_39037205/article/details/122930653) 中。
 
-## 4. 项目问题检查 Sanitizer
+## 4. 常用配置项
+
+### 4.1 项目问题检查 Sanitizer
 
 gcc/clang 集成了 Sanitizer 内存检查工具。包括：
 
@@ -290,27 +305,24 @@ endmacro()
 ```c
 # 选项开关
 option(USE_SANITIZER "Use Sanitizer" OFF)
-
 ...
-
 # 导入额外编译选项
-
 if(USE_SANITIZER)
     include(cmake/SanitizerOptions.cmake)
     set_sanitizer_options()
 endif()
 ```
 
-## 5. 保留预处理后文件
+### 4.2 保留预处理后文件
 
-配置编译选项：
+添加编译选项：
 
 ```c
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -save-temps=obj")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -save-temps=obj")
 ```
 
-## 6. 输出 map 文件
+### 4.3 输出 map 文件
 
 输出 .map 文件到 build 目录，添加链接选项：
 
@@ -319,7 +331,7 @@ set(MAP_FILE ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.map)
 set(CMAKE_EXE_LINKER_FLAGS "-Wl,-Map=${MAP_FILE}")
 ```
 
-## 7. 设置输出目录
+### 4.4 设置输出目录
 
 `CMAKE_ARCHIVE_OUTPUT_DIRECTORY`、`CMAKE_LIBRARY_OUTPUT_DIRECTORY` 和 `CMAKE_RUNTIME_OUTPUT_DIRECTORY` 变量用于指定构建过程中生成的静态库、动态库和可执行文件的输出路径。`CMAKE_INSTALL_LIBDIR` 和 `CMAKE_INSTALL_BINDIR` 是预定义的变量。
 
@@ -329,7 +341,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
 ```
 
-## 8. 启用调试中宏打印
+### 4.5 启用调试中宏打印
 
 ```c
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g3 -O0 -Wall")
@@ -337,7 +349,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g3 -O0 -Wall")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -gdwarf-2 -g3 -O0 -Wall")
 ```
 
-## 9. 开启 LTO
+### 4.6 开启 LTO
 
 LTO（Link Time Optimization）是一种编译优化技术，它在链接阶段对整个程序进行优化，而不仅仅是在单独编译单元的优化。可能会增加编译时间和内存占用。可以通过变量 `CMAKE_INTERPROCEDURAL_OPTIMIZATION`（CMake 3.9+ 可用）或对目标指定 `INTERPROCEDURAL_OPTIMIZATION` 属性来打开它。
 
@@ -362,7 +374,7 @@ if(result)
 endif()
 ```
 
-## 10. 地址无关代码 (Position independent code)
+### 4.7 地址无关代码 (Position independent code)
 
 动态链接库必须。一般用标志 -fPIC 来设置。大部分情况下，不需要去显式声明，CMake 将会在 SHARED 以及 MODULE 类型的库中自动的包含此标志。如果需要显式的声明：
 
@@ -371,9 +383,9 @@ endif()
 set_target_properties(lib1 PROPERTIES POSITION_INDEPENDENT_CODE ON)
 ```
 
-## 11. Arm 项目和 x86 项目构建上的区别
+## 5. Arm 项目和 x86 项目构建上的区别
 
-最典型的例子，char 的符号性并没有明确定义，它取决于具体的编译器实现。ARM 架构的 LDRSB 指令，可以将一个有符号字节加载到 32 位寄存器并进行符号扩展。但是，这个指令不是 ARM 架构最早版本的一部分。当时为了避免符号扩展的开销，arm 平台的 char 默认是无符号类型，并延续了下来。
+最典型的例子，char 的符号性并没有明确定义，取决于编译器实现。ARM 架构的 LDRSB 指令，可以将一个有符号字节加载到 32 位寄存器并进行符号扩展。但是，这个指令不是 ARM 架构最早版本的一部分。当时为了避免符号扩展的开销，arm 平台的 char 默认是无符号类型。
 
 在 CMake 中通过设置 gcc 的编译选项来调整编译时的符号性。
 
@@ -383,13 +395,12 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsigned-char")
 
 除此之外构建跨平台项目需要注意：
 
-- 浮点数处理：ARM 和 x86 架构对浮点数的处理方式可能不同。例如，ARM 有硬浮点和软浮点两种模式，可以通过 -mfloat-abi 选项来选择。x86 平台默认使用硬浮点。
-- 指令集版本：ARM 有多个版本的指令集，例如 ARMv7、ARMv8 等，它们支持的指令和特性可能有所不同。通过 -march 选项来指定目标架构。
-- 优化选项：GCC 的优化选项（如-O2、-O3 等）在不同的架构上可能有不同的效果。需要根据具体的硬件和应用需求来选择合适的优化级别。
+- 浮点数处理：ARM 有硬浮点和软浮点两种模式，可以通过 -mfloat-abi 选项来选择。
+- 指令集版本：ARM 有多个版本的指令集，例如 ARMv7、ARMv8 等，通过 -march 选项来指定目标架构。
 - 内存模型：ARM 支持多种内存模型，包括小端（little-endian）和大端（big-endian）。通过 -mlittle-endian 或 -mbig-endian 选项来选择。x86 平台默认使用小端模型。
 - ABI（Application Binary Interface）：不同的 ARM ABI（如 AAPCS、AAPCS-VFP 等）可能影响函数调用约定、数据对齐等。通过 -mabi 选项来选择。
 
-## 12. VSCode 集成 Vcpkg 包管理
+## 6. VSCode 集成 Vcpkg 包管理
 
 安装 vcpkg 并进行如下必要的设置：
 
@@ -425,7 +436,7 @@ find_package(fmt CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt-header-only)
 ```
 
-## 13. CMake Presets
+## 7. CMake Presets
 
 当项目越来越复杂，需要考虑跨系统、架构、编译器以及测试各种编译选项时，cmake 就会存在许多需要设置的选项，具体表现为每构建一次，就需要输入一堆 `-D` 选项，同时 CMakeLists.txt 中的内容会变冗余繁杂。
 
@@ -553,7 +564,7 @@ cmake --build --preset "gui app debug"
 
 如果使用 VSCode 插件则无需输入命令行，直接鼠标点选即可构建。
 
-## 14. rpath
+## 8. rpath
 
 全名 Run-time Search Path，运行时链接器搜索路径。这个值硬编码在可执行文件或者动态库的 ELF 结构的 .dynamic 节中。动态库搜索路径的顺序：
 
@@ -594,7 +605,7 @@ install(TARGETS MyExecutable DESTINATION bin)
 
 这样程序运行时就不会出现各种 `'GLIBC_2.xx' not found` 的问题。
 
-## 15. 编译选项控制
+## 9. 编译选项控制
 
 target_compile_options 命令用于给特定构建目标添加编译选项。可以添加三个级别的可见性：INTERFACE、PUBLIC 和 PRIVATE。定义如下：
 
@@ -614,7 +625,7 @@ target_compile_options(xlib PRIVATE ${flags})
 >
 > 2. 选项 CMAKE_EXPORT_COMPILE_COMMANDS 仅当使用 Makefile 和 Ninja 生成器时有效。
 
-## 16. Clang 静态分析器
+## 10. Clang 静态分析器
 
 安装 clang 和 llvm 套件，安装 clang static analyzer：
 
@@ -640,9 +651,9 @@ scan-build: Run 'scan-view /tmp/scan-build-2024-04-30-151415-5388-1' to examine 
 
 执行提示的 `scan-view xxx` 可以在浏览器上查看错误详情。
 
-## 17. CMake 行为准则
+## 11. CMake 行为准则
 
-### 17.1 CMake 应避免的行为
+### 11.1 CMake 应避免的行为
 
 - 不要使用具有全局作用域的函数：这包含 `link_directories`、 `include_libraries` 等相似的函数。
 - 不要添加非必要的 PUBLIC 要求：你应该避免把一些不必要的东西强加给用户（-Wall）。相比于 PUBLIC，更应该把他们声明为 PRIVATE。
@@ -650,7 +661,7 @@ scan-build: Run 'scan-view /tmp/scan-build-2024-04-30-151415-5388-1' to examine 
 - 将库直接链接到需要构建的目标上：如果可以的话，总是显式的将库链接到目标上。
 - 当链接库文件时，不要省略 PUBLIC 或 PRIVATE 关键字：这将会导致后续所有的链接都是默认的。
 
-### 17.2 CMake 应遵守的规范
+### 11.2 CMake 应遵守的规范
 
 - 把 CMake 程序视作代码：它是代码。它应该和其他的代码一样，是整洁并且可读的。
 - 建立目标的观念：你的目标应该代表一系列的概念。为任何需要保持一致的东西指定一个（导入型）INTERFACE 目标，然后每次都链接到该目标。
@@ -663,23 +674,24 @@ scan-build: Run 'scan-view /tmp/scan-build-2024-04-30-151415-5388-1' to examine 
 
 ## 参考
 
-1. [在 CMakeLists.txt 中添加源文件的几种方法](https://zhuanlan.zhihu.com/p/631113006)
-2. [CMake - 使用 target_sources() 提高源文件处理能力](https://blog.csdn.net/guaaaaaaa/article/details/125601766)
-3. [Using AddressSanitizer (ASan) in a CMake project](https://felsoci.sk/blog/using-address-sanitizer-asan-in-a-cmake-project.html)
-4. [unsigned char and signed char](https://developer.arm.com/documentation/den0013/d/Porting/Miscellaneous-C-porting-issues/unsigned-char-and-signed-char)
-5. [cmake：这样查看源码的预编译信息](https://zhuanlan.zhihu.com/p/596350807)
-6. [The GDB developer's GNU Debugger tutorial, Part 1: Getting started with the debugger](https://developers.redhat.com/blog/2021/04/30/the-gdb-developers-gnu-debugger-tutorial-part-1-getting-started-with-the-debugger#compiler_options)
-7. [使用 Gcov 和 LCOV 度量 C/C++ 项目的代码覆盖率](https://zhuanlan.zhihu.com/p/402463278)
-8. [Linux 下 gcovr 的使用细节](https://blog.csdn.net/whahu1989/article/details/121711957)
-9. [Building with CMake Presets](https://mcuoneclipse.com/2023/12/03/building-with-cmake-presets/)
-10. [使用 CMake Presets](https://hedzr.com/c++/algorithm/using-cmake-presets/)
-11. [CMake Presets](https://blog.feabhas.com/2023/08/cmake-presets/)
-12. [Organizing CMake presets](https://dominikberner.ch/cmake-presets-best-practices/)
-13. [Understanding RPATH (With CMake)](https://duerrenberger.dev/blog/2021/08/04/understanding-rpath-with-cmake/)
-14. [链接选项 rpath 的应用和原理](https://bewaremypower.github.io/2020/07/14/%E9%93%BE%E6%8E%A5%E9%80%89%E9%A1%B9-rpath-%E7%9A%84%E5%BA%94%E7%94%A8%E5%92%8C%E5%8E%9F%E7%90%86/)
-15. [RPATH 简介以及 CMake 中的处理](https://blog.xizhibei.me/2021/02/12/a-brief-intro-of-rpath/)
-16. [rpath 使用说明](https://zhuanlan.zhihu.com/p/661388872)
-17. [【ToolChains】| CMake 技巧](https://www.cnblogs.com/RioTian/p/17869507.html)
-18. [LLVM 之 Clang 静态分析器篇（1）：如何使用 Clang 静态分析器](https://csstormq.github.io/blog/LLVM%20%E4%B9%8B%20Clang%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8%E7%AF%87%EF%BC%881%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20Clang%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8)
-19. [CMake 行为准则 (Do's and Don'ts)](https://modern-cmake-cn.github.io/Modern-CMake-zh_CN/chapters/intro/dodonot.html)
+1. [Communication with your code](https://cliutils.gitlab.io/modern-cmake/chapters/basics/comms.html)
+2. [在 CMakeLists.txt 中添加源文件的几种方法](https://zhuanlan.zhihu.com/p/631113006)
+3. [CMake - 使用 target_sources() 提高源文件处理能力](https://blog.csdn.net/guaaaaaaa/article/details/125601766)
+4. [Using AddressSanitizer (ASan) in a CMake project](https://felsoci.sk/blog/using-address-sanitizer-asan-in-a-cmake-project.html)
+5. [unsigned char and signed char](https://developer.arm.com/documentation/den0013/d/Porting/Miscellaneous-C-porting-issues/unsigned-char-and-signed-char)
+6. [cmake：这样查看源码的预编译信息](https://zhuanlan.zhihu.com/p/596350807)
+7. [The GDB developer's GNU Debugger tutorial, Part 1: Getting started with the debugger](https://developers.redhat.com/blog/2021/04/30/the-gdb-developers-gnu-debugger-tutorial-part-1-getting-started-with-the-debugger#compiler_options)
+8. [使用 Gcov 和 LCOV 度量 C/C++ 项目的代码覆盖率](https://zhuanlan.zhihu.com/p/402463278)
+9. [Linux 下 gcovr 的使用细节](https://blog.csdn.net/whahu1989/article/details/121711957)
+10. [Building with CMake Presets](https://mcuoneclipse.com/2023/12/03/building-with-cmake-presets/)
+11. [使用 CMake Presets](https://hedzr.com/c++/algorithm/using-cmake-presets/)
+12. [CMake Presets](https://blog.feabhas.com/2023/08/cmake-presets/)
+13. [Organizing CMake presets](https://dominikberner.ch/cmake-presets-best-practices/)
+14. [Understanding RPATH (With CMake)](https://duerrenberger.dev/blog/2021/08/04/understanding-rpath-with-cmake/)
+15. [链接选项 rpath 的应用和原理](https://bewaremypower.github.io/2020/07/14/%E9%93%BE%E6%8E%A5%E9%80%89%E9%A1%B9-rpath-%E7%9A%84%E5%BA%94%E7%94%A8%E5%92%8C%E5%8E%9F%E7%90%86/)
+16. [RPATH 简介以及 CMake 中的处理](https://blog.xizhibei.me/2021/02/12/a-brief-intro-of-rpath/)
+17. [rpath 使用说明](https://zhuanlan.zhihu.com/p/661388872)
+18. [【ToolChains】| CMake 技巧](https://www.cnblogs.com/RioTian/p/17869507.html)
+19. [LLVM 之 Clang 静态分析器篇（1）：如何使用 Clang 静态分析器](https://csstormq.github.io/blog/LLVM%20%E4%B9%8B%20Clang%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8%E7%AF%87%EF%BC%881%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20Clang%20%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90%E5%99%A8)
+20. [CMake 行为准则 (Do's and Don'ts)](https://modern-cmake-cn.github.io/Modern-CMake-zh_CN/chapters/intro/dodonot.html)
 

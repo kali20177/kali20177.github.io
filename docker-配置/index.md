@@ -9,7 +9,19 @@ Windows 上 Docker 需要基于 Hyper-V 或者 WSL2。在“启用或关闭 Wind
 
 ![wsl_docker](/Docker_img/wsl_docker.png)
 
-Linux 上可以直接使用 apt 的源下载 Ubuntu 维护的社区版。
+但槽点是，如果安装过 Docker Desktop，则可能会改变 WSL 的默认系统设置，导致 VSCode 选择“连接到 WSL”选项时，会连接到 docker-desktop 导致失败。下面的选项修改默认设置：
+
+```bash
+> wsl -l -v
+  NAME                   STATE           VERSION
+* docker-desktop         Stopped         2
+  docker-desktop-data    Stopped         2
+  Arch                   Stopped         2
+  Ubuntu-24.04           Running         2
+> wslconfig /setdefault Ubuntu-24.04
+```
+
+Linux 上可以直接使用 apt 的源下载 Ubuntu 维护的社区版 docker。
 
 ```bash
 sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release usbutils
@@ -32,9 +44,11 @@ id -nG
 
 ## 概念
 
-- image:
-- container:
-- dockerfile:
+- image: 一个只读的模板，可以用来创建 Docker 容器。相当于安装虚拟机时的 iso 文件。
+- container: 容器镜像的运行实例。
+- dockerfile: 用于制作、部署容器镜像的配置文件。
+
+容器和虚拟机的区别可以参考[虚拟机与容器区别](https://www.redhat.com/zh/topics/containers/whats-a-linux-container#%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8E%E5%AE%B9%E5%99%A8%E5%8C%BA%E5%88%AB)。
 
 ## 基础命令
 
@@ -53,22 +67,61 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-使用 Docker Desktop 则在 settings 的 `Docker Engine` 中直接编辑。
+如果使用 Docker Desktop 则可以在 settings 的 `Docker Engine` 选项中直接编辑。
 
 保存和加载完整镜像：
 
 ```bash
-docker save busybox > busybox.tar # linux
-docker save --output busybox.tar busybox
+
 
 docker load < busybox.tar.gz # linux
 docker load --input fedora.tar
+```
+
+常用命令：
+
+```bash
+# 从互联网拉取名为 ubuntu 的容器
+docker pull ubuntu 
+
+# 首次从镜像创建名为 Myhub 的容器实例，进入交互模式，运行程序 zsh
+docker run -it --name MyHub ubuntu zsh
+
+# 首次启动一个特权容器，映射了外部 linux usb 设备，硬件调试需要
+docker run -it --name MyDevContainer --privileged -v /dev/bus/usb/:/dev/bus/usb ubuntu zsh
+
+# 查询容器实例列表
+docker ps -a  # 显示当前容器 ID 和容器名
+
+# 提交容器变更，产生名为 ubuntu:base 的新镜像 -a: 作者，-m: 说明
+docker commit -a "mufasa" -m "change mirror" container-id ubuntu:base
+
+# 再次启动容器实例
+docker start MyDevContainer
+# 进入交互模式（运行 zsh）
+docker exec MyDevContainer zsh
+
+# 删除容器实例，可通过容器 id 号或者容器名称
+docker rm ${CONTAINER ID}
+docker rm ${NAMES}
+
+# 删除镜像
+docker rmi ${REPOSITORY}
+
+# 保存当前 image 为 tar 文件
+docker save ubuntu > ubuntu.tar # linux
+docker save --output ubuntu.tar ubuntu
+
+# 导入 image
+docker load < ubuntu.tar # linux
+docker load --input ubuntu.tar
 ```
 
 ## UI 工具
 
 - docker desktop
 - lazydocker
+- VSCode docker 插件
 
 ## SSH 以及基础编译环境配置
 
@@ -164,6 +217,14 @@ RedHat 维护的发行版，默认安装的编译环境较新。使用 dnf 作�
 sudo dnf group install "C Development Tools and Libraries" "Development Tools"
 sudo dnf install ncurses   # 支持 clear
 sudo dnf install clang-tools-extra   # 安装 clangd
+```
+
+### mcr
+
+微软官方 DevContainer 插件官方维护的系列容器，在普通容器的基础上添加了权限管理，zsh 和一个名为 vscode 的非 root 用户，已经配置了一些常用的系统工具。
+
+```bash
+docker pull mcr.microsoft.com/devcontainers/base:ubuntu
 ```
 
 ## 私有 Registry
@@ -430,25 +491,26 @@ code-server 服务安装的位置和容器的用户名有关，例如对于微�
 ## 参考
 
 1. [Docker - Docker for Windows 10 入門篇](https://skychang.github.io/2017/01/06/Docker-Docker_for_Windows_10_First/)
-2. [镜像加速器](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)
-3. [SSH 服务器](https://wangdoc.com/ssh/server)
-4. [Alpine Linux 常用命令](https://www.cnblogs.com/jackadam/p/9290366.html)
-5. [Setting up a SSH server](https://wiki.alpinelinux.org/wiki/Setting_up_a_SSH_server?ref=angelsanchez.me)
-6. [通过 SSH 在远程和本地系统之间传输文件的 4 种方法](https://zhuanlan.zhihu.com/p/507876254)
-7. [docker 搭建本地/局域网仓库](https://juejin.cn/post/7248827630866415674)
-8. [私有仓库](https://docker-practice.github.io/zh-cn/repository/registry.html)
-9. [about – x11 display server – display or login manager – window manager](https://dwaves.de/2017/06/14/about-x11-display-server-display-or-login-manager-window-manager/)
-10. [在 Docker for Windows 中运行 GUI 程序](https://www.cnblogs.com/larva-zhh/p/10531824.html)
-11. [Run GUI app in linux docker container on windows host](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde)
-12. ["error: XDG_RUNTIME_DIR not set in the environment." when attempting to run nautilus as root](https://askubuntu.com/questions/456689/error-xdg-runtime-dir-not-set-in-the-environment-when-attempting-to-run-naut)
-13. [Docker 容器图形界面显示（运行 GUI 软件）的配置方法](https://www.cnblogs.com/ruiyang-/p/10185840.html)
-14. [J-Link Docker Container](https://wiki.segger.com/J-Link_Docker_Container)
-15. [Win10 中的 Docker 使用 USB 设备](https://www.voidking.com/dev-win10-docker-usb/)
-16. [Using the gdbserver Program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Server.html)
-17. [Developing on the RP2040 / Pi Pico with Docker and JLink](https://johnmcnelly.com/developing-on-the-rp2040-pi-pico-with-docker-and-jlink/)
-18. [vscode + jlink + GDBServer 在线调试](https://blog.csdn.net/niu_88/article/details/127347197)
-19. [J-Link GDB Server](https://wiki.segger.com/J-Link_GDB_Server)
-20. [STM32 Development Env for Windows: VSCode + ARM GCC Toolchain + OpenOCD](https://mightydevices.com/index.php/2019/09/stm32-development-env-for-windows-vscode-arm-gcc-toolchain-openocd/)
-21. [WSL](https://wiki.segger.com/WSL)
-22. [Run the Installer Script](https://goharbor.io/docs/2.10.0/install-config/run-installer-script/)
-23. [VS Code Server 离线安装过程](https://zhuanlan.zhihu.com/p/294933020)
+2. [WSL2 切换默认的 Linux 子系统](https://blog.csdn.net/weixin_43425561/article/details/132478445)
+3. [镜像加速器](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)
+4. [SSH 服务器](https://wangdoc.com/ssh/server)
+5. [Alpine Linux 常用命令](https://www.cnblogs.com/jackadam/p/9290366.html)
+6. [Setting up a SSH server](https://wiki.alpinelinux.org/wiki/Setting_up_a_SSH_server?ref=angelsanchez.me)
+7. [通过 SSH 在远程和本地系统之间传输文件的 4 种方法](https://zhuanlan.zhihu.com/p/507876254)
+8. [docker 搭建本地/局域网仓库](https://juejin.cn/post/7248827630866415674)
+9. [私有仓库](https://docker-practice.github.io/zh-cn/repository/registry.html)
+10. [about – x11 display server – display or login manager – window manager](https://dwaves.de/2017/06/14/about-x11-display-server-display-or-login-manager-window-manager/)
+11. [在 Docker for Windows 中运行 GUI 程序](https://www.cnblogs.com/larva-zhh/p/10531824.html)
+12. [Run GUI app in linux docker container on windows host](https://dev.to/darksmile92/run-gui-app-in-linux-docker-container-on-windows-host-4kde)
+13. ["error: XDG_RUNTIME_DIR not set in the environment." when attempting to run nautilus as root](https://askubuntu.com/questions/456689/error-xdg-runtime-dir-not-set-in-the-environment-when-attempting-to-run-naut)
+14. [Docker 容器图形界面显示（运行 GUI 软件）的配置方法](https://www.cnblogs.com/ruiyang-/p/10185840.html)
+15. [J-Link Docker Container](https://wiki.segger.com/J-Link_Docker_Container)
+16. [Win10 中的 Docker 使用 USB 设备](https://www.voidking.com/dev-win10-docker-usb/)
+17. [Using the gdbserver Program](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Server.html)
+18. [Developing on the RP2040 / Pi Pico with Docker and JLink](https://johnmcnelly.com/developing-on-the-rp2040-pi-pico-with-docker-and-jlink/)
+19. [vscode + jlink + GDBServer 在线调试](https://blog.csdn.net/niu_88/article/details/127347197)
+20. [J-Link GDB Server](https://wiki.segger.com/J-Link_GDB_Server)
+21. [STM32 Development Env for Windows: VSCode + ARM GCC Toolchain + OpenOCD](https://mightydevices.com/index.php/2019/09/stm32-development-env-for-windows-vscode-arm-gcc-toolchain-openocd/)
+22. [WSL](https://wiki.segger.com/WSL)
+23. [Run the Installer Script](https://goharbor.io/docs/2.10.0/install-config/run-installer-script/)
+24. [VS Code Server 离线安装过程](https://zhuanlan.zhihu.com/p/294933020)

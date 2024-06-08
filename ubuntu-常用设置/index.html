@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE\/"
-        },"genre": "posts","keywords": "Linux","wordcount":  2643 ,
+        },"genre": "posts","keywords": "Linux","wordcount":  2534 ,
         "url": "https:\/\/kali20177.github.io\/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE\/","datePublished": "2024-04-29T09:13:40+08:00","dateModified": "2024-04-29T09:13:40+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -102,7 +102,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Ubuntu 相关常用问题</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-29">2024-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2643 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-29">2024-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2534 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -669,28 +669,7 @@
 <p>对于 arm 架构的 ubuntu，需要更换 <a href="https://mirrors.ustc.edu.cn/help/ubuntu-ports.html#__tabbed_2_2" target="_blank" rel="noopener noreffer ">Ubuntu Ports</a> 源。</p>
 </blockquote>
 <h2 id="wsl-默认系统">WSL 默认系统</h2>
-<p>如果安装过 Docker Desktop，则可能会改变 WSL 的默认系统设置，导致 VSCode 选择“连接到 WSL”选项时，会连接到 docker-desktop 导致失败。下面的选项修改默认设置：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt; wsl -l -v
-</span></span><span class="line"><span class="cl">  NAME                   STATE           VERSION
-</span></span><span class="line"><span class="cl">* docker-desktop         Stopped         <span class="m">2</span>
-</span></span><span class="line"><span class="cl">  docker-desktop-data    Stopped         <span class="m">2</span>
-</span></span><span class="line"><span class="cl">  Arch                   Stopped         <span class="m">2</span>
-</span></span><span class="line"><span class="cl">  Ubuntu-24.04           Running         <span class="m">2</span>
-</span></span><span class="line"><span class="cl">&gt; wslconfig /setdefault Ubuntu-24.04
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="参考">参考</h2>
+<h2 id="参考">参考</h2>
 <ol>
 <li><a href="https://linuxconfig.org/how-to-install-and-manage-fonts-on-linux" target="_blank" rel="noopener noreffer ">How to install and manage fonts on Linux</a></li>
 <li><a href="https://cuterwrite.top/p/gcc-13-source-install/" target="_blank" rel="noopener noreffer ">GCC-13.2.0 编译安装</a></li>
@@ -702,7 +681,6 @@
 <li><a href="https://www.baeldung.com/linux/update-alternatives-command" target="_blank" rel="noopener noreffer ">The update-alternatives Command in Linux</a></li>
 <li><a href="https://www.cnblogs.com/yongdaimi/p/13424855.html" target="_blank" rel="noopener noreffer ">VirtualBox: linux 没有权限访问共享文件夹的问题</a></li>
 <li><a href="https://blog.yasking.org/a/notes-on-multipass.html" target="_blank" rel="noopener noreffer ">虚拟机管理工具 multipass 使用笔记</a></li>
-<li><a href="https://blog.csdn.net/weixin_43425561/article/details/132478445" target="_blank" rel="noopener noreffer ">WSL2 切换默认的 Linux 子系统</a></li>
 </ol>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">

@@ -355,17 +355,6 @@ multipass find              # 查询支持的镜像列表
 
 ## WSL 默认系统
 
-如果安装过 Docker Desktop，则可能会改变 WSL 的默认系统设置，导致 VSCode 选择“连接到 WSL”选项时，会连接到 docker-desktop 导致失败。下面的选项修改默认设置：
-
-```bash
-> wsl -l -v
-  NAME                   STATE           VERSION
-* docker-desktop         Stopped         2
-  docker-desktop-data    Stopped         2
-  Arch                   Stopped         2
-  Ubuntu-24.04           Running         2
-> wslconfig /setdefault Ubuntu-24.04
-```
 
 ## 参考
 
@@ -379,5 +368,4 @@ multipass find              # 查询支持的镜像列表
 8. [The update-alternatives Command in Linux](https://www.baeldung.com/linux/update-alternatives-command)
 9. [VirtualBox: linux 没有权限访问共享文件夹的问题](https://www.cnblogs.com/yongdaimi/p/13424855.html)
 10. [虚拟机管理工具 multipass 使用笔记](https://blog.yasking.org/a/notes-on-multipass.html)
-11. [WSL2 切换默认的 Linux 子系统](https://blog.csdn.net/weixin_43425561/article/details/132478445)
 

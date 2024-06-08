@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>CMake 构建项目 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="CMake 构建项目" />
-<meta property="og:description" content="1. CMake 构建过程 以下面结构的简单项目为例，子项目 test 中需要依赖一个测试框架 Unity, 一个只有头文件和源码的 log 库和一个由多个源文件和头文件组成的哈希表库 ut" />
+<meta property="og:description" content="1. CMake 基本构建 以下面结构的简单项目为例，子项目 test 中需要依赖一个测试框架 Unity, 一个只有头文件和源码的 log 库和一个由多个源文件和头文件组成的哈希表库 ut" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://kali20177.github.io/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE/" /><meta property="og:image" content="https://kali20177.github.io/logo.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-08-09T14:41:27+08:00" />
@@ -13,7 +13,7 @@
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://kali20177.github.io/logo.png" /><meta name="twitter:title" content="CMake 构建项目"/>
-<meta name="twitter:description" content="1. CMake 构建过程 以下面结构的简单项目为例，子项目 test 中需要依赖一个测试框架 Unity, 一个只有头文件和源码的 log 库和一个由多个源文件和头文件组成的哈希表库 ut"/>
+<meta name="twitter:description" content="1. CMake 基本构建 以下面结构的简单项目为例，子项目 test 中需要依赖一个测试框架 Unity, 一个只有头文件和源码的 log 库和一个由多个源文件和头文件组成的哈希表库 ut"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE\/"
-        },"genre": "posts","keywords": "C\u002b\u002b, CMake","wordcount":  6157 ,
+        },"genre": "posts","keywords": "C\u002b\u002b, CMake","wordcount":  5734 ,
         "url": "https:\/\/kali20177.github.io\/cmake-%E6%9E%84%E5%BB%BA%E9%A1%B9%E7%9B%AE\/","datePublished": "2023-08-09T14:41:27+08:00","dateModified": "2023-08-09T14:41:27+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -102,8 +102,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CMake 构建项目</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/cmake/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CMake</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-09">2023-08-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 6157 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 13 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-09">2023-08-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 5734 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -111,8 +111,13 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#1-cmake-构建过程">1. CMake 构建过程</a></li>
-    <li><a href="#2-工作路径">2. 工作路径</a></li>
+    <li><a href="#1-cmake-基本构建">1. CMake 基本构建</a></li>
+    <li><a href="#2-相对路径定义">2. 相对路径定义</a>
+      <ul>
+        <li><a href="#21-add_definitions">2.1 add_definitions</a></li>
+        <li><a href="#22-configure_file">2.2 configure_file</a></li>
+      </ul>
+    </li>
     <li><a href="#3-代码覆盖率">3. 代码覆盖率</a>
       <ul>
         <li><a href="#31-gcov-编译选项">3.1 Gcov 编译选项</a></li>
@@ -120,29 +125,33 @@
         <li><a href="#33-gcovr">3.3 Gcovr</a></li>
       </ul>
     </li>
-    <li><a href="#4-项目问题检查-sanitizer">4. 项目问题检查 Sanitizer</a></li>
-    <li><a href="#5-保留预处理后文件">5. 保留预处理后文件</a></li>
-    <li><a href="#6-输出-map-文件">6. 输出 map 文件</a></li>
-    <li><a href="#7-设置输出目录">7. 设置输出目录</a></li>
-    <li><a href="#8-启用调试中宏打印">8. 启用调试中宏打印</a></li>
-    <li><a href="#9-开启-lto">9. 开启 LTO</a></li>
-    <li><a href="#10-地址无关代码-position-independent-code">10. 地址无关代码 (Position independent code)</a></li>
-    <li><a href="#11-arm-项目和-x86-项目构建上的区别">11. Arm 项目和 x86 项目构建上的区别</a></li>
-    <li><a href="#12-vscode-集成-vcpkg-包管理">12. VSCode 集成 Vcpkg 包管理</a></li>
-    <li><a href="#13-cmake-presets">13. CMake Presets</a></li>
-    <li><a href="#14-rpath">14. rpath</a></li>
-    <li><a href="#15-编译选项控制">15. 编译选项控制</a></li>
-    <li><a href="#16-clang-静态分析器">16. Clang 静态分析器</a></li>
-    <li><a href="#17-cmake-行为准则">17. CMake 行为准则</a>
+    <li><a href="#4-常用配置项">4. 常用配置项</a>
       <ul>
-        <li><a href="#171-cmake-应避免的行为">17.1 CMake 应避免的行为</a></li>
-        <li><a href="#172-cmake-应遵守的规范">17.2 CMake 应遵守的规范</a></li>
+        <li><a href="#41-项目问题检查-sanitizer">4.1 项目问题检查 Sanitizer</a></li>
+        <li><a href="#42-保留预处理后文件">4.2 保留预处理后文件</a></li>
+        <li><a href="#43-输出-map-文件">4.3 输出 map 文件</a></li>
+        <li><a href="#44-设置输出目录">4.4 设置输出目录</a></li>
+        <li><a href="#45-启用调试中宏打印">4.5 启用调试中宏打印</a></li>
+        <li><a href="#46-开启-lto">4.6 开启 LTO</a></li>
+        <li><a href="#47-地址无关代码-position-independent-code">4.7 地址无关代码 (Position independent code)</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-arm-项目和-x86-项目构建上的区别">5. Arm 项目和 x86 项目构建上的区别</a></li>
+    <li><a href="#6-vscode-集成-vcpkg-包管理">6. VSCode 集成 Vcpkg 包管理</a></li>
+    <li><a href="#7-cmake-presets">7. CMake Presets</a></li>
+    <li><a href="#8-rpath">8. rpath</a></li>
+    <li><a href="#9-编译选项控制">9. 编译选项控制</a></li>
+    <li><a href="#10-clang-静态分析器">10. Clang 静态分析器</a></li>
+    <li><a href="#11-cmake-行为准则">11. CMake 行为准则</a>
+      <ul>
+        <li><a href="#111-cmake-应避免的行为">11.1 CMake 应避免的行为</a></li>
+        <li><a href="#112-cmake-应遵守的规范">11.2 CMake 应遵守的规范</a></li>
       </ul>
     </li>
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="1-cmake-构建过程">1. CMake 构建过程</h2>
+            </div><div class="content" id="content"><h2 id="1-cmake-基本构建">1. CMake 基本构建</h2>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -317,28 +326,16 @@
 <p>如果想直接添加额外某几个源文件参与构建，使用 <code>target_sources</code> 添加文件路径（CMake 3.13 起）。</p>
 </li>
 </ul>
-<h2 id="2-工作路径">2. 工作路径</h2>
-<p>当 C/C++ 工程需要读写项目路径下的配置文件或者数据文件时，不能直接填写绝对路径或者相对路径，因为 cmake 构建后，数据文件不会进入到 build 文件夹，程序无法根据相对路径找到要读写的文件，使用绝对路径则丧失了可移植性。这时可以在 cmake 中定义工作路径宏解决。</p>
+<h2 id="2-相对路径定义">2. 相对路径定义</h2>
+<p>一般 CMake 工程将可执行文件产生在 build 路径，当 C/C++ 工程需要读写工程目录下的文件或者产生数据时，如果通过绝对路径寻找文件则丧失了可移植性。</p>
+<p>这时可以在 cmake 中定义工作路径宏或者使用 configure_file 功能解决。</p>
+<h3 id="21-add_definitions">2.1 add_definitions</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">cmake_minimum_required</span><span class="p">(</span><span class="n">VERSION</span> <span class="mf">3.20</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nf">project</span><span class="p">(</span><span class="n">MyProject</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># 定义 PROJECT_ROOT 宏
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">add_definitions</span><span class="p">(</span><span class="o">-</span><span class="n">DPROJECT_ROOT</span><span class="o">=</span><span class="s">&#34;${CMAKE_CURRENT_SOURCE_DIR}&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cp"># 添加 C 项目
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">add_executable</span><span class="p">(</span><span class="n">my_project</span> <span class="n">main</span><span class="p">.</span><span class="n">c</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">add_definitions</span><span class="p">(</span><span class="o">-</span><span class="n">DPROJECT_ROOT</span><span class="o">=</span><span class="s">&#34;${CMAKE_CURRENT_SOURCE_DIR}&#34;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>在 C++ 程序中，执行下面的语句就能获取这个路径。</p>
@@ -375,10 +372,34 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>STR_HELPER 宏定义：<code>#define STR_HELPER(x) #x</code>
-这个宏定义使用了一个特殊的字符串化操作符 #（井号）。在宏定义中，# 将宏参数 x 转换为一个字符串字面量。例如，如果我们使用 STR_HELPER(PROJECT_ROOT)，那么 #x 将会将 PROJECT_ROOT 转换为字符串 &ldquo;PROJECT_ROOT&rdquo;。这个宏定义实际上是一个辅助宏，将宏参数转换为字符串。</p>
-<p>STR 宏定义：<code>#define STR(x) STR_HELPER(x)</code>
-这个宏定义是对 STR_HELPER 宏的包装。它接受一个宏参数 x，并将其传递给 STR_HELPER 宏。这样做的目的是为了在 printf 语句中使用宏参数作为字符串值。因为 printf 函数需要一个字符串作为格式化参数，所以我们需要将宏参数转换为字符串。例如，如果我们使用 STR(PROJECT_ROOT)，那么 STR(PROJECT_ROOT) 将会被展开为 STR_HELPER(PROJECT_ROOT)，然后 STR_HELPER(PROJECT_ROOT) 将会将 PROJECT_ROOT 转换为字符串 &ldquo;PROJECT_ROOT&rdquo;。在 printf 语句中，我们可以使用 %s 格式化指示符来打印字符串值。<code>printf(&quot;Project root: %s\n&quot;, STR(PROJECT_ROOT));</code></p>
+</div><p>在 <code>STR_HELPER(x)</code> 中，# 将宏参数 x 转换为一个字符串字面量。</p>
+<h3 id="22-configure_file">2.2 configure_file</h3>
+<p>此命令的功能是在构建时，将文件（一般是 .in 结尾）复制到另一个位置并修改 CMake 变量，一般用于在构建过程中动态生成头文件、配置文件、脚本文件。例如现在需要把 log 文件产生在工程目录的 test/log 文件夹。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">set</span><span class="p">(</span><span class="n">LOG_DIR</span> <span class="s">&#34;${CMAKE_SOURCE_DIR}/test/log&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">configure_file</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">CMAKE_SOURCE_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">config</span><span class="p">.</span><span class="n">h</span><span class="p">.</span><span class="n">in</span> <span class="err">$</span><span class="p">{</span><span class="n">CMAKE_SOURCE_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">config</span><span class="p">.</span><span class="n">h</span> <span class="err">@</span><span class="n">ONLY</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>config.h.in</code> 的内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#pragma once
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define LOG_DIR &#34;@LOG_DIR@&#34;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>构建项目时，将在 include 目录中生成文件 config.h 并带有正确路径。</p>
+<blockquote>
+<p>当打开 CMAKE_DISABLE_SOURCE_CHANGES 时，将无法使用 configure_file 功能。</p>
+</blockquote>
 <h2 id="3-代码覆盖率">3. 代码覆盖率</h2>
 <p>C/C++ 的代码覆盖率主要是利用 gcc 套件中的 gcov 组件产生，加入特殊选项编译后会产生 <code>*.gcno</code> 文件，运行测试后进一步产生 <code>*.gcda</code> 文件，二者结合源码，使用 <code>gcov ${program.gcno}</code> 命令生成覆盖率信息。一般需要进一步使用 lcov 或者 gcovr 产生可读性更强的报告。</p>
 <blockquote>
@@ -534,7 +555,8 @@
         alt="/CMake/gcovr2.png"
         title="gcovr2" /></p>
 <p>进一步可以产生 xml 格式报告<a href="https://blog.csdn.net/sinat_39037205/article/details/122930653" target="_blank" rel="noopener noreffer ">集成到 Jenkins</a> 中。</p>
-<h2 id="4-项目问题检查-sanitizer">4. 项目问题检查 Sanitizer</h2>
+<h2 id="4-常用配置项">4. 常用配置项</h2>
+<h3 id="41-项目问题检查-sanitizer">4.1 项目问题检查 Sanitizer</h3>
 <p>gcc/clang 集成了 Sanitizer 内存检查工具。包括：</p>
 <ul>
 <li>AddressSanitizer: a memory error detector</li>
@@ -626,34 +648,28 @@
 </div><p>在 CMakeLists.txt 中 include。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp"># 选项开关
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">option</span><span class="p">(</span><span class="n">USE_SANITIZER</span> <span class="s">&#34;Use Sanitizer&#34;</span> <span class="n">OFF</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">...</span>
-</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cp"># 导入额外编译选项
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="n">USE_SANITIZER</span><span class="p">)</span>
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">if</span><span class="p">(</span><span class="n">USE_SANITIZER</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">include</span><span class="p">(</span><span class="n">cmake</span><span class="o">/</span><span class="n">SanitizerOptions</span><span class="p">.</span><span class="n">cmake</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">set_sanitizer_options</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="nf">endif</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="5-保留预处理后文件">5. 保留预处理后文件</h2>
-<p>配置编译选项：</p>
+</div><h3 id="42-保留预处理后文件">4.2 保留预处理后文件</h3>
+<p>添加编译选项：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -664,7 +680,7 @@
 </span></span><span class="line"><span class="cl"><span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_CXX_FLAGS</span> <span class="s">&#34;${CMAKE_CXX_FLAGS} -save-temps=obj&#34;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="6-输出-map-文件">6. 输出 map 文件</h2>
+</div><h3 id="43-输出-map-文件">4.3 输出 map 文件</h3>
 <p>输出 .map 文件到 build 目录，添加链接选项：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -676,7 +692,7 @@
 </span></span><span class="line"><span class="cl"><span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_EXE_LINKER_FLAGS</span> <span class="s">&#34;-Wl,-Map=${MAP_FILE}&#34;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="7-设置输出目录">7. 设置输出目录</h2>
+</div><h3 id="44-设置输出目录">4.4 设置输出目录</h3>
 <p><code>CMAKE_ARCHIVE_OUTPUT_DIRECTORY</code>、<code>CMAKE_LIBRARY_OUTPUT_DIRECTORY</code> 和 <code>CMAKE_RUNTIME_OUTPUT_DIRECTORY</code> 变量用于指定构建过程中生成的静态库、动态库和可执行文件的输出路径。<code>CMAKE_INSTALL_LIBDIR</code> 和 <code>CMAKE_INSTALL_BINDIR</code> 是预定义的变量。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -690,7 +706,7 @@
 </span></span><span class="line"><span class="cl"><span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_RUNTIME_OUTPUT_DIRECTORY</span> <span class="err">$</span><span class="p">{</span><span class="n">CMAKE_BINARY_DIR</span><span class="p">}</span><span class="o">/</span><span class="err">$</span><span class="p">{</span><span class="n">CMAKE_INSTALL_BINDIR</span><span class="p">})</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="8-启用调试中宏打印">8. 启用调试中宏打印</h2>
+</div><h3 id="45-启用调试中宏打印">4.5 启用调试中宏打印</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -703,7 +719,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">set</span><span class="p">(</span><span class="n">CMAKE_C_FLAGS</span> <span class="s">&#34;${CMAKE_C_FLAGS} -gdwarf-2 -g3 -O0 -Wall&#34;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="9-开启-lto">9. 开启 LTO</h2>
+</div><h3 id="46-开启-lto">4.6 开启 LTO</h3>
 <p>LTO（Link Time Optimization）是一种编译优化技术，它在链接阶段对整个程序进行优化，而不仅仅是在单独编译单元的优化。可能会增加编译时间和内存占用。可以通过变量 <code>CMAKE_INTERPROCEDURAL_OPTIMIZATION</code>（CMake 3.9+ 可用）或对目标指定 <code>INTERPROCEDURAL_OPTIMIZATION</code> 属性来打开它。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -747,7 +763,7 @@
 </span></span><span class="line"><span class="cl"><span class="nf">endif</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="10-地址无关代码-position-independent-code">10. 地址无关代码 (Position independent code)</h2>
+</div><h3 id="47-地址无关代码-position-independent-code">4.7 地址无关代码 (Position independent code)</h3>
 <p>动态链接库必须。一般用标志 -fPIC 来设置。大部分情况下，不需要去显式声明，CMake 将会在 SHARED 以及 MODULE 类型的库中自动的包含此标志。如果需要显式的声明：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -759,8 +775,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nf">set_target_properties</span><span class="p">(</span><span class="n">lib1</span> <span class="n">PROPERTIES</span> <span class="n">POSITION_INDEPENDENT_CODE</span> <span class="n">ON</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="11-arm-项目和-x86-项目构建上的区别">11. Arm 项目和 x86 项目构建上的区别</h2>
-<p>最典型的例子，char 的符号性并没有明确定义，它取决于具体的编译器实现。ARM 架构的 LDRSB 指令，可以将一个有符号字节加载到 32 位寄存器并进行符号扩展。但是，这个指令不是 ARM 架构最早版本的一部分。当时为了避免符号扩展的开销，arm 平台的 char 默认是无符号类型，并延续了下来。</p>
+</div><h2 id="5-arm-项目和-x86-项目构建上的区别">5. Arm 项目和 x86 项目构建上的区别</h2>
+<p>最典型的例子，char 的符号性并没有明确定义，取决于编译器实现。ARM 架构的 LDRSB 指令，可以将一个有符号字节加载到 32 位寄存器并进行符号扩展。但是，这个指令不是 ARM 架构最早版本的一部分。当时为了避免符号扩展的开销，arm 平台的 char 默认是无符号类型。</p>
 <p>在 CMake 中通过设置 gcc 的编译选项来调整编译时的符号性。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -772,13 +788,12 @@
 </div>
 </div><p>除此之外构建跨平台项目需要注意：</p>
 <ul>
-<li>浮点数处理：ARM 和 x86 架构对浮点数的处理方式可能不同。例如，ARM 有硬浮点和软浮点两种模式，可以通过 -mfloat-abi 选项来选择。x86 平台默认使用硬浮点。</li>
-<li>指令集版本：ARM 有多个版本的指令集，例如 ARMv7、ARMv8 等，它们支持的指令和特性可能有所不同。通过 -march 选项来指定目标架构。</li>
-<li>优化选项：GCC 的优化选项（如-O2、-O3 等）在不同的架构上可能有不同的效果。需要根据具体的硬件和应用需求来选择合适的优化级别。</li>
+<li>浮点数处理：ARM 有硬浮点和软浮点两种模式，可以通过 -mfloat-abi 选项来选择。</li>
+<li>指令集版本：ARM 有多个版本的指令集，例如 ARMv7、ARMv8 等，通过 -march 选项来指定目标架构。</li>
 <li>内存模型：ARM 支持多种内存模型，包括小端（little-endian）和大端（big-endian）。通过 -mlittle-endian 或 -mbig-endian 选项来选择。x86 平台默认使用小端模型。</li>
 <li>ABI（Application Binary Interface）：不同的 ARM ABI（如 AAPCS、AAPCS-VFP 等）可能影响函数调用约定、数据对齐等。通过 -mabi 选项来选择。</li>
 </ul>
-<h2 id="12-vscode-集成-vcpkg-包管理">12. VSCode 集成 Vcpkg 包管理</h2>
+<h2 id="6-vscode-集成-vcpkg-包管理">6. VSCode 集成 Vcpkg 包管理</h2>
 <p>安装 vcpkg 并进行如下必要的设置：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -835,7 +850,7 @@
 </span></span><span class="line"><span class="cl"><span class="nf">target_link_libraries</span><span class="p">(</span><span class="err">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">PRIVATE</span> <span class="n">fmt</span><span class="o">::</span><span class="n">fmt</span><span class="o">-</span><span class="n">header</span><span class="o">-</span><span class="n">only</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="13-cmake-presets">13. CMake Presets</h2>
+</div><h2 id="7-cmake-presets">7. CMake Presets</h2>
 <p>当项目越来越复杂，需要考虑跨系统、架构、编译器以及测试各种编译选项时，cmake 就会存在许多需要设置的选项，具体表现为每构建一次，就需要输入一堆 <code>-D</code> 选项，同时 CMakeLists.txt 中的内容会变冗余繁杂。</p>
 <p>CMake 3.19 后更新的预设功能，可以通过<strong>项目顶层</strong>的 CMakePresets.json 和 CMakeUserPresets.json 文件，构成配置矩阵，简化 CMakeLists.txt 和参数输入。</p>
 <p>以一个 hello world 项目举例，通过 option <code>USE_SDL</code> 控制是否生成图形界面版本，否则生成命令行版本。编译时使用包管理器安装的 gcc-11 和<strong>不在环境变量中的 gcc-13</strong>。下面是 CMakePresets.json 的内容：</p>
@@ -1057,7 +1072,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果使用 VSCode 插件则无需输入命令行，直接鼠标点选即可构建。</p>
-<h2 id="14-rpath">14. rpath</h2>
+<h2 id="8-rpath">8. rpath</h2>
 <p>全名 Run-time Search Path，运行时链接器搜索路径。这个值硬编码在可执行文件或者动态库的 ELF 结构的 .dynamic 节中。动态库搜索路径的顺序：</p>
 <ul>
 <li>rpath</li>
@@ -1110,7 +1125,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>这样程序运行时就不会出现各种 <code>'GLIBC_2.xx' not found</code> 的问题。</p>
-<h2 id="15-编译选项控制">15. 编译选项控制</h2>
+<h2 id="9-编译选项控制">9. 编译选项控制</h2>
 <p>target_compile_options 命令用于给特定构建目标添加编译选项。可以添加三个级别的可见性：INTERFACE、PUBLIC 和 PRIVATE。定义如下：</p>
 <ul>
 <li>PRIVATE，编译选项会应用于给定的目标，不会传递给与目标相关的目标。</li>
@@ -1140,7 +1155,7 @@
 </li>
 </ol>
 </blockquote>
-<h2 id="16-clang-静态分析器">16. Clang 静态分析器</h2>
+<h2 id="10-clang-静态分析器">10. Clang 静态分析器</h2>
 <p>安装 clang 和 llvm 套件，安装 clang static analyzer：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1177,8 +1192,8 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>执行提示的 <code>scan-view xxx</code> 可以在浏览器上查看错误详情。</p>
-<h2 id="17-cmake-行为准则">17. CMake 行为准则</h2>
-<h3 id="171-cmake-应避免的行为">17.1 CMake 应避免的行为</h3>
+<h2 id="11-cmake-行为准则">11. CMake 行为准则</h2>
+<h3 id="111-cmake-应避免的行为">11.1 CMake 应避免的行为</h3>
 <ul>
 <li>不要使用具有全局作用域的函数：这包含 <code>link_directories</code>、 <code>include_libraries</code> 等相似的函数。</li>
 <li>不要添加非必要的 PUBLIC 要求：你应该避免把一些不必要的东西强加给用户（-Wall）。相比于 PUBLIC，更应该把他们声明为 PRIVATE。</li>
@@ -1186,7 +1201,7 @@
 <li>将库直接链接到需要构建的目标上：如果可以的话，总是显式的将库链接到目标上。</li>
 <li>当链接库文件时，不要省略 PUBLIC 或 PRIVATE 关键字：这将会导致后续所有的链接都是默认的。</li>
 </ul>
-<h3 id="172-cmake-应遵守的规范">17.2 CMake 应遵守的规范</h3>
+<h3 id="112-cmake-应遵守的规范">11.2 CMake 应遵守的规范</h3>
 <ul>
 <li>把 CMake 程序视作代码：它是代码。它应该和其他的代码一样，是整洁并且可读的。</li>
 <li>建立目标的观念：你的目标应该代表一系列的概念。为任何需要保持一致的东西指定一个（导入型）INTERFACE 目标，然后每次都链接到该目标。</li>
@@ -1199,6 +1214,7 @@
 </ul>
 <h2 id="参考">参考</h2>
 <ol>
+<li><a href="https://cliutils.gitlab.io/modern-cmake/chapters/basics/comms.html" target="_blank" rel="noopener noreffer ">Communication with your code</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/631113006" target="_blank" rel="noopener noreffer ">在 CMakeLists.txt 中添加源文件的几种方法</a></li>
 <li><a href="https://blog.csdn.net/guaaaaaaa/article/details/125601766" target="_blank" rel="noopener noreffer ">CMake - 使用 target_sources() 提高源文件处理能力</a></li>
 <li><a href="https://felsoci.sk/blog/using-address-sanitizer-asan-in-a-cmake-project.html" target="_blank" rel="noopener noreffer ">Using AddressSanitizer (ASan) in a CMake project</a></li>
