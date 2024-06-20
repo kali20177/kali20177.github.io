@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <title>Ubuntu 相关常用问题 - mufasa 个人站</title><meta name="Description" content="mufasa 个人站"><meta property="og:title" content="Ubuntu 相关常用问题" />
-<meta property="og:description" content="目录名称 gnome 桌面改回英文目录名： 1 2 3 export LANG=en_US xdg-user-dirs-gtk-update export LANG=zh_CN fonts Linux 上字体一般被存放在下面的文件夹（可通过 cat /etc/fonts/fonts.conf 查看）： /usr/share/fonts/ /usr/local/share/fonts/ ~/.fonts/ 用户 安装 TrueType 字体 1 sudo apt install ttf-mscorefonts-installer 显示当前安" />
+<meta property="og:description" content="目录名称 gnome 桌面改回英文目录名： 1 2 3 export LANG=en_US xdg-user-dirs-gtk-update export LANG=zh_CN fonts Linux 上字体一般被存放在下面的文件夹（可通过 cat /etc/fonts/fonts.conf 查看）： /usr/share/fonts/ /usr/local/share/fonts/ ~/.fonts/ 安装 TrueType 字体 1 sudo apt install ttf-mscorefonts-installer 显示当前安装的" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://kali20177.github.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/" /><meta property="og:image" content="https://kali20177.github.io/logo.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-04-29T09:13:40+08:00" />
@@ -13,7 +13,7 @@
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://kali20177.github.io/logo.png" /><meta name="twitter:title" content="Ubuntu 相关常用问题"/>
-<meta name="twitter:description" content="目录名称 gnome 桌面改回英文目录名： 1 2 3 export LANG=en_US xdg-user-dirs-gtk-update export LANG=zh_CN fonts Linux 上字体一般被存放在下面的文件夹（可通过 cat /etc/fonts/fonts.conf 查看）： /usr/share/fonts/ /usr/local/share/fonts/ ~/.fonts/ 用户 安装 TrueType 字体 1 sudo apt install ttf-mscorefonts-installer 显示当前安"/>
+<meta name="twitter:description" content="目录名称 gnome 桌面改回英文目录名： 1 2 3 export LANG=en_US xdg-user-dirs-gtk-update export LANG=zh_CN fonts Linux 上字体一般被存放在下面的文件夹（可通过 cat /etc/fonts/fonts.conf 查看）： /usr/share/fonts/ /usr/local/share/fonts/ ~/.fonts/ 安装 TrueType 字体 1 sudo apt install ttf-mscorefonts-installer 显示当前安装的"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE\/"
-        },"genre": "posts","keywords": "Linux","wordcount":  2534 ,
+        },"genre": "posts","keywords": "Linux","wordcount":  2790 ,
         "url": "https:\/\/kali20177.github.io\/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE\/","datePublished": "2024-04-29T09:13:40+08:00","dateModified": "2024-04-29T09:13:40+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -102,7 +102,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Ubuntu 相关常用问题</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Linux</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-29">2024-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2534 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-04-29">2024-04-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2790 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -149,7 +149,7 @@
 <ul>
 <li><code>/usr/share/fonts/</code></li>
 <li><code>/usr/local/share/fonts/</code></li>
-<li><code>~/.fonts/</code> 用户</li>
+<li><code>~/.fonts/</code></li>
 </ul>
 <p>安装 TrueType 字体</p>
 <div class="highlight"><div class="chroma">
@@ -358,7 +358,44 @@
 </span></span><span class="line"><span class="cl">make -j6 <span class="o">&amp;&amp;</span> sudo make install
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="优化设置">优化设置</h2>
+</div><p>当在 VSCode 使用 gdb 遇到无法查看 STL 内容时，一般在调试控制台能看到如下信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">To <span class="nb">enable</span> execution of this file add
+</span></span><span class="line"><span class="cl">    add-auto-load-safe-path /opt/gcc-14.1.0/lib64/libstdc++.so.6.0.33-gdb.py
+</span></span><span class="line"><span class="cl">line to your configuration file <span class="s2">&#34;/home/username/.config/gdb/gdbinit&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>按上面提示新建文件并写入一般即可调试时查看 STL 内容，同时建议开启下面的打印选项，添加：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">set</span> print pretty on
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> print object on
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> print static-members on
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> print vtbl on
+</span></span><span class="line"><span class="cl"><span class="nb">set</span> print demangle on
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>gdb 启动时会在下面三个位置查找启动脚本：</p>
+<ul>
+<li><code>~/.config/gdb/gdbinit</code></li>
+<li><code>~/.gdbinit</code></li>
+<li><code>./.gdbinit</code></li>
+</ul>
+<p>可选择使用开源项目优化 gdb 使用，例如 <a href="https://github.com/longld/peda" target="_blank" rel="noopener noreffer ">peda</a> 适合逆向，<a href="https://github.com/hugsy/gef" target="_blank" rel="noopener noreffer ">gef</a> 用于 debug。</p>
+<h2 id="优化设置">优化设置</h2>
 <p>点击程序坞图标，程序最小化：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -617,7 +654,25 @@
 </span></span><span class="line"><span class="cl">update-alternatives --config gcc
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>可以使用 GUI 程序 galternatives 管理替代项：</p>
+</div><p>一个 update-alternatives 服务可以添加多个从属 slave 命令，例如使用 gcc 一起管理 gcc、g++ 和 gcov 的版本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo update-alternatives --install /usr/bin/gcc gcc /opt/gcc-14.1.0/bin/gcc-13 <span class="m">20</span> --slave /usr/bin/g++ g++ /opt/gcc-14.1.0/bin/g++-13 --slave /usr/bin/gcov gcov /opt/gcc-14.1.0/bin/gcov-13
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>删除某个版本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo update-alternatives --remove gcc /opt/gcc-14.1.0/bin/gcc-13
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以使用 GUI 程序 galternatives 进行可视化管理：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -679,6 +734,7 @@
 <li><a href="https://www.qinxu.net/linux/2021/0930636/" target="_blank" rel="noopener noreffer ">在 Ubuntu Linux 上安装 Fcitx5 中文输入法</a></li>
 <li><a href="https://iovxw.net/p/fcitx5/" target="_blank" rel="noopener noreffer ">我也！用上 fcitx5 了</a></li>
 <li><a href="https://www.baeldung.com/linux/update-alternatives-command" target="_blank" rel="noopener noreffer ">The update-alternatives Command in Linux</a></li>
+<li><a href="https://www.http5.cn/index.php/archives/72/" target="_blank" rel="noopener noreffer ">Ubuntu24.04 版本下实现 gcc 版本的快速切换</a></li>
 <li><a href="https://www.cnblogs.com/yongdaimi/p/13424855.html" target="_blank" rel="noopener noreffer ">VirtualBox: linux 没有权限访问共享文件夹的问题</a></li>
 <li><a href="https://blog.yasking.org/a/notes-on-multipass.html" target="_blank" rel="noopener noreffer ">虚拟机管理工具 multipass 使用笔记</a></li>
 </ol>

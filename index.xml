@@ -4,7 +4,7 @@
         <link>https://kali20177.github.io/</link>
         <description>mufasa 个人站</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>2862606190@qq.com (mufasa)</managingEditor>
-            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Sat, 25 May 2024 22:16:26 &#43;0800</lastBuildDate>
+            <webMaster>2862606190@qq.com (mufasa)</webMaster><lastBuildDate>Thu, 20 Jun 2024 21:16:03 &#43;0800</lastBuildDate>
             <atom:link href="https://kali20177.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>Llama.cpp 简单体验</title>
@@ -20,7 +20,7 @@
     <pubDate>Mon, 29 Apr 2024 09:13:40 &#43;0800</pubDate>
     <author>mufasa</author>
     <guid>https://kali20177.github.io/ubuntu-%E5%B8%B8%E7%94%A8%E8%AE%BE%E7%BD%AE/</guid>
-    <description><![CDATA[目录名称 gnome 桌面改回英文目录名： 1 2 3 export LANG=en_US xdg-user-dirs-gtk-update export LANG=zh_CN fonts Linux 上字体一般被存放在下面的文件夹（可通过 cat /etc/fonts/fonts.conf 查看）： /usr/share/fonts/ /usr/local/share/fonts/ ~/.fonts/ 用户 安装 TrueType 字体 1 sudo apt install ttf-mscorefonts-installer 显示当前安]]></description>
+    <description><![CDATA[目录名称 gnome 桌面改回英文目录名： 1 2 3 export LANG=en_US xdg-user-dirs-gtk-update export LANG=zh_CN fonts Linux 上字体一般被存放在下面的文件夹（可通过 cat /etc/fonts/fonts.conf 查看）： /usr/share/fonts/ /usr/local/share/fonts/ ~/.fonts/ 安装 TrueType 字体 1 sudo apt install ttf-mscorefonts-installer 显示当前安装的]]></description>
 </item>
 <item>
     <title>Whisper 语音模型使用</title>

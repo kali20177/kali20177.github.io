@@ -2,9 +2,10 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://kali20177.github.io/draft/</loc><lastmod>2024-05-25T22:16:26&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://kali20177.github.io/</loc><lastmod>2024-05-25T22:16:26&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://kali20177.github.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E9%93%BE%E8%A1%A8/</loc><lastmod>2024-05-25T22:16:26&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>https://kali20177.github.io/draft/</loc><lastmod>2024-06-20T21:16:03&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://kali20177.github.io/</loc><lastmod>2024-06-20T21:16:03&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://kali20177.github.io/draft/%E7%99%BE%E7%A7%91/%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</loc><lastmod>2024-06-20T21:16:03&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://kali20177.github.io/draft/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/%E9%93%BE%E8%A1%A8/</loc><lastmod>2024-05-25T22:16:26&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
             <loc>https://kali20177.github.io/llama.cpp-%E7%AE%80%E5%8D%95%E4%BD%93%E9%AA%8C/</loc><lastmod>2024-05-03T00:34:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://kali20177.github.io/posts/</loc><lastmod>2024-05-03T00:34:10&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://kali20177.github.io/categories/</loc><lastmod>2024-04-29T09:13:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -50,7 +51,6 @@
             <loc>https://kali20177.github.io/tags/unit-testing/</loc><lastmod>2023-08-06T23:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://kali20177.github.io/categories/unit-testing/</loc><lastmod>2023-08-06T23:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://kali20177.github.io/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6/</loc><lastmod>2023-08-06T23:12:52&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</loc><lastmod>2022-07-12T22:35:25&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://kali20177.github.io/tags/r/</loc><lastmod>2022-06-01T20:14:18&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://kali20177.github.io/r-%E8%AF%AD%E8%A8%80%E7%BB%98%E5%9B%BE/</loc><lastmod>2022-06-01T20:14:18&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://kali20177.github.io/tags/python/</loc><lastmod>2022-04-13T17:45:59&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

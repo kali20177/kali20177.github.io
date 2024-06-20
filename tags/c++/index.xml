@@ -45,14 +45,6 @@
     <description><![CDATA[1. CMake 基本构建 以下面结构的简单项目为例，子项目 test 中需要依赖一个测试框架 Unity, 一个只有头文件和源码的 log 库和一个由多个源文件和头文件组成的哈希表库 ut]]></description>
 </item>
 <item>
-    <title>[未完成] C&#43;&#43; 类型</title>
-    <link>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</link>
-    <pubDate>Tue, 12 Jul 2022 22:35:25 &#43;0800</pubDate>
-    <author>mufasa</author>
-    <guid>https://kali20177.github.io/draft/cpp/c&#43;&#43;-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</guid>
-    <description><![CDATA[TODO: 本文内容归到 &ldquo;语法&rdquo; 和 &ldquo;模板&rdquo; 转换规则 隐式 显式 常用类型转换 1.1 数组转换为 vector 方式一，定义 vector 时直]]></description>
-</item>
-<item>
     <title>Matplotlib Cpp C&#43;&#43; 中使用 Python 绘图模块的方法</title>
     <link>https://kali20177.github.io/matplotlib-cpp-c-%E4%B8%AD%E4%BD%BF%E7%94%A8-python-%E7%BB%98%E5%9B%BE%E6%A8%A1%E5%9D%97%E7%9A%84%E6%96%B9%E6%B3%95/</link>
     <pubDate>Fri, 08 Apr 2022 16:30:54 &#43;0800</pubDate>
@@ -83,6 +75,14 @@
     <author>mufasa</author>
     <guid>https://kali20177.github.io/draft/%E7%AE%80%E5%8D%95%E4%BE%8B%E5%AD%90/c&#43;&#43;-%E7%AE%80%E5%8D%95-log/</guid>
     <description><![CDATA[1. 说明 学校课题组祖传代码缺乏日志系统，监控过程信息非常麻烦，想自己实现一个简易的 Log 模块实现基本 Log 功能，顺带学习单例模式。代码参考自网络公开的]]></description>
+</item>
+<item>
+    <title>C&#43;&#43; 预编译头文件</title>
+    <link>https://kali20177.github.io/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6/</link>
+    <pubDate>Fri, 11 Feb 2022 22:37:57 &#43;0800</pubDate>
+    <author>mufasa</author>
+    <guid>https://kali20177.github.io/c-%E9%A2%84%E7%BC%96%E8%AF%91%E5%A4%B4%E6%96%87%E4%BB%B6/</guid>
+    <description><![CDATA[1. 预编译头文件 将头文件编译成中间格式，从而节省在开发过程中编译器从头编译造成的开销。 一般预编译头文件中的头文件是标准库，操作系统 API 或者无需修]]></description>
 </item>
 </channel>
 </rss>

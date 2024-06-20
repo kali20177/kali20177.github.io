@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/docker-%E9%85%8D%E7%BD%AE\/"
-        },"genre": "posts","wordcount":  3867 ,
+        },"genre": "posts","wordcount":  3844 ,
         "url": "https:\/\/kali20177.github.io\/docker-%E9%85%8D%E7%BD%AE\/","datePublished": "2024-03-09T19:17:37+08:00","dateModified": "2024-03-09T19:17:37+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -102,7 +102,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Docker 基础</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>mufasa</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-09">2024-03-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3867 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-03-09">2024-03-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3844 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -240,22 +240,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>如果使用 Docker Desktop 则可以在 settings 的 <code>Docker Engine</code> 选项中直接编辑。</p>
-<p>保存和加载完整镜像：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">docker load &lt; busybox.tar.gz <span class="c1"># linux</span>
-</span></span><span class="line"><span class="cl">docker load --input fedora.tar
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>常用命令：</p>
+<p>常用命令：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -297,11 +282,11 @@
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 从互联网拉取名为 ubuntu 的容器</span>
 </span></span><span class="line"><span class="cl">docker pull ubuntu 
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 首次从镜像创建名为 Myhub 的容器实例，进入交互模式，运行程序 zsh</span>
-</span></span><span class="line"><span class="cl">docker run -it --name MyHub ubuntu zsh
+</span></span><span class="line"><span class="cl"><span class="c1"># 首次从镜像创建名为 MyContainer 的容器实例，进入交互模式，运行程序 zsh</span>
+</span></span><span class="line"><span class="cl">docker run -it --name MyContainer ubuntu zsh
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 首次启动一个特权容器，映射了外部 linux usb 设备，硬件调试需要</span>
-</span></span><span class="line"><span class="cl">docker run -it --name MyDevContainer --privileged -v /dev/bus/usb/:/dev/bus/usb ubuntu zsh
+</span></span><span class="line"><span class="cl">docker run -it --name MyContainer --privileged -v /dev/bus/usb/:/dev/bus/usb ubuntu zsh
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 查询容器实例列表</span>
 </span></span><span class="line"><span class="cl">docker ps -a  <span class="c1"># 显示当前容器 ID 和容器名</span>
@@ -310,9 +295,9 @@
 </span></span><span class="line"><span class="cl">docker commit -a <span class="s2">&#34;mufasa&#34;</span> -m <span class="s2">&#34;change mirror&#34;</span> container-id ubuntu:base
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 再次启动容器实例</span>
-</span></span><span class="line"><span class="cl">docker start MyDevContainer
+</span></span><span class="line"><span class="cl">docker start MyContainer
 </span></span><span class="line"><span class="cl"><span class="c1"># 进入交互模式（运行 zsh）</span>
-</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> MyDevContainer zsh
+</span></span><span class="line"><span class="cl">docker <span class="nb">exec</span> -it MyContainer zsh
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 删除容器实例，可通过容器 id 号或者容器名称</span>
 </span></span><span class="line"><span class="cl">docker rm <span class="si">${</span><span class="nv">CONTAINER</span><span class="p"> ID</span><span class="si">}</span>

@@ -194,11 +194,10 @@ add_link_options(--coverage)
 pip install gcovr
 ```
 
-由于 CMake 源码和编译文件是分离的，产生报告的命令：
+由于 CMake 源码和编译文件是分离的，产生报告的命令为：
 
 ```shell
-cd $BUILD
-gcovr -r $SRC_DIR .
+> gcovr -r $SRC_Path $BUILD_Path
 ```
 
 例如 CMake 编译产生的文件夹是 build，build 目录和 src 目录在同一级，执行：
@@ -224,10 +223,10 @@ test/example/crc_test.c                       27      27   100%
 test/example/main_test.c                       5       5   100%   
 ```
 
-如果要产生 html 报告，需要添加参数：
+如果要产生 html 报告，并设置标题，排除一些文件夹，需要添加参数：
 
 ```shell
-gcovr -r ../ . --html-details -o report.html 
+gcovr -r ../ . --html --html-details --html-title "report name" -e ../test/ -o report.html
 ```
 
 总体：

@@ -971,6 +971,9 @@ public:
 > 条款 11 : 在 operator= 中处理“自我赋值”
 > rule 11 : Handle assignment to self in operator=.    —— Effective C++
 
+> copy-and-swap idiom 
+> TODO:
+
 ## C++20 <=> 运算符
 
 对于比较运算符的重载，一般只需要想明白 `operator==` 和 `operator<`，其他情况可以由此推导出。
@@ -1002,9 +1005,6 @@ bool operator>=(const String& rhs) const {
 ```
 
 为了简化比较运算符，C++20 引入了 `operator<=>` 运算符。
-
-> copy-and-swap idiom 
-> TODO:
 
 ## 相关设计模式
 

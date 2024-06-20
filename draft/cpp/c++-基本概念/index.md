@@ -37,6 +37,12 @@ auto* s2{ "Alex" }; // type deduced as const char*
 auto& s3{ "Alex" }; // type deduced as const char(&)[5]
 ```
 
+### string
+
+TODO: 为什么大部分情况下导出的都是 C 风格字符串的接口
+
+### utf-8
+
 ## 操作符
 
 ### sizeof
@@ -488,7 +494,43 @@ int main() {
 
 ## 转换（Conversions）
 
-C++ 的四种类型转换：
+### 隐式转换
+
+整型提升 Integer Promotion 规则：
+
+> If an int can represent all values of the original type, the value is converted to an int; otherwise, it is converted to an unsigned int. These are called the integer promotions. All other types are unchanged by the integer promotions.  —— C99
+
+算术运算符不接受小于 int 的类型作为它的实参，而在左值到右值转换后，如果适用就会自动实施整数提升。此转换始终保持原值。进行这种转换的原因是 CPU 在处理其原生整数大小的整数时速度最快。
+
+```cpp
+void cmp() {
+    int16_t a = 30767;
+    int16_t b = -32768;
+    auto t1 = a - b;                       // 推导为 int
+    if (a - b < 0) ;                       // false
+    if (static_cast<int16_t>(a - b) < 0) ; // true
+    if (a < b) ;                           // false
+}
+```
+
+这个规则可以用于处理 tcp 序列号回绕问题，在 TCP 协议中，序列号是 32 位无符号整数，因此它们的范围是从 0 到 2^32-1。当序列号达到最大值时，它会回绕到 0。
+
+```c
+// linux
+static inline int before(__u32 seq1, __u32 seq2)
+{
+    return (__s32)(seq1 - seq2) < 0;
+}
+#define after(seq2, seq1)   before(seq1, seq2)
+// lwip
+#define TCP_SEQ_LT(a,b)     ((s32_t)((u32_t)(a) - (u32_t)(b)) < 0)
+```
+
+以上比较成立的前提是回绕的增量小于 2^31 - 1。类似的处理手法可以应用于环形缓冲区、计时器和时间戳、游戏开发中的坐标系统以及数据流处理中的窗口滑动等场景。
+
+### 显式转换
+
+C++ 四种显式类型转换：
 
 - static_cast 转换一个类型为另一相关类型
 - dynamic_cast 在继承层级中转换
@@ -577,6 +619,9 @@ int main()
 11. [仿函数](https://cui-jiacai.gitbook.io/c++-stl-tutorial/fang-han-shu-functor#pian-han-shu)
 12. [new expression](https://en.cppreference.com/w/cpp/language/new)
 13. [表达式](https://zh.cppreference.com/w/cpp/language/expressions)
-14. [字面量](https://zhxilin.github.io/post/tech_stack/1_programming_language/modern_cpp/cpp11/user_defined_literal/#%E5%AD%97%E9%9D%A2%E9%87%8F)
-15. [C++14 更多新特性](https://zhxilin.github.io/post/tech_stack/1_programming_language/modern_cpp/cpp14/more_cpp14/)
-16. [std::initializer_list in C++ 1/2 - Internals and Use Cases](https://www.cppstories.com/2023/initializer_list_basics/#intro-to-the-stdinitializer_list)
+14. [Deep C: Integer Promotion](https://www.idryman.org/blog/2012/11/21/integer-promotion/)
+15. [tcp 序列号回绕与解决](http://m.blog.chinaunix.net/uid-24683784-id-5746959.html)
+16. [关于 lwip 中的 tcp 序列号防回绕（sequence wraparound）实现分析](https://blog.csdn.net/fly_qj/article/details/121329496)
+17. [字面量](https://zhxilin.github.io/post/tech_stack/1_programming_language/modern_cpp/cpp11/user_defined_literal/#%E5%AD%97%E9%9D%A2%E9%87%8F)
+18. [C++14 更多新特性](https://zhxilin.github.io/post/tech_stack/1_programming_language/modern_cpp/cpp14/more_cpp14/)
+19. [std::initializer_list in C++ 1/2 - Internals and Use Cases](https://www.cppstories.com/2023/initializer_list_basics/#intro-to-the-stdinitializer_list)

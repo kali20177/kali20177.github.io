@@ -69,26 +69,17 @@ sudo systemctl restart docker
 
 如果使用 Docker Desktop 则可以在 settings 的 `Docker Engine` 选项中直接编辑。
 
-保存和加载完整镜像：
-
-```bash
-
-
-docker load < busybox.tar.gz # linux
-docker load --input fedora.tar
-```
-
 常用命令：
 
 ```bash
 # 从互联网拉取名为 ubuntu 的容器
 docker pull ubuntu 
 
-# 首次从镜像创建名为 Myhub 的容器实例，进入交互模式，运行程序 zsh
-docker run -it --name MyHub ubuntu zsh
+# 首次从镜像创建名为 MyContainer 的容器实例，进入交互模式，运行程序 zsh
+docker run -it --name MyContainer ubuntu zsh
 
 # 首次启动一个特权容器，映射了外部 linux usb 设备，硬件调试需要
-docker run -it --name MyDevContainer --privileged -v /dev/bus/usb/:/dev/bus/usb ubuntu zsh
+docker run -it --name MyContainer --privileged -v /dev/bus/usb/:/dev/bus/usb ubuntu zsh
 
 # 查询容器实例列表
 docker ps -a  # 显示当前容器 ID 和容器名
@@ -97,9 +88,9 @@ docker ps -a  # 显示当前容器 ID 和容器名
 docker commit -a "mufasa" -m "change mirror" container-id ubuntu:base
 
 # 再次启动容器实例
-docker start MyDevContainer
+docker start MyContainer
 # 进入交互模式（运行 zsh）
-docker exec MyDevContainer zsh
+docker exec -it MyContainer zsh
 
 # 删除容器实例，可通过容器 id 号或者容器名称
 docker rm ${CONTAINER ID}
@@ -514,3 +505,4 @@ code-server 服务安装的位置和容器的用户名有关，例如对于微�
 22. [WSL](https://wiki.segger.com/WSL)
 23. [Run the Installer Script](https://goharbor.io/docs/2.10.0/install-config/run-installer-script/)
 24. [VS Code Server 离线安装过程](https://zhuanlan.zhihu.com/p/294933020)
+

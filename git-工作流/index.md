@@ -60,6 +60,12 @@ git config user.name "Your Name"
 git config user.email "youremail@yourdomain.com"
 ```
 
+记录账号密码：
+
+```bash
+git config --global credential.helper store
+```
+
 ## github
 
 github 需要通过访问令牌验证用户，在个人设置的 `settings --> Developer Settings --> Personal access tokens` 中。生成令牌后用其代替密码输入，或者 clone 仓库后修改仓库的远端地址：
@@ -76,3 +82,4 @@ git remote set-url origin https://${token_seq}@github.com/kali20177/hugo-blog-sr
 4. [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
 5. [十分钟学会正确的 github 工作流，和开源作者们使用同一套流程](https://www.bilibili.com/video/BV19e4y1q7JJ)
 6. [git rebase VS git merge？更优雅的 git 合并方式值得拥有](https://www.cnblogs.com/FraserYu/p/11192840.html)
+

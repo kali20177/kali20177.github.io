@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/kali20177.github.io\/draft\/cpp\/c\u002b\u002b-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5\/"
-        },"genre": "draft","wordcount":  3860 ,
+        },"genre": "draft","wordcount":  4326 ,
         "url": "https:\/\/kali20177.github.io\/draft\/cpp\/c\u002b\u002b-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5\/","datePublished": "2024-02-25T20:12:56+08:00","dateModified": "2024-02-25T20:12:56+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -144,7 +144,10 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">auto</span><span class="o">&amp;</span> <span class="n">s3</span><span class="p">{</span> <span class="s">&#34;Alex&#34;</span> <span class="p">};</span> <span class="c1">// type deduced as const char(&amp;)[5]
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="操作符">操作符</h2>
+</div><h3 id="string">string</h3>
+<p>TODO: 为什么大部分情况下导出的都是 C 风格字符串的接口</p>
+<h3 id="utf-8">utf-8</h3>
+<h2 id="操作符">操作符</h2>
 <h3 id="sizeof">sizeof</h3>
 <p>语法：</p>
 <div class="highlight"><div class="chroma">
@@ -872,7 +875,60 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="转换conversions">转换（Conversions）</h2>
-<p>C++ 的四种类型转换：</p>
+<h3 id="隐式转换">隐式转换</h3>
+<p>整型提升 Integer Promotion 规则：</p>
+<blockquote>
+<p>If an int can represent all values of the original type, the value is converted to an int; otherwise, it is converted to an unsigned int. These are called the integer promotions. All other types are unchanged by the integer promotions.  —— C99</p>
+</blockquote>
+<p>算术运算符不接受小于 int 的类型作为它的实参，而在左值到右值转换后，如果适用就会自动实施整数提升。此转换始终保持原值。进行这种转换的原因是 CPU 在处理其原生整数大小的整数时速度最快。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">cmp</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int16_t</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">30767</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int16_t</span> <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">32768</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">t1</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">;</span>                       <span class="c1">// 推导为 int
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span>                       <span class="c1">// false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int16_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">;</span> <span class="c1">// true
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">;</span>                           <span class="c1">// false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个规则可以用于处理 tcp 序列号回绕问题，在 TCP 协议中，序列号是 32 位无符号整数，因此它们的范围是从 0 到 2^32-1。当序列号达到最大值时，它会回绕到 0。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// linux
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">before</span><span class="p">(</span><span class="n">__u32</span> <span class="n">seq1</span><span class="p">,</span> <span class="n">__u32</span> <span class="n">seq2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">__s32</span><span class="p">)(</span><span class="n">seq1</span> <span class="o">-</span> <span class="n">seq2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define after(seq2, seq1)   before(seq1, seq2)
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="c1">// lwip
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#define TCP_SEQ_LT(a,b)     ((s32_t)((u32_t)(a) - (u32_t)(b)) &lt; 0)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>以上比较成立的前提是回绕的增量小于 2^31 - 1。类似的处理手法可以应用于环形缓冲区、计时器和时间戳、游戏开发中的坐标系统以及数据流处理中的窗口滑动等场景。</p>
+<h3 id="显式转换">显式转换</h3>
+<p>C++ 四种显式类型转换：</p>
 <ul>
 <li>static_cast 转换一个类型为另一相关类型</li>
 <li>dynamic_cast 在继承层级中转换</li>
@@ -984,6 +1040,9 @@
 <li><a href="https://cui-jiacai.gitbook.io/c&#43;&#43;-stl-tutorial/fang-han-shu-functor#pian-han-shu" target="_blank" rel="noopener noreffer ">仿函数</a></li>
 <li><a href="https://en.cppreference.com/w/cpp/language/new" target="_blank" rel="noopener noreffer ">new expression</a></li>
 <li><a href="https://zh.cppreference.com/w/cpp/language/expressions" target="_blank" rel="noopener noreffer ">表达式</a></li>
+<li><a href="https://www.idryman.org/blog/2012/11/21/integer-promotion/" target="_blank" rel="noopener noreffer ">Deep C: Integer Promotion</a></li>
+<li><a href="http://m.blog.chinaunix.net/uid-24683784-id-5746959.html" target="_blank" rel="noopener noreffer ">tcp 序列号回绕与解决</a></li>
+<li><a href="https://blog.csdn.net/fly_qj/article/details/121329496" target="_blank" rel="noopener noreffer ">关于 lwip 中的 tcp 序列号防回绕（sequence wraparound）实现分析</a></li>
 <li><a href="https://zhxilin.github.io/post/tech_stack/1_programming_language/modern_cpp/cpp11/user_defined_literal/#%E5%AD%97%E9%9D%A2%E9%87%8F" target="_blank" rel="noopener noreffer ">字面量</a></li>
 <li><a href="https://zhxilin.github.io/post/tech_stack/1_programming_language/modern_cpp/cpp14/more_cpp14/" target="_blank" rel="noopener noreffer ">C++14 更多新特性</a></li>
 <li><a href="https://www.cppstories.com/2023/initializer_list_basics/#intro-to-the-stdinitializer_list" target="_blank" rel="noopener noreffer ">std::initializer_list in C++ 1/2 - Internals and Use Cases</a></li>

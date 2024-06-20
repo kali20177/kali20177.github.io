@@ -17,7 +17,7 @@ Linux 上字体一般被存放在下面的文件夹（可通过 `cat /etc/fonts/
 
 - `/usr/share/fonts/`
 - `/usr/local/share/fonts/`
-- `~/.fonts/` 用户
+- `~/.fonts/`
 
 安装 TrueType 字体
 
@@ -144,6 +144,32 @@ mkdir build && cd build
 ../configure --prefix=/opt/gdb-14.2 --enable-targets=all --with-python --enable-lto --enable-vtable-verify
 make -j6 && sudo make install
 ```
+
+当在 VSCode 使用 gdb 遇到无法查看 STL 内容时，一般在调试控制台能看到如下信息：
+
+```bash
+To enable execution of this file add
+    add-auto-load-safe-path /opt/gcc-14.1.0/lib64/libstdc++.so.6.0.33-gdb.py
+line to your configuration file "/home/username/.config/gdb/gdbinit"
+```
+
+按上面提示新建文件并写入一般即可调试时查看 STL 内容，同时建议开启下面的打印选项，添加：
+
+```bash
+set print pretty on
+set print object on
+set print static-members on
+set print vtbl on
+set print demangle on
+```
+
+gdb 启动时会在下面三个位置查找启动脚本：
+
+- `~/.config/gdb/gdbinit`
+- `~/.gdbinit`
+- `./.gdbinit`
+
+可选择使用开源项目优化 gdb 使用，例如 [peda](https://github.com/longld/peda) 适合逆向，[gef](https://github.com/hugsy/gef) 用于 debug。
 
 ## 优化设置
 
@@ -318,7 +344,19 @@ update-alternatives --display gcc
 update-alternatives --config gcc
 ```
 
-可以使用 GUI 程序 galternatives 管理替代项：
+一个 update-alternatives 服务可以添加多个从属 slave 命令，例如使用 gcc 一起管理 gcc、g++ 和 gcov 的版本：
+
+```bash
+sudo update-alternatives --install /usr/bin/gcc gcc /opt/gcc-14.1.0/bin/gcc-13 20 --slave /usr/bin/g++ g++ /opt/gcc-14.1.0/bin/g++-13 --slave /usr/bin/gcov gcov /opt/gcc-14.1.0/bin/gcov-13
+```
+
+删除某个版本：
+
+```bash
+sudo update-alternatives --remove gcc /opt/gcc-14.1.0/bin/gcc-13
+```
+
+可以使用 GUI 程序 galternatives 进行可视化管理：
 
 ```bash
 sudo apt install galternatives
@@ -366,6 +404,7 @@ multipass find              # 查询支持的镜像列表
 6. [在 Ubuntu Linux 上安装 Fcitx5 中文输入法](https://www.qinxu.net/linux/2021/0930636/)
 7. [我也！用上 fcitx5 了](https://iovxw.net/p/fcitx5/)
 8. [The update-alternatives Command in Linux](https://www.baeldung.com/linux/update-alternatives-command)
-9. [VirtualBox: linux 没有权限访问共享文件夹的问题](https://www.cnblogs.com/yongdaimi/p/13424855.html)
-10. [虚拟机管理工具 multipass 使用笔记](https://blog.yasking.org/a/notes-on-multipass.html)
+9. [Ubuntu24.04 版本下实现 gcc 版本的快速切换](https://www.http5.cn/index.php/archives/72/)
+10. [VirtualBox: linux 没有权限访问共享文件夹的问题](https://www.cnblogs.com/yongdaimi/p/13424855.html)
+11. [虚拟机管理工具 multipass 使用笔记](https://blog.yasking.org/a/notes-on-multipass.html)
 
